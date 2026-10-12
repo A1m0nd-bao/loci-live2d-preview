@@ -1,0 +1,45 @@
+name: Publish Live2D Pages
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Asset release tag
+        required: true
+        type: string
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: live2d-pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download and extract library
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.event.release.tag_name || inputs.release_tag }}
+        run: |
+          gh release download "$RELEASE_TAG" --pattern live2d-site.zip --dir "$RUNNER_TEMP"
+          mkdir -p _site
+          unzip -q "$RUNNER_TEMP/live2d-site.zip" -d _site
+          for archive in _site/packages/*.zip; do
+            package_id="$(basename "$archive" .zip)"
+            mkdir -p "_site/models/$package_id"
+            unzip -q "$archive" -d "_site/models/$package_id"
+          done
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -7,13 +7,15 @@ import { generateManifest } from './generate-manifest.mjs';
 import { generatePosters } from './posters.mjs';
 import { cellText, fileRefs } from './sheet-cells.mjs';
 
+async function larkRead(args){for(let attempt=0;attempt<3;attempt++){try{return await run('lark-cli',args);}catch(error){if(attempt===2||!/TLS|timeout|network|ECONNRESET|rate.limit/i.test(error.message))throw error;console.log('[live2d-sync] Retrying temporary connection failure');await new Promise(r=>setTimeout(r,1500*(attempt+1)));}}}
+
 async function readRows(config){
-  const workbook=JSON.parse(await run('lark-cli',['sheets','+workbook-info','--spreadsheet-token',config.spreadsheetToken,'--as',config.identity]));
+  const workbook=JSON.parse(await larkRead(['sheets','+workbook-info','--spreadsheet-token',config.spreadsheetToken,'--as',config.identity]));
   if(!workbook.ok)throw Error('工作簿读取失败');const sheet=workbook.data.sheets.find(s=>s.sheet_id===config.sheetId);if(!sheet)throw Error('Live2D 子表不存在');
   const rows=[];
   for(let start=1;start<=sheet.row_count;start+=config.pageSize){
     const end=Math.min(sheet.row_count,start+config.pageSize-1);
-    const data=JSON.parse(await run('lark-cli',['sheets','+cells-get','--spreadsheet-token',config.spreadsheetToken,'--sheet-id',config.sheetId,'--as',config.identity,'--range',`A${start}:L${end}`,'--include','value']));
+    const data=JSON.parse(await larkRead(['sheets','+cells-get','--spreadsheet-token',config.spreadsheetToken,'--sheet-id',config.sheetId,'--as',config.identity,'--range',`A${start}:L${end}`,'--include','value']));
     if(!data.ok||data.data.has_more||data.data.ranges.some(r=>r.truncated))throw Error('飞书返回截断数据，同步已停止，避免误删素材');
     for(const range of data.data.ranges)for(let i=0;i<range.cells.length;i++)rows.push({number:range.row_indices[i],cells:range.cells[i]});
   }
@@ -21,7 +23,7 @@ async function readRows(config){
   for(const title of Object.values(config.columns))if(!header.includes(title))throw Error(`子表缺少列：${title}`);
   return rows.filter(r=>r.number>1).map(r=>({row:r.number,...Object.fromEntries(Object.entries(config.columns).map(([key,title])=>[key,r.cells[header.indexOf(title)]]))}));
 }
-async function download(config,ref,destination){await mkdir(join(root,'.sync/downloads'),{recursive:true});await run('lark-cli',['api','GET',`/open-apis/drive/v1/medias/${ref.token}/download`,'--as',config.identity,'--output',destination]);}
+async function download(config,ref,destination){await mkdir(join(root,'.sync/downloads'),{recursive:true});await larkRead(['api','GET',`/open-apis/drive/v1/medias/${ref.token}/download`,'--as',config.identity,'--output',destination]);}
 
 export async function syncOnce(){
   const config=await json(join(root,'lark-sync.config.json'));
