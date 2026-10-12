@@ -4,6 +4,7 @@ import { unzipPackage, inspectModel } from './model-files.js';
 const $ = id => document.getElementById(id);
 let remoteItems = [], localItems = [], view = localStorage.getItem('live2d-view') || 'grid';
 let detailPlayer, hoverPlayer, detailItem, detailGeneration = 0, hoverGeneration = 0, hoverTarget, hoverTimer, toastTimer;
+let playbackGeneration = 0, motionPending = false;
 const posters = new Map();
 const layerInspector = new LayerInspector(() => detailPlayer?.render());
 const options = (el, entries) => el.replaceChildren(...entries.map(([value, label]) => new Option(label, value)));
@@ -102,7 +103,7 @@ function defaultGroup(item, manifest) { const groups = Object.keys(manifest.File
 function defaultMotion(item, manifest, group) { const list = manifest.FileReferences.Motions[group] || []; const named = list.findIndex(m => m.Name === item.defaultMotion || m.File === item.defaultMotion); return named >= 0 ? named : Math.min(Math.max(0, Number(item.defaultMotion) || 0), Math.max(0,list.length - 1)); }
 
 async function openDetail(item) {
-  stopHover(); const ticket = ++detailGeneration; detailItem = item;
+  stopHover(); ++playbackGeneration; motionPending = false; const ticket = ++detailGeneration; detailItem = item;
   $('detailTitle').textContent = item.name; $('detailCategory').textContent = [item.category, ...(item.tags || [])].filter(Boolean).join(' / ');
   $('detailError').hidden = true; $('stageMessage').textContent = '正在加载角色'; $('stageMessage').hidden = false; $('stageState').textContent = 'LOADING'; $('stageResolution').textContent = ''; $('details').replaceChildren();
   enableControls(false); options($('group'), [['','加载中']]); options($('motion'), [['','加载中']]); options($('expression'), [['','默认表情']]);
@@ -110,7 +111,7 @@ async function openDetail(item) {
   if (!$('detailDialog').open) $('detailDialog').showModal();
   const url = new URL(location.href); if (item.localFiles) url.searchParams.delete('model'); else url.searchParams.set('model', item.id); history.replaceState(null, '', url);
   try {
-    if (!detailPlayer) detailPlayer = new ModelPlayer($('detailCanvas'), $('stage'), { layerInspector, onFinish: () => { if ($('loop').checked && !detailPlayer.paused && $('detailDialog').open) void playSelected(); }, onError: showDetailError });
+    if (!detailPlayer) detailPlayer = new ModelPlayer($('detailCanvas'), $('stage'), { layerInspector, onFinish: () => { if ($('loop').checked && !detailPlayer.paused && !motionPending && $('detailDialog').open) void playSelected(); }, onError: showDetailError });
     const manifest = await detailPlayer.load(item); if (!manifest || ticket !== detailGeneration) return;
     const groups = Object.entries(manifest.FileReferences.Motions || {}).filter(([,a]) => a.length);
     options($('group'), groups.length ? groups.map(([g,a]) => [g, `${g} · ${a.length}`]) : [['','无动作']]);
@@ -131,14 +132,26 @@ async function openDetail(item) {
 function enableControls(enabled) { for (const id of ['pause','replay','speed','loop','zoom','fit','group','motion','expression','interaction','physics']) $(id).disabled = !enabled; }
 function showDetailError(e) { $('detailError').textContent = e.message || String(e); $('detailError').hidden = false; $('stageMessage').textContent = '角色加载失败'; $('stageMessage').hidden = false; $('stageState').textContent = 'ERROR'; enableControls(false); }
 function setMotions() { const list = detailPlayer?.manifest?.FileReferences.Motions?.[$('group').value] || []; options($('motion'),list.length ? list.map((m,i)=>[String(i),m.Name || m.File.split('/').pop()]) : [['','无动作']]); $('motion').disabled=!list.length; $('group').disabled=!list.length; $('replay').disabled=!list.length; $('loop').disabled=!list.length; $('playing').textContent=list.length ? `${list.length} 个动作` : '静态模型'; }
-async function playSelected() { const target=detailPlayer, model=target?.model; if (!model) return; try { const ok=await target.play($('group').value,Number($('motion').value)); if(ok && model===target.model) { $('playing').textContent=$('motion').selectedOptions[0]?.textContent || ''; if(target.paused) target.render(); } } catch(e){if(model===target.model)showDetailError(e);} }
+async function playSelected({ resume = false } = {}) {
+  const target = detailPlayer, model = target?.model; if (!model) return;
+  const ticket = ++playbackGeneration, group = $('group').value, index = Number($('motion').value), label = $('motion').selectedOptions[0]?.textContent || '';
+  const current = () => ticket === playbackGeneration && model === target.model;
+  motionPending = true; $('detailError').hidden = true; $('playing').textContent = '正在加载动作';
+  if (resume) setPause(false);
+  try {
+    const ok = await target.play(group, index);
+    if (ok && current()) { $('playing').textContent = label; if (target.paused) target.render(); }
+  } catch (e) {
+    if (current()) { $('detailError').textContent = e.message || String(e); $('detailError').hidden = false; $('playing').textContent = '动作加载失败'; }
+  } finally { if (current()) motionPending = false; }
+}
 function setPause(value) { detailPlayer.pause(value); $('pause').replaceChildren(icon(value?'play':'pause')); $('pause').title=value?'播放':'暂停'; $('pause').setAttribute('aria-label',value?'播放':'暂停'); icons(); $('stageState').textContent=value?'PAUSED':'LIVE2D'; }
 function closeDetail() { $('detailDialog').close(); }
-$('detailDialog').addEventListener('close',()=>{++detailGeneration;detailPlayer?.release();detailItem=null;const url=new URL(location.href);url.searchParams.delete('model');history.replaceState(null,'',url);});
+$('detailDialog').addEventListener('close',()=>{++detailGeneration;++playbackGeneration;motionPending=false;detailPlayer?.release();detailItem=null;const url=new URL(location.href);url.searchParams.delete('model');history.replaceState(null,'',url);});
 $('detailClose').onclick=closeDetail;
-$('pause').onclick=()=>setPause(!detailPlayer.paused);
-$('replay').onclick=()=>{setPause(false);void playSelected();};
-$('group').onchange=()=>{setMotions();void playSelected();};$('motion').onchange=()=>void playSelected();
+$('pause').onclick=()=>{const resume=detailPlayer.paused;setPause(!resume);if(resume&&!motionPending&&detailPlayer.model.internalModel.motionManager.isFinished())void playSelected();};
+$('replay').onclick=()=>void playSelected({resume:true});
+$('group').onchange=()=>{setMotions();void playSelected({resume:true});};$('motion').onchange=()=>void playSelected({resume:true});
 $('speed').onchange=()=>detailPlayer.speed=Number($('speed').value);
 $('expression').onchange=async()=>{const model=detailPlayer?.model;if(!model)return;try {if($('expression').value==='')model.internalModel.motionManager.expressionManager?.resetExpression();else await model.expression(Number($('expression').value));detailPlayer.render();}catch(e){toast(e.message);}};
 $('interaction').onchange=()=>detailPlayer.interaction=$('interaction').checked;

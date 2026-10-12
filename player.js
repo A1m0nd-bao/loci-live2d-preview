@@ -8,7 +8,7 @@ export class ModelPlayer {
     this.onFinish = onFinish; this.onError = onError;
     this.app = new PIXI.Application({ view: canvas, backgroundAlpha: 0, antialias: true, resolution: Math.min(devicePixelRatio, 2), autoDensity: true, autoStart: false, preserveDrawingBuffer: true });
     this.app.stop(); this.app.ticker.maxFPS = 30;
-    this.speed = 1; this.zoom = 1; this.paused = true; this.interaction = true; this.generation = 0;
+    this.speed = 1; this.zoom = 1; this.paused = true; this.interaction = true; this.generation = 0; this.motionGeneration = 0;
     this.app.ticker.add(() => {
       if (!this.model || this.paused || document.hidden) return;
       try { this.model.update(Math.min(this.app.ticker.deltaMS, 80) * this.speed); }
@@ -72,12 +72,22 @@ export class ModelPlayer {
 
   async play(group, index = 0) {
     if (!this.model || !this.manifest.FileReferences.Motions?.[group]?.[index]) return false;
-    const model = this.model;
-    const motion = await model.internalModel.motionManager.loadMotion(group,index);
-    if (model !== this.model) return false;
-    motion?.setIsLoop(false);
+    const model = this.model, manager = model.internalModel.motionManager, ticket = ++this.motionGeneration;
+    const current = () => model === this.model && ticket === this.motionGeneration;
+    // Clear both failure caches in the bundled runtime before an explicit retry.
+    if (manager.motionGroups[group][index] === null) {
+      delete manager.motionGroups[group][index];
+      const tasks = PIXI.live2d.Live2DFactory.motionTasksMap.get(manager)?.[group];
+      if (tasks) delete tasks[index];
+    }
+    const motion = await manager.loadMotion(group,index);
+    if (!current()) return false;
+    if (!motion) throw Error(`动作加载失败：${this.manifest.FileReferences.Motions[group][index].File}`);
+    motion.setIsLoop(false);
+    // FORCE still rejects an already-current motion unless its reservation is reset.
+    manager.stopAllMotions(); manager.playing = false;
     const started = await model.motion(group, index, PIXI.live2d.MotionPriority.FORCE);
-    if (model !== this.model) return false;
+    if (!current()) return false;
     if (!started) throw Error('动作无法播放，请检查动作文件。');
     return true;
   }
@@ -94,7 +104,7 @@ export class ModelPlayer {
   render() { if (this.model) this.app.render(); }
   poster() { this.render(); return this.canvas.toDataURL('image/png'); }
   release() {
-    ++this.generation; this.app.stop(); this.paused = true; this.layerInspector?.detach();
+    ++this.generation; ++this.motionGeneration; this.app.stop(); this.paused = true; this.layerInspector?.detach();
     if (this.model) { this.app.stage.removeChild(this.model); this.model.destroy({ children: true, texture: true, baseTexture: true }); }
     this.model = null; this.bounds = null; this.manifest = null; this.physics = null;
     (this.urls || []).forEach(URL.revokeObjectURL); this.urls = []; this.app.renderer.clear();

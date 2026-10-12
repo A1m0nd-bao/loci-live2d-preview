@@ -13,7 +13,7 @@
     "sync:watch:publish": "node scripts/lark-sync.mjs --watch --publish",
     "posters": "node scripts/posters.mjs",
     "publish": "node scripts/publish.mjs",
-    "test": "node --test tests/packages.test.mjs"
+    "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
     "fflate": "0.8.2",
