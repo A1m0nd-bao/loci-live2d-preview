@@ -39,7 +39,8 @@ export class ModelPlayer {
       const settings = new PIXI.live2d.Cubism4ModelSettings({ ...manifest, url: base });
       const urls = new Map();
       for (const relative of references(manifest)) {
-        const resolved = item.localFiles ? resourcePath(base, relative) : new URL(relative.replaceAll('\\', '/'), new URL(base, location.href)).href;
+        const encodedReference=relative.replaceAll('\\','/').split('/').map(p=>p==='.'||p==='..'?p:encodeURIComponent(p)).join('/');
+        const resolved = item.localFiles ? resourcePath(base, relative) : new URL(encodedReference, new URL(base, location.href)).href;
         if (item.localFiles) {
           const file = item.localFiles.get(resolved); if (!file) throw Error(`缺少文件：${resolved}`);
           const url = URL.createObjectURL(file); blobURLs.push(url); urls.set(relative, url);

@@ -16,13 +16,14 @@ export async function importPackage(zipPath, metadata={}) {
   for(const path of manifestPaths){
     const manifest=JSON.parse(new TextDecoder().decode(files.get(path))), stats=inspectModel(path,manifest,files);
     const suffix=manifestPaths.length>1?` / ${basename(path).replace(/\.model3\.json$/i,'')}`:'';
-    models.push({...stats,id:`${id}-${createHash('sha256').update(path).digest('hex').slice(0,8)}`,name:(metadata.name||basename(path).replace(/\.model3\.json$/i,''))+suffix,modelUrl:`./models/${id}/${urlPath(path)}`,modelPath:path,packageUrl:`./packages/${id}.zip`,packageName:metadata.fileName||basename(zipPath),category:metadata.category||'未分类',tags:metadata.tags||[],defaultGroup:metadata.defaultGroup||'',defaultMotion:metadata.defaultMotion||'',hidden:!!metadata.hidden,notes:metadata.notes||'',updatedAt:metadata.updatedAt||new Date().toISOString(),size:bytes.length,packageId:id,sourceId:metadata.sourceId||''});
+    models.push({...stats,id:`${id}-${createHash('sha256').update(path).digest('hex').slice(0,8)}`,name:(metadata.name||basename(path).replace(/\.model3\.json$/i,''))+suffix,modelUrl:`./models/${id}/${urlPath(path)}`,modelPath:path,packageUrl:`./packages/${id}.zip`,packageName:metadata.fileName||basename(zipPath),category:metadata.category||'未分类',tags:metadata.tags||[],defaultGroup:metadata.defaultGroup||'',defaultMotion:metadata.defaultMotion||'',hidden:!!metadata.hidden,notes:metadata.notes||'',updatedAt:metadata.updatedAt||new Date().toISOString(),size:bytes.length,packageId:id});
   }
   const target=join(root,'models',id), staging=join(root,'.sync/staging',id);
   await rm(staging,{recursive:true,force:true});await mkdir(staging,{recursive:true});
   try {
     for(const [path,data]of files){const output=join(staging,path);await mkdir(dirname(output),{recursive:true});await writeFile(output,data);}
-    await save(join(staging,'.package.json'),{id,hash,metadata,items:models});
+    const storedMetadata={...metadata};delete storedMetadata.sourceId;
+    await save(join(staging,'.package.json'),{id,hash,metadata:storedMetadata,items:models});
     await mkdir(join(root,'models'),{recursive:true});await rm(target,{recursive:true,force:true});await rename(staging,target);
     await mkdir(join(root,'packages'),{recursive:true});await cp(zipPath,join(root,'packages',`${id}.zip`));
   }catch(error){await rm(staging,{recursive:true,force:true});throw error;}
@@ -32,7 +33,7 @@ export async function importPackage(zipPath, metadata={}) {
 export async function updateMetadata(packageId, metadata) {
   const file=join(root,'models',packageId,'.package.json'), pkg=await json(file);
   const multiple=pkg.items.length>1;
-  pkg.metadata=metadata;
+  pkg.metadata={...metadata};delete pkg.metadata.sourceId;
   for(const item of pkg.items){item.name=(metadata.name||basename(item.modelPath).replace(/\.model3\.json$/i,''))+(multiple?` / ${basename(item.modelPath).replace(/\.model3\.json$/i,'')}`:'');for(const key of ['category','tags','defaultGroup','defaultMotion','hidden','notes','updatedAt'])item[key]=metadata[key]??item[key];}
   await save(file,pkg);return pkg.items;
 }
