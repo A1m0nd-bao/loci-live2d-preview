@@ -38,7 +38,7 @@ npm start                         # http://localhost:4175/
 npm run import -- /path/role.zip   # import a local bundle into the persistent library
 npm run sync:once                 # read Feishu, download and validate all packages
 npm run posters                   # render missing static covers sequentially
-npm run publish                   # commit and push this repository
+npm run publish                   # upload source and release asset; trigger GitHub Pages
 npm run sync:once:publish         # sync, render covers, and publish
 npm run sync:watch:publish         # repeat every 30s; no overlapping syncs
 npm test
@@ -49,6 +49,11 @@ original ZIP for persistent or ZIP-imported models. Directory imports have no ar
 Sync credentials are resolved by the locally authorized lark-cli; no tokens/secrets are in frontend code.
 The site is static: polling runs on the maintenance machine, not on GitHub Pages. Use the publish
 command after adding the first batch, or run the watch command while maintaining the library.
+
+Deployment uses a GitHub Release archive containing the site, covers, and original model ZIPs.
+GitHub Actions expands model ZIPs into their manifest paths before deploying to Pages. This keeps
+large runtime files out of source pushes while preserving original ZIP downloads on the site.
+Upload checkpoints are under `.sync/`; failed uploads can be resumed with the publish command.
 
 ## Playback And Performance
 

@@ -5,6 +5,7 @@ import { zipSync } from 'fflate';
 import { root, run, json, save } from './common.mjs';
 
 const gh='/opt/homebrew/bin/gh',repo='A1m0nd-bao/loci-live2d-preview';
+const modelCount=(await json(join(root,'manifest.json'))).items.filter(x=>!x.hidden).length;
 const files={};
 const htmlFiles=['index.html','styles.css','app.js','player.js','model-files.js','layers.js','manifest.json','.nojekyll'];
 for(const name of htmlFiles)files[name]=await readFile(join(root,name));
@@ -25,17 +26,24 @@ if(!checkpoint.source){
   const commit=JSON.parse(await run(gh,['api',`repos/${repo}/git/commits/${head}`]));
   const tree=sourceNames.map(path=>({path,mode:'100644',type:'blob',content:null}));for(const entry of tree)entry.content=await readFile(join(root,entry.path),'utf8');
   const newTree=JSON.parse(await run(gh,['api','--method','POST',`repos/${repo}/git/trees`,'--input','-'],{input:JSON.stringify({base_tree:commit.tree.sha,tree})}));
-  const newCommit=JSON.parse(await run(gh,['api','--method','POST',`repos/${repo}/git/commits`,'--input','-'],{input:JSON.stringify({message:'Publish 79 Live2D models via release-backed Pages deployment',tree:newTree.sha,parents:[head]})}));
+  const newCommit=JSON.parse(await run(gh,['api','--method','POST',`repos/${repo}/git/commits`,'--input','-'],{input:JSON.stringify({message:`Publish ${modelCount} Live2D models via release-backed Pages deployment`,tree:newTree.sha,parents:[head]})}));
   await run(gh,['api','--method','PATCH',`repos/${repo}/git/refs/heads/main`,'--input','-'],{input:JSON.stringify({sha:newCommit.sha,force:false})});
   await run(gh,['api','--method','PUT',`repos/${repo}/pages`,'-f','build_type=workflow']);
   checkpoint.source=true;await save(checkpointFile,checkpoint);console.log('Source and Pages workflow published');
 }
-let release;
-try{release=JSON.parse(await run(gh,['api',`repos/${repo}/releases/tags/${tag}`]));}catch(error){if(!/404|Not Found/.test(error.message))throw error;}
-if(!release){await run(gh,['release','create',tag,'--repo',repo,'--draft','--title','Live2D Library: 79 characters','--notes','79 complete Live2D runtime bundles and matching static covers synced from the Live2D Feishu sheet.']);release=JSON.parse(await run(gh,['api',`repos/${repo}/releases/tags/${tag}`]));}
-if(!release.assets.some(a=>a.name==='live2d-site.zip'&&a.size===bundle.length)){
-  await run(gh,['release','upload',tag,archive,'--repo',repo,'--clobber']);
+let release=JSON.parse(await run(gh,['api',`repos/${repo}/releases?per_page=100`])).find(x=>x.tag_name===tag);
+if(!release){await run(gh,['release','create',tag,'--repo',repo,'--draft','--title',`Live2D Library: ${modelCount} characters`,'--notes',`${modelCount} complete Live2D runtime bundles and matching static covers synced from the Live2D Feishu sheet.`]);release=JSON.parse(await run(gh,['api',`repos/${repo}/releases?per_page=100`])).find(x=>x.tag_name===tag);}
+if(!release)throw Error('Release creation did not return the requested tag');
+const partSize=16*1024*1024,parts=[];
+for(let offset=0,index=0;offset<bundle.length;offset+=partSize,index++){
+  const name=`live2d-site.zip.part-${String(index).padStart(3,'0')}`,file=join(root,'.sync',name),bytes=bundle.subarray(offset,offset+partSize);
+  await writeFile(file,bytes);
+  if(!release.assets.some(a=>a.name===name&&a.size===bytes.length&&a.state==='uploaded'))parts.push({name,file});
 }
+let nextPart=0;
+await Promise.all(Array.from({length:Math.min(6,parts.length)},async()=>{
+  while(nextPart<parts.length){const part=parts[nextPart++];console.log(`Uploading ${part.name}`);await run(gh,['release','upload',tag,part.file,'--repo',repo,'--clobber']);console.log(`Uploaded ${part.name}`);}
+}));
 checkpoint.upload=true;await save(checkpointFile,checkpoint);console.log('Asset archive uploaded');
 if(release.draft)await run(gh,['release','edit',tag,'--repo',repo,'--draft=false']);
 else await run(gh,['workflow','run','pages.yml','--repo',repo,'-f',`release_tag=${tag}`]);

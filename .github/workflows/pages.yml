@@ -28,7 +28,8 @@ jobs:
           GH_REPO: ${{ github.repository }}
           RELEASE_TAG: ${{ github.event.release.tag_name || inputs.release_tag }}
         run: |
-          gh release download "$RELEASE_TAG" --pattern live2d-site.zip --dir "$RUNNER_TEMP"
+          gh release download "$RELEASE_TAG" --pattern 'live2d-site.zip.part-*' --dir "$RUNNER_TEMP"
+          cat "$RUNNER_TEMP"/live2d-site.zip.part-* > "$RUNNER_TEMP/live2d-site.zip"
           mkdir -p _site
           unzip -q "$RUNNER_TEMP/live2d-site.zip" -d _site
           for archive in _site/packages/*.zip; do
