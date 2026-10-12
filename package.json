@@ -1,0 +1,26 @@
+{
+  "name": "loci-live2d-preview",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "manifest": "node scripts/generate-manifest.mjs",
+    "import": "node scripts/import.mjs",
+    "sync:once": "node scripts/lark-sync.mjs",
+    "sync:once:publish": "node scripts/lark-sync.mjs --publish",
+    "sync:watch": "node scripts/lark-sync.mjs --watch",
+    "sync:watch:publish": "node scripts/lark-sync.mjs --watch --publish",
+    "posters": "node scripts/posters.mjs",
+    "publish": "node scripts/publish.mjs",
+    "test": "node --test tests/packages.test.mjs"
+  },
+  "dependencies": {
+    "fflate": "0.8.2",
+    "lucide": "0.468.0"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1",
+    "pngjs": "7.0.0"
+  }
+}

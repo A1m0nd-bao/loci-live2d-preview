@@ -1,0 +1,20 @@
+{
+  "spreadsheetToken": "XM6osFNunhCCMttE5docCOjtnJh",
+  "spreadsheetUrl": "https://mcn5p3adfjf6.feishu.cn/wiki/SpgdwxnAti5561kkv9QcvHpFnUg?sheet=Pe5YtS",
+  "sheetId": "Pe5YtS",
+  "sheetName": "Live2D",
+  "identity": "user",
+  "pollSeconds": 30,
+  "pageSize": 50,
+  "columns": {
+    "name": "角色名称",
+    "category": "分类",
+    "tags": "标签",
+    "file": "模型文件",
+    "poster": "封面文件",
+    "defaultGroup": "默认动作分组",
+    "defaultMotion": "默认动作",
+    "status": "显示状态",
+    "notes": "备注"
+  }
+}
