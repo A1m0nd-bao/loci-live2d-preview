@@ -5,6 +5,7 @@ import { zipSync } from 'fflate';
 import { root, run, json, save } from './common.mjs';
 
 const gh='/opt/homebrew/bin/gh',repo='A1m0nd-bao/loci-live2d-preview';
+process.env.GODEBUG=[process.env.GODEBUG,'http2client=0'].filter(Boolean).join(',');
 const modelCount=(await json(join(root,'manifest.json'))).items.filter(x=>!x.hidden).length;
 const files={};
 const htmlFiles=['index.html','styles.css','app.js','player.js','model-files.js','layers.js','manifest.json','.nojekyll'];
@@ -59,5 +60,5 @@ const results=await Promise.allSettled(Array.from({length:Math.min(4,parts.lengt
 const failures=results.filter(result=>result.status==='rejected');if(failures.length)throw new AggregateError(failures.map(result=>result.reason),'Release uploads failed; completed chunks are resumable');
 checkpoint.upload=true;await save(checkpointFile,checkpoint);console.log('Asset archive uploaded');
 if(release.draft)await run(gh,['release','edit',tag,'--repo',repo,'--draft=false']);
-else await run(gh,['workflow','run','pages.yml','--repo',repo,'-f',`release_tag=${tag}`]);
+await run(gh,['workflow','run','pages.yml','--repo',repo,'--ref','main','-f',`release_tag=${tag}`]);
 console.log(`Pages deployment triggered from ${tag}`);
