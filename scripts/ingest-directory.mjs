@@ -13,8 +13,8 @@ await mkdir(batchDir,{recursive:true});
 const stateFile=join(batchDir,'batch.json');
 const state=await json(stateFile,{directory,items:[]});
 const source=await json(join(directory,'sources.json'));
-const expected=79;
-if(source.length!==expected||new Set(source.map(x=>x.modelName)).size!==expected)throw Error('Expected exactly 79 unique character models');
+const expected=Number(process.argv.find(arg=>arg.startsWith('--expected='))?.split('=')[1]||79);
+if(!Number.isInteger(expected)||expected<1||source.length!==expected||new Set(source.map(x=>x.modelName)).size!==expected)throw Error(`Expected exactly ${expected} unique character models`);
 const entries=[];
 for(const entry of source){
   const modelDir=join(directory,'characters',entry.modelName);
@@ -58,6 +58,7 @@ if(process.argv.includes('--covers')){
   for(const entry of entries){if(entry.posterToken)continue;const file=join(batchDir,'previews',`${entry.index}.png`);entry.posterSize=(await stat(file)).size;entry.posterName=`${String(entry.index).padStart(3,'0')}-${entry.modelName}.png`;entry.posterToken=await upload(file,entry.posterName,entry.posterSize);await save(stateFile,state);console.log(`[cover ${entry.index}/${expected}] ${entry.name}`);}
 }
 if(process.argv.includes('--write')){
+  if(expected!==79)throw Error('Initial row-position write supports only the original 79-model delivery');
   if(entries.some(x=>!x.token))throw Error('Upload all packages before writing sheet');
   const existing=await read('A2:L80');
   for(const range of existing)for(let i=0;i<range.cells.length;i++){
