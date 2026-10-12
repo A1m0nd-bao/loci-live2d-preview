@@ -34,16 +34,29 @@ if(!checkpoint.source){
 let release=JSON.parse(await run(gh,['api',`repos/${repo}/releases?per_page=100`])).find(x=>x.tag_name===tag);
 if(!release){await run(gh,['release','create',tag,'--repo',repo,'--draft','--title',`Live2D Library: ${modelCount} characters`,'--notes',`${modelCount} complete Live2D runtime bundles and matching static covers synced from the Live2D Feishu sheet.`]);release=JSON.parse(await run(gh,['api',`repos/${repo}/releases?per_page=100`])).find(x=>x.tag_name===tag);}
 if(!release)throw Error('Release creation did not return the requested tag');
-const partSize=16*1024*1024,parts=[];
+const partSize=16*1024*1024,chunkSize=2*1024*1024,parts=[];
 for(let offset=0,index=0;offset<bundle.length;offset+=partSize,index++){
-  const name=`live2d-site.zip.part-${String(index).padStart(3,'0')}`,file=join(root,'.sync',name),bytes=bundle.subarray(offset,offset+partSize);
-  await writeFile(file,bytes);
-  if(!release.assets.some(a=>a.name===name&&a.size===bytes.length&&a.state==='uploaded'))parts.push({name,file});
+  const name=`live2d-site.zip.part-${String(index).padStart(3,'0')}`,bytes=bundle.subarray(offset,offset+partSize);
+  const complete=release.assets.some(a=>a.name===name&&a.size===bytes.length&&a.state==='uploaded');
+  for(const asset of release.assets.filter(a=>complete?a.name.startsWith(`${name}.chunk-`):a.name===name))await run(gh,['api','--method','DELETE',`repos/${repo}/releases/assets/${asset.id}`]);
+  if(complete)continue;
+  for(let start=0,chunk=0;start<bytes.length;start+=chunkSize,chunk++){
+    const chunkName=`${name}.chunk-${String(chunk).padStart(3,'0')}`,file=join(root,'.sync',chunkName),data=bytes.subarray(start,start+chunkSize);
+    await writeFile(file,data);
+    if(!release.assets.some(a=>a.name===chunkName&&a.size===data.length&&a.state==='uploaded'))parts.push({name:chunkName,file});
+  }
 }
 let nextPart=0;
-await Promise.all(Array.from({length:Math.min(6,parts.length)},async()=>{
-  while(nextPart<parts.length){const part=parts[nextPart++];console.log(`Uploading ${part.name}`);await run(gh,['release','upload',tag,part.file,'--repo',repo,'--clobber']);console.log(`Uploaded ${part.name}`);}
+const results=await Promise.allSettled(Array.from({length:Math.min(4,parts.length)},async()=>{
+  while(nextPart<parts.length){const part=parts[nextPart++];console.log(`Uploading ${part.name}`);
+    for(let attempt=1;attempt<=3;attempt++){
+      try{await run(gh,['release','upload',tag,part.file,'--repo',repo,'--clobber'],{env:{...process.env,GODEBUG:'http2client=0'}});break;}
+      catch(error){if(attempt===3)throw error;console.log(`Retry ${attempt}: ${part.name}`);await new Promise(resolve=>setTimeout(resolve,2000*attempt));}
+    }
+    console.log(`Uploaded ${part.name}`);
+  }
 }));
+const failures=results.filter(result=>result.status==='rejected');if(failures.length)throw new AggregateError(failures.map(result=>result.reason),'Release uploads failed; completed chunks are resumable');
 checkpoint.upload=true;await save(checkpointFile,checkpoint);console.log('Asset archive uploaded');
 if(release.draft)await run(gh,['release','edit',tag,'--repo',repo,'--draft=false']);
 else await run(gh,['workflow','run','pages.yml','--repo',repo,'-f',`release_tag=${tag}`]);
