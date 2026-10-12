@@ -86,6 +86,10 @@ export class ModelPlayer {
     motion.setIsLoop(false);
     // FORCE still rejects an already-current motion unless its reservation is reset.
     manager.stopAllMotions(); manager.playing = false;
+    // Some clips animate only a subset of parameters, so an interrupted pose must not leak into the next clip.
+    const core = model.internalModel.coreModel;
+    for (let i = 0; i < core.getParameterCount(); i++) core.setParameterValueByIndex(i, core.getParameterDefaultValue(i));
+    core.saveParameters();
     const started = await model.motion(group, index, PIXI.live2d.MotionPriority.FORCE);
     if (!current()) return false;
     if (!started) throw Error('动作无法播放，请检查动作文件。');

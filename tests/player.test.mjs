@@ -12,7 +12,13 @@ function fixture() {
     stopAllMotions() { this.current = null; },
   };
   const model = {
-    internalModel: { motionManager: manager },
+    internalModel: { motionManager: manager, coreModel: {
+      values: [0.7, 1], defaults: [0, 1], saved: [],
+      getParameterCount() { return this.values.length; },
+      getParameterDefaultValue(index) { return this.defaults[index]; },
+      setParameterValueByIndex(index, value) { this.values[index] = value; },
+      saveParameters() { this.saved = [...this.values]; },
+    } },
     async motion(group, index, priority) {
       assert.equal(priority, 3);
       if (manager.current === `${group}:${index}`) return false;
@@ -33,6 +39,13 @@ test('replay resets the already-current motion even with FORCE priority', async 
   assert.equal(await player.play('Idle'), true);
   assert.equal(await player.play('Idle'), true);
   assert.deepEqual(manager.starts, ['Idle:0', 'Idle:0']);
+});
+
+test('switching to a sparse motion clears and saves the interrupted pose', async () => {
+  const { player } = fixture(), core = player.model.internalModel.coreModel;
+  assert.equal(await player.play('Idle'), true);
+  assert.deepEqual(core.values, core.defaults);
+  assert.deepEqual(core.saved, core.defaults);
 });
 
 test('a slow earlier motion cannot replace a newer selection', async () => {
