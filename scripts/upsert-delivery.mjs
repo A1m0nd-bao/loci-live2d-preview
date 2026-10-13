@@ -3,6 +3,7 @@ import { join, basename, resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 import { root, json, save, run } from './common.mjs';
 import { cellText, fileRefs } from './sheet-cells.mjs';
+import { deliveryRow } from './delivery-identity.mjs';
 
 const directory = resolve(process.argv[2] || '');
 const expected = Number(process.argv.find(arg => arg.startsWith('--expected='))?.split('=')[1]);
@@ -10,8 +11,8 @@ assert(process.argv[2] && Number.isInteger(expected) && expected > 0, 'Provide a
 const batchFile = join(root, '.sync/ingest', basename(directory), 'batch.json');
 const batch = await json(batchFile), config = await json(join(root, 'lark-sync.config.json'));
 assert.equal(batch.items.length, expected);
-assert.equal(new Set(batch.items.map(item => item.name)).size, expected);
 assert(batch.items.every(item => item.token && item.posterToken), 'Upload packages and covers first');
+assert.equal(new Set(batch.items.map(item => item.token)).size, expected);
 
 async function readSheet() {
   const workbook = JSON.parse(await run('lark-cli', ['sheets', '+workbook-info', '--spreadsheet-token', config.spreadsheetToken, '--as', config.identity]));
@@ -27,25 +28,22 @@ const last = Math.max(1, ...populated.map(row => row.row)); let nextRow = last;
 const date = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Shanghai' }).format(new Date());
 const template = before.find(row => row.row === last).cells;
 const plan = batch.items.map(item => {
-  const matches = populated.filter(row => cellText(row.cells[0]) === item.name);
-  assert(matches.length <= 1, `Ambiguous role: ${item.name}`);
-  const existing = matches[0];
-  if (existing) assert.equal(fileRefs(existing.cells[3]).length, 1, `Unexpected multi-package row ${existing.row}`);
+  const existing = deliveryRow(populated, item.token);
   const row = existing?.row || ++nextRow;
   const packageId = createHash('sha256').update(`${item.token}:${item.hash}`).digest('hex').slice(0, 16);
   const modelPath = `${item.modelName}/model.model3.json`;
   const modelId = `${packageId}-${createHash('sha256').update(modelPath).digest('hex').slice(0, 8)}`;
   const preview = `https://a1m0nd-bao.github.io/loci-live2d-preview/?model=${modelId}`;
-  return { item, row, replacement: !!existing, preview, modelId };
+  return { item, row, existing: !!existing, preview, modelId };
 });
 assert.equal(new Set(plan.map(entry => entry.row)).size, expected);
 const start = Math.min(...plan.map(entry => entry.row)), end = Math.max(...plan.map(entry => entry.row));
 assert(end <= before.at(-1).row, 'Expand the sheet before appending');
 const cells = Array.from({ length: end - start + 1 }, () => Array.from({ length: 12 }, () => ({})));
 const touched = new Set();
-for (const { item, row, replacement, preview } of plan) {
+for (const { item, row, existing, preview } of plan) {
   const target = cells[row - start];
-  if (!replacement) {
+  if (!existing) {
     const blank = before.find(entry => entry.row === row);
     assert(blank.cells.every(cell => !cell.value && !cell.formula && !cell.rich_text?.length), `Occupied append row ${row}`);
     const values = [item.name, '角色交互', '手势,嘴型,9向,PSD图层顺序', '', '', 'Idle', '0', '显示', '20261012 修正版；视觉验收待确认。', preview, '', date];
@@ -63,11 +61,11 @@ for (const { item, row, replacement, preview } of plan) {
   target[9].value = preview; target[11].value = date;
   touched.add(`${row}:9`); touched.add(`${row}:11`);
 }
-const summary = { models: expected, replaced: plan.filter(entry => entry.replacement).length, added: plan.filter(entry => !entry.replacement).length, total: populated.length + plan.filter(entry => !entry.replacement).length, range: `A${start}:L${end}` };
+const summary = { models: expected, replaced: 0, existing: plan.filter(entry => entry.existing).length, added: plan.filter(entry => !entry.existing).length, total: populated.length + plan.filter(entry => !entry.existing).length, range: `A${start}:L${end}` };
 console.log(JSON.stringify(summary));
-await save(join(root, '.sync/ingest', basename(directory), 'sheet-before.json'), before);
 await save(join(root, '.sync/ingest', basename(directory), 'write-plan.json'), { summary, plan: plan.map(({ item, ...entry }) => ({ ...entry, name: item.name })) });
 if (!process.argv.includes('--write')) process.exit(0);
+await save(join(root, '.sync/ingest', basename(directory), `sheet-before-${new Date().toISOString().replace(/[:.]/g, '-')}.json`), before);
 const response = JSON.parse(await run('lark-cli', ['sheets', '+cells-set', '--spreadsheet-token', config.spreadsheetToken, '--sheet-id', config.sheetId, '--range', summary.range, '--as', config.identity, '--cells', '-'], { input: JSON.stringify(cells) }));
 assert(response.ok);
 const after = await readSheet();
