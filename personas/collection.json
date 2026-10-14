@@ -1,0 +1,774 @@
+{
+  "version": 1,
+  "profiles": 100,
+  "illustrations": 100,
+  "backgrounds": 8,
+  "characters": [
+    {
+      "index": 1,
+      "modelId": "5e02b205a8d675c5-0e4abb1a",
+      "name": "雷娅",
+      "portrait": "portraits/001.png",
+      "artwork": "artwork/001-rhea/001-rhea-city-scene-v1.png"
+    },
+    {
+      "index": 2,
+      "modelId": "67aa05706530c1fa-640127f9",
+      "name": "诺克斯",
+      "portrait": "portraits/002.png",
+      "artwork": "artwork/002-nox/002-scene-v1.png"
+    },
+    {
+      "index": 3,
+      "modelId": "50522a728ce23d17-86a16cdb",
+      "name": "陆驰",
+      "portrait": "portraits/003.png",
+      "artwork": "artwork/003-lu-chi/003-scene-v1.png"
+    },
+    {
+      "index": 4,
+      "modelId": "bc659f90c2d8440d-c57e7f1a",
+      "name": "顾晚宁",
+      "portrait": "portraits/004.png",
+      "artwork": "artwork/004-gu-wanning/004-scene-v1.png"
+    },
+    {
+      "index": 5,
+      "modelId": "d0774581d55db01f-e12fd7b0",
+      "name": "夏澄",
+      "portrait": "portraits/005.png",
+      "artwork": "artwork/005-xia-cheng/005-scene-v1.png"
+    },
+    {
+      "index": 6,
+      "modelId": "4e81936e1c97f7ab-92a810a3",
+      "name": "沈砚",
+      "portrait": "portraits/006.png",
+      "artwork": "artwork/006-shen-yan/006-scene-v1.png"
+    },
+    {
+      "index": 7,
+      "modelId": "b27a573a79d8f8f2-d2b1f9be",
+      "name": "薇拉",
+      "portrait": "portraits/007.png",
+      "artwork": "artwork/007-vera/007-scene-v1.png"
+    },
+    {
+      "index": 8,
+      "modelId": "f6c84ec948840e96-54b1b9af",
+      "name": "白朔",
+      "portrait": "portraits/008.png",
+      "artwork": "artwork/008-bai-shuo/008-scene-v1.png"
+    },
+    {
+      "index": 9,
+      "modelId": "2e3acbf8be694d62-72686753",
+      "name": "谢云岚",
+      "portrait": "portraits/009.png",
+      "artwork": "artwork/009-xie-yunlan/009-scene-v2.png"
+    },
+    {
+      "index": 10,
+      "modelId": "b6a1567e8b84ff8b-3f66d1df",
+      "name": "阿德里安",
+      "portrait": "portraits/010.png",
+      "artwork": "artwork/010-adrian/010-scene-v1.png"
+    },
+    {
+      "index": 11,
+      "modelId": "339bdab69deb3620-ddb4ab23",
+      "name": "眠舟",
+      "portrait": "portraits/011.png",
+      "artwork": "artwork/011-mianzhou/011-scene-v1.png"
+    },
+    {
+      "index": 12,
+      "modelId": "a7e6dd4582c6911e-eab877fd",
+      "name": "林栀",
+      "portrait": "portraits/012.png",
+      "artwork": "artwork/012-lin-zhi/012-scene-v1.png"
+    },
+    {
+      "index": 13,
+      "modelId": "180c77e9482f9cb7-16724ab8",
+      "name": "季衡",
+      "portrait": "portraits/013.png",
+      "artwork": "artwork/013-ji-heng/013-scene-v1.png"
+    },
+    {
+      "index": 14,
+      "modelId": "2d8b4f8ee2ad2ffa-9e040ced",
+      "name": "周序",
+      "portrait": "portraits/014.png",
+      "artwork": "artwork/014-zhou-xu/014-scene-v1.png"
+    },
+    {
+      "index": 15,
+      "modelId": "55c9a238d3d352bd-c313e9b3",
+      "name": "夜梨",
+      "portrait": "portraits/015.png",
+      "artwork": "artwork/015-ye-li/015-scene-v1.png"
+    },
+    {
+      "index": 16,
+      "modelId": "9dc82fa31c6e1169-da7fa8a1",
+      "name": "埃兰",
+      "portrait": "portraits/016.png",
+      "artwork": "artwork/016-elan/016-scene-v1.png"
+    },
+    {
+      "index": 17,
+      "modelId": "8c875b91b8e233f5-859f1314",
+      "name": "奥利弗",
+      "portrait": "portraits/017.png",
+      "artwork": "artwork/017-oliver/017-scene-v1.png"
+    },
+    {
+      "index": 18,
+      "modelId": "295d4d8614eb1c23-d95ec83a",
+      "name": "唐焰",
+      "portrait": "portraits/018.png",
+      "artwork": "artwork/018-tang-yan/018-scene-v1.png"
+    },
+    {
+      "index": 19,
+      "modelId": "af0e355b1cdfb693-d0dcbcaa",
+      "name": "江知遥",
+      "portrait": "portraits/019.png",
+      "artwork": "artwork/019-jiang-zhiyao/019-scene-v1.png"
+    },
+    {
+      "index": 20,
+      "modelId": "c53dfa05b3ca3133-2d133e2a",
+      "name": "米娅",
+      "portrait": "portraits/020.png",
+      "artwork": "artwork/020-mia/020-scene-v1.png"
+    },
+    {
+      "index": 21,
+      "modelId": "618970344c84b87f-8e402258",
+      "name": "洛蕾",
+      "portrait": "portraits/021.png",
+      "artwork": "artwork/021-laurel/021-scene-v1.png"
+    },
+    {
+      "index": 22,
+      "modelId": "8bc041e4b5de07a2-db6be7ff",
+      "name": "程屿",
+      "portrait": "portraits/022.png",
+      "artwork": "artwork/022-cheng-yu/022-scene-v1.png"
+    },
+    {
+      "index": 23,
+      "modelId": "0654cb821ec44ecf-fbd7570d",
+      "name": "艾芙琳",
+      "portrait": "portraits/023.png",
+      "artwork": "artwork/023-evelyn/023-scene-v1.png"
+    },
+    {
+      "index": 24,
+      "modelId": "1629ca538fd73fff-b8e9e135",
+      "name": "许默",
+      "portrait": "portraits/024.png",
+      "artwork": "artwork/024-xu-mo/024-scene-v1.png"
+    },
+    {
+      "index": 25,
+      "modelId": "ab67d5899ab084db-8cde7b56",
+      "name": "塞西莉亚",
+      "portrait": "portraits/025.png",
+      "artwork": "artwork/025-cecilia/025-scene-v1.png"
+    },
+    {
+      "index": 26,
+      "modelId": "660f26ab6957d684-88a4609b",
+      "name": "伊莎",
+      "portrait": "portraits/026.png",
+      "artwork": "artwork/026-isa/026-scene-v1.png"
+    },
+    {
+      "index": 27,
+      "modelId": "ab641a6f86ca237a-7d9987a8",
+      "name": "蓝汐",
+      "portrait": "portraits/027.png",
+      "artwork": "artwork/027-lan-xi/027-scene-v1.png"
+    },
+    {
+      "index": 28,
+      "modelId": "9efcb83d287f4e58-7961a8f4",
+      "name": "裴铮",
+      "portrait": "portraits/028.png",
+      "artwork": "artwork/028-pei-zheng/028-scene-v1.png"
+    },
+    {
+      "index": 29,
+      "modelId": "df9821a111542104-72dec26e",
+      "name": "陈越",
+      "portrait": "portraits/029.png",
+      "artwork": "artwork/029-chen-yue/029-scene-v1.png"
+    },
+    {
+      "index": 30,
+      "modelId": "f49019bff564f3b3-56a82a62",
+      "name": "雪音",
+      "portrait": "portraits/030.png",
+      "artwork": "artwork/030-xueyin/030-scene-v1.png"
+    },
+    {
+      "index": 31,
+      "modelId": "71f8a9d038ef9aac-797ac60a",
+      "name": "苏麦",
+      "portrait": "portraits/031.png",
+      "artwork": "artwork/031-su-mai/031-scene-v1.png"
+    },
+    {
+      "index": 32,
+      "modelId": "5da48dfdca44ac22-7636480f",
+      "name": "叶弥",
+      "portrait": "portraits/032.png",
+      "artwork": "artwork/032-ye-mi/032-scene-v1.png"
+    },
+    {
+      "index": 33,
+      "modelId": "37f0967ee2207011-d4fe7f2b",
+      "name": "温桃",
+      "portrait": "portraits/033.png",
+      "artwork": "artwork/033-wen-tao/033-scene-v1.png"
+    },
+    {
+      "index": 34,
+      "modelId": "cc0b58171e8e52ac-523eca53",
+      "name": "闻茉",
+      "portrait": "portraits/034.png",
+      "artwork": "artwork/034-wen-mo/034-scene-v1.png"
+    },
+    {
+      "index": 35,
+      "modelId": "d1ce82ac1a641e60-ca49858a",
+      "name": "祁燃",
+      "portrait": "portraits/035.png",
+      "artwork": "artwork/035-qi-ran/035-scene-v1.png"
+    },
+    {
+      "index": 36,
+      "modelId": "dcf00ba07b99627c-5c247dc4",
+      "name": "许朝",
+      "portrait": "portraits/036.png",
+      "artwork": "artwork/036-xu-zhao/036-scene-v2.png"
+    },
+    {
+      "index": 37,
+      "modelId": "07c945fd758174c7-cba69b13",
+      "name": "烬白",
+      "portrait": "portraits/037.png",
+      "artwork": "artwork/037-jinbai/037-scene-v2.png"
+    },
+    {
+      "index": 38,
+      "modelId": "2500130ba84a48f4-f74c4b91",
+      "name": "秦映",
+      "portrait": "portraits/038.png",
+      "artwork": "artwork/038-qin-ying/038-scene-v1.png"
+    },
+    {
+      "index": 39,
+      "modelId": "0be9c0dc2d09139a-089602e6",
+      "name": "时隽",
+      "portrait": "portraits/039.png",
+      "artwork": "artwork/039-shi-jun/039-scene-v1.png"
+    },
+    {
+      "index": 40,
+      "modelId": "c7faef6fde79cd9a-1d9041a7",
+      "name": "橘野",
+      "portrait": "portraits/040.png",
+      "artwork": "artwork/040-juye/040-scene-v1.png"
+    },
+    {
+      "index": 41,
+      "modelId": "2b2c773d8d096bf9-c09880ff",
+      "name": "诺亚",
+      "portrait": "portraits/041.png",
+      "artwork": "artwork/041-noah/041-scene-v1.png"
+    },
+    {
+      "index": 42,
+      "modelId": "dbb684eeaabd3cfd-eaba544b",
+      "name": "霍晋",
+      "portrait": "portraits/042.png",
+      "artwork": "artwork/042-huo-jin/042-scene-v1.png"
+    },
+    {
+      "index": 43,
+      "modelId": "7d78962d33114793-fe862eb0",
+      "name": "闻祈",
+      "portrait": "portraits/043.png",
+      "artwork": "artwork/043-wen-qi/043-scene-v1.png"
+    },
+    {
+      "index": 44,
+      "modelId": "f8f93f952dd319ce-f424abdb",
+      "name": "余然",
+      "portrait": "portraits/044.png",
+      "artwork": "artwork/044-yu-ran/044-scene-v1.png"
+    },
+    {
+      "index": 45,
+      "modelId": "331249c5df4152c3-94779a1e",
+      "name": "露弥",
+      "portrait": "portraits/045.png",
+      "artwork": "artwork/045-lumi/045-scene-v1.png"
+    },
+    {
+      "index": 46,
+      "modelId": "6656d879fe8171bb-bec0b584",
+      "name": "靳珩",
+      "portrait": "portraits/046.png",
+      "artwork": "artwork/046-jin-heng/046-scene-v2.png"
+    },
+    {
+      "index": 47,
+      "modelId": "704cf626c76e5c7f-78867576",
+      "name": "紫苏",
+      "portrait": "portraits/047.png",
+      "artwork": "artwork/047-zi-su/047-scene-v2.png"
+    },
+    {
+      "index": 48,
+      "modelId": "44e9bc9a40399d04-8f9d12d0",
+      "name": "梁野",
+      "portrait": "portraits/048.png",
+      "artwork": "artwork/048-liang-ye/048-scene-v1.png"
+    },
+    {
+      "index": 49,
+      "modelId": "c89485a1e68f54a9-9664ecb9",
+      "name": "白芙",
+      "portrait": "portraits/049.png",
+      "artwork": "artwork/049-bai-fu/049-scene-v1.png"
+    },
+    {
+      "index": 50,
+      "modelId": "299556be54e0b660-33cf80fa",
+      "name": "苏知",
+      "portrait": "portraits/050.png",
+      "artwork": "artwork/050-su-zhi/050-scene-v1.png"
+    },
+    {
+      "index": 51,
+      "modelId": "26474956e843661a-700003f0",
+      "name": "杜衡",
+      "portrait": "portraits/051.png",
+      "artwork": "artwork/051-du-heng/051-scene-v1.png"
+    },
+    {
+      "index": 52,
+      "modelId": "14dad2fe49ae2bb9-39f81af5",
+      "name": "池夏",
+      "portrait": "portraits/052.png",
+      "artwork": "artwork/052-chi-xia/052-scene-v2.png"
+    },
+    {
+      "index": 53,
+      "modelId": "f26d6059b90bfc26-f974284c",
+      "name": "程言",
+      "portrait": "portraits/053.png",
+      "artwork": "artwork/053-cheng-yan/053-scene-v1.png"
+    },
+    {
+      "index": 54,
+      "modelId": "08eae52e41140dd9-651ce0c4",
+      "name": "红夏",
+      "portrait": "portraits/054.png",
+      "artwork": "artwork/054-hong-xia/054-scene-v1.png"
+    },
+    {
+      "index": 55,
+      "modelId": "8661aaffc671b2eb-1bb0e641",
+      "name": "萨维尔",
+      "portrait": "portraits/055.png",
+      "artwork": "artwork/055-saviel/055-scene-v1.png"
+    },
+    {
+      "index": 56,
+      "modelId": "b212a63598266dd6-c011ddb7",
+      "name": "周谨",
+      "portrait": "portraits/056.png",
+      "artwork": "artwork/056-zhou-jin/056-scene-v1.png"
+    },
+    {
+      "index": 57,
+      "modelId": "2232cb691620d4a5-565a35cf",
+      "name": "陈凛",
+      "portrait": "portraits/057.png",
+      "artwork": "artwork/057-chen-lin/057-scene-v1.png"
+    },
+    {
+      "index": 58,
+      "modelId": "b8a0986fdbb5805f-46664728",
+      "name": "晏澈",
+      "portrait": "portraits/058.png",
+      "artwork": "artwork/058-yan-che/058-scene-v1.png"
+    },
+    {
+      "index": 59,
+      "modelId": "4db152329d91985d-2dc3e61e",
+      "name": "卡尔",
+      "portrait": "portraits/059.png",
+      "artwork": "artwork/059-karl/059-scene-v1.png"
+    },
+    {
+      "index": 60,
+      "modelId": "aa9fe46e96a5867c-1290ec29",
+      "name": "伊瑟拉",
+      "portrait": "portraits/060.png",
+      "artwork": "artwork/060-ysera/060-scene-v1.png"
+    },
+    {
+      "index": 61,
+      "modelId": "fa835cb85e0777cb-c5841143",
+      "name": "顾行",
+      "portrait": "portraits/061.png",
+      "artwork": "artwork/061-gu-xing/061-scene-v1.png"
+    },
+    {
+      "index": 62,
+      "modelId": "cad86f562f8d7137-5d43853e",
+      "name": "维斯珀",
+      "portrait": "portraits/062.png",
+      "artwork": "artwork/062-vesper/062-scene-v1.png"
+    },
+    {
+      "index": 63,
+      "modelId": "9e8ad6ab40d7868a-6fefdd61",
+      "name": "贺川",
+      "portrait": "portraits/063.png",
+      "artwork": "artwork/063-he-chuan/063-scene-v1.png"
+    },
+    {
+      "index": 64,
+      "modelId": "d455d3ac92c6cce5-e2b7f93d",
+      "name": "白桃",
+      "portrait": "portraits/064.png",
+      "artwork": "artwork/064-bai-tao/064-scene-v1.png"
+    },
+    {
+      "index": 65,
+      "modelId": "e2d5ab7684986e98-7af1963b",
+      "name": "沈月白",
+      "portrait": "portraits/065.png",
+      "artwork": "artwork/065-shen-yuebai/065-scene-v1.png"
+    },
+    {
+      "index": 66,
+      "modelId": "30a6d1472956750b-3dcbb254",
+      "name": "陆廷",
+      "portrait": "portraits/066.png",
+      "artwork": "artwork/066-lu-ting/066-scene-v1.png"
+    },
+    {
+      "index": 67,
+      "modelId": "2e556e76352778ec-1f3daa06",
+      "name": "阿瑞斯",
+      "portrait": "portraits/067.png",
+      "artwork": "artwork/067-ares/067-scene-v1.png"
+    },
+    {
+      "index": 68,
+      "modelId": "52b6911914df6cd1-3877b365",
+      "name": "莱文",
+      "portrait": "portraits/068.png",
+      "artwork": "artwork/068-levin/068-scene-v1.png"
+    },
+    {
+      "index": 69,
+      "modelId": "432a90388fc4dd7f-5774eade",
+      "name": "席霏",
+      "portrait": "portraits/069.png",
+      "artwork": "artwork/069-xi-fei/069-scene-v2.png"
+    },
+    {
+      "index": 70,
+      "modelId": "5324363990ad9c95-8325187e",
+      "name": "闻简",
+      "portrait": "portraits/070.png",
+      "artwork": "artwork/070-wen-jian/070-scene-v2.png"
+    },
+    {
+      "index": 71,
+      "modelId": "cbb7b09cc2448fc3-37dbd207",
+      "name": "绫音",
+      "portrait": "portraits/071.png",
+      "artwork": "artwork/071-ayane/071-scene-v1.png"
+    },
+    {
+      "index": 72,
+      "modelId": "cfcbc01d7ed1b6c8-133f31f7",
+      "name": "陆深",
+      "portrait": "portraits/072.png",
+      "artwork": "artwork/072-lu-shen/072-scene-v1.png"
+    },
+    {
+      "index": 73,
+      "modelId": "5263984936c5b001-17a3dbcf",
+      "name": "岚絮",
+      "portrait": "portraits/073.png",
+      "artwork": "artwork/073-lan-xu/073-scene-v1.png"
+    },
+    {
+      "index": 74,
+      "modelId": "8196d1fcab82307a-c75f7b6c",
+      "name": "罗安",
+      "portrait": "portraits/074.png",
+      "artwork": "artwork/074-roan/074-scene-v1.png"
+    },
+    {
+      "index": 75,
+      "modelId": "685ff640de4d1a59-c8662a9a",
+      "name": "岳森",
+      "portrait": "portraits/075.png",
+      "artwork": "artwork/075-yue-sen/075-scene-v1.png"
+    },
+    {
+      "index": 76,
+      "modelId": "f70470f27cd6f6d3-d99892b8",
+      "name": "墨辰",
+      "portrait": "portraits/076.png",
+      "artwork": "artwork/076-mo-chen/076-scene-v1.png"
+    },
+    {
+      "index": 77,
+      "modelId": "7b33094ca381e266-c3b2651e",
+      "name": "温橙",
+      "portrait": "portraits/077.png",
+      "artwork": "artwork/077-wen-cheng/077-scene-v2.png"
+    },
+    {
+      "index": 78,
+      "modelId": "e8f590ddf33094b1-d30ba2de",
+      "name": "陆星河",
+      "portrait": "portraits/078.png",
+      "artwork": "artwork/078-lu-xinghe/078-scene-v2.png"
+    },
+    {
+      "index": 79,
+      "modelId": "aae27e8909a13762-ff730719",
+      "name": "乔安娜",
+      "portrait": "portraits/079.png",
+      "artwork": "artwork/079-joanna/079-scene-v1.png"
+    },
+    {
+      "index": 80,
+      "modelId": "0f0e76566b18e6af-2dc3e61e",
+      "name": "塞缪尔",
+      "portrait": "portraits/080.png",
+      "artwork": "artwork/080-samuel/080-scene-v1.png"
+    },
+    {
+      "index": 81,
+      "modelId": "abb67f1413fe4e8e-1290ec29",
+      "name": "绯白",
+      "portrait": "portraits/081.png",
+      "artwork": "artwork/081-feibai/081-scene-v1.png"
+    },
+    {
+      "index": 82,
+      "modelId": "6bf46198ced07262-c5841143",
+      "name": "安栀",
+      "portrait": "portraits/082.png",
+      "artwork": "artwork/082-an-zhi/082-scene-v1.png"
+    },
+    {
+      "index": 83,
+      "modelId": "f5f2a02d4b8ed43d-5d43853e",
+      "name": "海蓝",
+      "portrait": "portraits/083.png",
+      "artwork": "artwork/083-hailan/083-scene-v1.png"
+    },
+    {
+      "index": 84,
+      "modelId": "b7dc00eba96e4891-6fefdd61",
+      "name": "赤衡",
+      "portrait": "portraits/084.png",
+      "artwork": "artwork/084-chi-heng/084-scene-v1.png"
+    },
+    {
+      "index": 85,
+      "modelId": "87bd71498f6ddadb-e2b7f93d",
+      "name": "林聿",
+      "portrait": "portraits/085.png",
+      "artwork": "artwork/085-lin-yu/085-scene-v2.png"
+    },
+    {
+      "index": 86,
+      "modelId": "9720eb6fa8b18a2e-7af1963b",
+      "name": "蓝茵",
+      "portrait": "portraits/086.png",
+      "artwork": "artwork/086-lan-yin/086-scene-v1.png"
+    },
+    {
+      "index": 87,
+      "modelId": "9f0a9017a8a79f61-3dcbb254",
+      "name": "闻蓝",
+      "portrait": "portraits/087.png",
+      "artwork": "artwork/087-wen-lan/087-scene-v1.png"
+    },
+    {
+      "index": 88,
+      "modelId": "c2ef45daf89a2d46-1f3daa06",
+      "name": "严夜",
+      "portrait": "portraits/088.png",
+      "artwork": "artwork/088-yan-ye/088-scene-v1.png"
+    },
+    {
+      "index": 89,
+      "modelId": "166b19da913003ac-3877b365",
+      "name": "桃序",
+      "portrait": "portraits/089.png",
+      "artwork": "artwork/089-tao-xu/089-scene-v1.png"
+    },
+    {
+      "index": 90,
+      "modelId": "a76ac893a9d43afb-3133eeea",
+      "name": "郁晴",
+      "portrait": "portraits/090.png",
+      "artwork": "artwork/090-yu-qing/090-scene-v1.png"
+    },
+    {
+      "index": 91,
+      "modelId": "656a3d2ae74ac46e-f7807d57",
+      "name": "赛琳娜",
+      "portrait": "portraits/091.png",
+      "artwork": "artwork/091-selena/091-scene-v1.png"
+    },
+    {
+      "index": 92,
+      "modelId": "f6f0d9fc820d3c5b-e92ca73e",
+      "name": "霜珩",
+      "portrait": "portraits/092.png",
+      "artwork": "artwork/092-shuang-heng/092-scene-v1.png"
+    },
+    {
+      "index": 93,
+      "modelId": "272fb08653943593-65b7cc95",
+      "name": "韩铎",
+      "portrait": "portraits/093.png",
+      "artwork": "artwork/093-han-duo/093-scene-v1.png"
+    },
+    {
+      "index": 94,
+      "modelId": "e6b0139552e551f6-1daeb619",
+      "name": "言霁",
+      "portrait": "portraits/094.png",
+      "artwork": "artwork/094-yan-ji/094-scene-v1.png"
+    },
+    {
+      "index": 95,
+      "modelId": "ffe8a770a2bfdc70-10d04fdd",
+      "name": "周烁",
+      "portrait": "portraits/095.png",
+      "artwork": "artwork/095-zhou-shuo/095-scene-v1.png"
+    },
+    {
+      "index": 96,
+      "modelId": "0d01e0ae616de963-d7849dbb",
+      "name": "许承",
+      "portrait": "portraits/096.png",
+      "artwork": "artwork/096-xu-cheng/096-scene-v1.png"
+    },
+    {
+      "index": 97,
+      "modelId": "c00279066b8b93af-97903a4f",
+      "name": "温予",
+      "portrait": "portraits/097.png",
+      "artwork": "artwork/097-wen-yu/097-scene-v1.png"
+    },
+    {
+      "index": 98,
+      "modelId": "2b386d0c7a60ba27-c74a60d9",
+      "name": "鸢罗",
+      "portrait": "portraits/098.png",
+      "artwork": "artwork/098-yuan-luo/098-scene-v1.png"
+    },
+    {
+      "index": 99,
+      "modelId": "8e76ec549bad25ad-c5f98737",
+      "name": "黎川",
+      "portrait": "portraits/099.png",
+      "artwork": "artwork/099-li-chuan/099-scene-v1.png"
+    },
+    {
+      "index": 100,
+      "modelId": "29976ffc219c08be-d47a1edb",
+      "name": "景知",
+      "portrait": "portraits/100.png",
+      "artwork": "artwork/100-jing-zhi/100-scene-v1.png"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "01",
+      "name": "暮色街角",
+      "category": "都市",
+      "image": "./personas/backgrounds/common-scenes-v1/01-city-evening-v2.png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "02",
+      "name": "窗边居室",
+      "category": "都市",
+      "image": "./personas/backgrounds/common-scenes-v1/02-apartment-evening.png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "03",
+      "name": "午后书房",
+      "category": "室内",
+      "image": "./personas/backgrounds/common-scenes-v1/03-library-afternoon.png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "04",
+      "name": "晴日海岸",
+      "category": "自然",
+      "image": "./personas/backgrounds/common-scenes-v1/04-seaside-morning.png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "05",
+      "name": "林间空地",
+      "category": "奇幻",
+      "image": "./personas/backgrounds/common-scenes-v1/05-forest-glade.png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "06",
+      "name": "庭院回廊",
+      "category": "奇幻",
+      "image": "./personas/backgrounds/common-scenes-v1/06-castle-courtyard.png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "07",
+      "name": "雪夜小镇",
+      "category": "季节",
+      "image": "./personas/backgrounds/common-scenes-v1/07-snow-village.png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "08",
+      "name": "排练舞台",
+      "category": "舞台",
+      "image": "./personas/backgrounds/common-scenes-v1/08-rehearsal-stage.png",
+      "width": 1672,
+      "height": 941
+    }
+  ]
+}

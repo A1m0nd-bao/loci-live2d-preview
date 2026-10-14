@@ -17,6 +17,12 @@
       <button id="importButton" class="button primary"><i data-lucide="folder-plus"></i>导入模型</button>
     </nav>
   </header>
+  <nav class="collection-nav" aria-label="角色资料库">
+    <a href="./" aria-current="page"><i data-lucide="person-standing"></i>Live2D</a>
+    <a href="personas/100-character-personas.html"><i data-lucide="book-user"></i>人物人设</a>
+    <a href="personas/artwork/illustrations.html"><i data-lucide="images"></i>角色插画</a>
+    <a href="personas/backgrounds/common-scenes-v1/"><i data-lucide="panels-top-left"></i>场景背景</a>
+  </nav>
   <section class="library-heading">
     <div><p class="eyebrow">CHARACTER COLLECTION</p><h2>角色，有自己的节奏。</h2></div>
     <div class="library-stats"><strong id="count">0</strong><span>个角色</span><span class="stat-divider"></span><span id="syncTime">等待首批模型</span></div>
@@ -52,7 +58,7 @@
     <div class="detail-shell">
       <header class="detail-header"><div><p class="eyebrow">CHARACTER PREVIEW</p><h2 id="detailTitle"></h2><p id="detailCategory" class="muted"></p></div><div class="detail-header-actions"><a id="download" class="icon-button" title="下载模型包" aria-label="下载模型包" download><i data-lucide="download"></i></a><button id="detailClose" class="icon-button" title="关闭" aria-label="关闭"><i data-lucide="x"></i></button></div></header>
       <div class="detail-body">
-        <div class="preview-column"><div id="stage" class="stage"><canvas id="detailCanvas" aria-label="Live2D 角色预览"></canvas><div id="stageMessage" class="stage-message" role="status">正在加载角色</div><div class="stage-info"><span id="stageResolution"></span><span id="stageState">LIVE2D</span></div></div>
+        <div class="preview-column"><div id="stage" class="stage"><img id="sceneImage" class="scene-image" alt="" hidden><canvas id="detailCanvas" aria-label="Live2D 角色预览"></canvas><div id="stageMessage" class="stage-message" role="status">正在加载角色</div><div class="stage-info"><span id="stageResolution"></span><span id="stageState">LIVE2D</span></div></div>
           <div class="player-bar"><button id="pause" class="icon-button" title="暂停" aria-label="暂停" disabled><i data-lucide="pause"></i></button><button id="replay" class="icon-button" title="重新播放" aria-label="重新播放" disabled><i data-lucide="rotate-ccw"></i></button><span class="control-divider"></span><label class="compact-field"><span>速度</span><select id="speed" disabled><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label><label class="toggle compact"><input id="loop" type="checkbox" checked disabled><span>循环</span></label><div class="zoom-controls"><button id="fit" class="icon-button" title="适应画面" aria-label="适应画面" disabled><i data-lucide="maximize"></i></button><input id="zoom" aria-label="缩放" type="range" min="40" max="200" value="100" disabled><output id="zoomValue">100%</output></div></div>
           <div id="detailError" class="error" role="alert" hidden></div>
         </div>
@@ -65,8 +71,13 @@
           <label class="toggle"><input id="interaction" type="checkbox" checked disabled><span>视线跟随</span></label>
           <label class="toggle"><input id="physics" type="checkbox" checked disabled><span>物理模拟</span></label>
           <div class="panel-heading"><span>画面</span><span>02</span></div>
+          <label class="field"><span>场景背景</span><select id="detailScene" disabled><option value="">无场景</option></select></label>
           <label class="field"><span>背景</span><div class="color-row"><input id="detailBg" type="color" value="#101014"><output id="detailBgLabel">#101014</output><button id="checker" class="icon-button" title="透明棋盘" aria-label="透明棋盘" aria-pressed="false"><i data-lucide="grid-2x2"></i></button></div></label>
           <dl id="details" class="model-details"></dl>
+          <div id="characterLinks" class="character-links" hidden>
+            <a id="personaLink" class="quiet-link"><i data-lucide="book-user"></i>人物人设</a>
+            <a id="artworkLink" class="quiet-link"><i data-lucide="image"></i>角色插画</a>
+          </div>
           <details id="layerPanel" class="layer-panel"><summary>图层检查<span>03</span></summary><p id="layerStatus" class="muted"></p><div class="layer-toolbar"><button id="layerReset" class="icon-button" title="恢复模型排序" aria-label="恢复模型排序" disabled><i data-lucide="undo-2"></i></button><button id="layerExport" class="icon-button" title="导出排序" aria-label="导出排序" disabled><i data-lucide="download"></i></button><button id="layerImportButton" class="icon-button" title="导入排序" aria-label="导入排序" disabled><i data-lucide="upload"></i></button></div><input id="layerImport" type="file" accept=".json" hidden><p id="layerError" class="error" role="alert"></p><ol id="layers" aria-label="图层从前到后"></ol></details>
         </aside>
       </div>

@@ -12,6 +12,7 @@
     "sync:watch": "node scripts/lark-sync.mjs --watch",
     "sync:watch:publish": "node scripts/lark-sync.mjs --watch --publish",
     "posters": "node scripts/posters.mjs",
+    "scenes:import": "node scripts/import-character-scenes.mjs",
     "publish": "node scripts/publish.mjs",
     "test": "node --test tests/*.test.mjs"
   },

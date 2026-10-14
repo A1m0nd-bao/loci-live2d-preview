@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "01",
+      "name": "暮色街角",
+      "category": "都市",
+      "image": "./personas/backgrounds/common-scenes-v1/01-city-evening-v2.png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "02",
+      "name": "窗边居室",
+      "category": "都市",
+      "image": "./personas/backgrounds/common-scenes-v1/02-apartment-evening.png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "03",
+      "name": "午后书房",
+      "category": "室内",
+      "image": "./personas/backgrounds/common-scenes-v1/03-library-afternoon.png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "04",
+      "name": "晴日海岸",
+      "category": "自然",
+      "image": "./personas/backgrounds/common-scenes-v1/04-seaside-morning.png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "05",
+      "name": "林间空地",
+      "category": "奇幻",
+      "image": "./personas/backgrounds/common-scenes-v1/05-forest-glade.png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "06",
+      "name": "庭院回廊",
+      "category": "奇幻",
+      "image": "./personas/backgrounds/common-scenes-v1/06-castle-courtyard.png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "07",
+      "name": "雪夜小镇",
+      "category": "季节",
+      "image": "./personas/backgrounds/common-scenes-v1/07-snow-village.png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "08",
+      "name": "排练舞台",
+      "category": "舞台",
+      "image": "./personas/backgrounds/common-scenes-v1/08-rehearsal-stage.png",
+      "width": 1672,
+      "height": 941
+    }
+  ]
+}

@@ -3,6 +3,19 @@
 Independent Live2D library at https://a1m0nd-bao.github.io/loci-live2d-preview/.
 The Motion Library and its existing sync configuration are separate.
 
+## Character Resources
+
+The library navigation connects Live2D models, Chinese/English character profiles,
+100 scene illustrations and 8 reusable empty backgrounds. Model detail links use the
+stable manifest ID, not the filename, so same-named deliveries stay distinct.
+The detail player can place an empty scene behind the actual transparent Live2D canvas;
+solid-color and checkerboard backgrounds remain available.
+
+Use `npm run scenes:import -- /path/to/personas` to import the reviewed local exports.
+Only selected illustrations are included, not discarded revisions or local generation logs.
+PNG/ZIP assets travel in the Release-backed Pages bundle; text pages and catalogs are
+also published to repository source. Feishu synchronization does not erase these assets.
+
 ## Feishu Arrangement
 
 Use the **Live2D** sheet of the existing workbook:

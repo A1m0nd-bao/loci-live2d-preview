@@ -6,6 +6,8 @@ let remoteItems = [], localItems = [], view = localStorage.getItem('live2d-view'
 let detailPlayer, hoverPlayer, detailItem, detailGeneration = 0, hoverGeneration = 0, hoverTarget, hoverTimer, toastTimer;
 let playbackGeneration = 0, motionPending = false;
 const posters = new Map();
+const sceneBackgrounds = new Map();
+let sceneGeneration = 0;
 const layerInspector = new LayerInspector(() => detailPlayer?.render());
 const options = (el, entries) => el.replaceChildren(...entries.map(([value, label]) => new Option(label, value)));
 function icons() { lucide.createIcons(); }
@@ -13,6 +15,24 @@ function icon(name) { const el = document.createElement('i'); el.dataset.lucide 
 function toast(text) { $('toast').textContent = text; $('toast').hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => $('toast').hidden = true, 4200); }
 function allItems() { return [...localItems, ...remoteItems]; }
 function labelSize(bytes) { return bytes ? `${(bytes / 1024 / 1024).toFixed(1)} MB` : ''; }
+async function loadSceneBackgrounds() {
+  try {
+    const response=await fetch('scene-backgrounds.json');if(!response.ok)throw Error('场景清单读取失败');
+    const data=await response.json();if(!Array.isArray(data.items))throw Error('场景清单格式无效');
+    for(const scene of data.items){const url=new URL(scene.image,location.href);if(url.origin!==location.origin)throw Error('场景资源必须位于本站');sceneBackgrounds.set(scene.id,{...scene,image:url.href});}
+    options($('detailScene'),[['','无场景'],...Array.from(sceneBackgrounds.values(),scene=>[scene.id,scene.name])]);$('detailScene').disabled=false;
+  }catch(error){$('detailScene').title=error.message;}
+}
+function clearSceneBackground(){++sceneGeneration;$('detailScene').value='';$('sceneImage').hidden=true;$('sceneImage').removeAttribute('src');}
+async function applySceneBackground(){
+  const scene=sceneBackgrounds.get($('detailScene').value),ticket=++sceneGeneration;
+  if(!scene){clearSceneBackground();return;}
+  try{
+    const image=new Image();image.src=scene.image;await image.decode();if(ticket!==sceneGeneration)return;
+    $('sceneImage').src=scene.image;$('sceneImage').alt=scene.name;$('sceneImage').hidden=false;
+    $('stage').classList.remove('checker');$('checker').setAttribute('aria-pressed','false');
+  }catch{if(ticket===sceneGeneration){clearSceneBackground();toast('场景图片加载失败，请重试。');}}
+}
 function filtered() {
   const query = $('search').value.trim().toLocaleLowerCase();
   const result = allItems().filter(item => (!$('category').value || item.category === $('category').value) && (!$('source').value || (item.localFiles ? 'local' : 'remote') === $('source').value) && (!query || [item.name, item.category, item.modelPath, item.modelUrl, ...(item.tags || [])].join(' ').toLocaleLowerCase().includes(query)));
@@ -105,6 +125,9 @@ function defaultMotion(item, manifest, group) { const list = manifest.FileRefere
 async function openDetail(item) {
   stopHover(); ++playbackGeneration; motionPending = false; const ticket = ++detailGeneration; detailItem = item;
   $('detailTitle').textContent = item.name; $('detailCategory').textContent = [item.category, ...(item.tags || [])].filter(Boolean).join(' / ');
+  $('characterLinks').hidden=!!item.localFiles;
+  $('personaLink').href=`personas/100-character-personas.html?character=${encodeURIComponent(item.id)}`;
+  $('artworkLink').href=`personas/artwork/illustrations.html?character=${encodeURIComponent(item.id)}`;
   $('detailError').hidden = true; $('stageMessage').textContent = '正在加载角色'; $('stageMessage').hidden = false; $('stageState').textContent = 'LOADING'; $('stageResolution').textContent = ''; $('details').replaceChildren();
   enableControls(false); options($('group'), [['','加载中']]); options($('motion'), [['','加载中']]); options($('expression'), [['','默认表情']]);
   $('download').hidden = !item.packageUrl; if (item.packageUrl) { $('download').href = item.packageUrl; $('download').download = item.packageName || `${item.name}.zip`; }
@@ -159,8 +182,9 @@ $('physics').onchange=()=>detailPlayer.setPhysics($('physics').checked);
 $('zoom').oninput=()=>{detailPlayer.zoom=Number($('zoom').value)/100;detailPlayer.fit();detailPlayer.render();$('zoomValue').textContent=`${$('zoom').value}%`;};
 $('fit').onclick=()=>{$('zoom').value='100';$('zoom').oninput();};
 $('previewBg').oninput=()=>{document.documentElement.style.setProperty('--preview-bg',$('previewBg').value);$('previewBgLabel').textContent=$('previewBg').value.toUpperCase();};
-$('detailBg').oninput=()=>{$('stage').style.backgroundColor=$('detailBg').value;$('detailBgLabel').textContent=$('detailBg').value.toUpperCase();$('stage').classList.remove('checker');$('checker').setAttribute('aria-pressed','false');};
-$('checker').onclick=()=>{$('stage').classList.toggle('checker');$('checker').setAttribute('aria-pressed',String($('stage').classList.contains('checker')));};
+$('detailScene').onchange=()=>void applySceneBackground();
+$('detailBg').oninput=()=>{clearSceneBackground();$('stage').style.backgroundColor=$('detailBg').value;$('detailBgLabel').textContent=$('detailBg').value.toUpperCase();$('stage').classList.remove('checker');$('checker').setAttribute('aria-pressed','false');};
+$('checker').onclick=()=>{clearSceneBackground();$('stage').classList.toggle('checker');$('checker').setAttribute('aria-pressed',String($('stage').classList.contains('checker')));};
 $('hoverPlay').onchange=()=>{if(!$('hoverPlay').checked)stopHover();};
 for(const id of ['search','category','source','sort'])$(id).addEventListener(id==='search'?'input':'change',render);
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;localStorage.setItem('live2d-view',view);render();});
@@ -201,4 +225,4 @@ document.addEventListener('dragover',e=>{if(e.dataTransfer.types.includes('Files
 document.addEventListener('dragleave',()=>{if(--dragDepth<=0){dragDepth=0;document.body.classList.remove('dragging');}});
 document.addEventListener('drop',e=>{e.preventDefault();dragDepth=0;document.body.classList.remove('dragging');void importZIPs([...e.dataTransfer.files]);});
 window.addEventListener('pagehide',()=>{hoverPlayer?.release();detailPlayer?.release();for(const item of localItems)if(item.packageUrl)URL.revokeObjectURL(item.packageUrl);});
-icons();void loadManifest();
+icons();void loadManifest();void loadSceneBackgrounds();
