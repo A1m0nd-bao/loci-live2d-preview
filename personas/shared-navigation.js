@@ -3,6 +3,10 @@
   const nav=document.querySelector('header nav');
   if(nav){
     nav.classList.add('collection-pages-nav');
+    for(const link of nav.querySelectorAll('a')){
+      if(link.getAttribute('href')?.includes('artwork/illustrations.html'))link.remove();
+      else if(link.getAttribute('href')?.includes('100-character-personas.html')){link.href=siteRoot+'personas/';link.textContent='角色档案';}
+    }
     const home=document.createElement('a');home.href=siteRoot;home.textContent='Live2D';nav.prepend(home);
     if(!location.pathname.includes('/backgrounds/')){
       const scenes=document.createElement('a');scenes.href=siteRoot+'personas/backgrounds/common-scenes-v1/';scenes.textContent='场景背景';nav.append(scenes);

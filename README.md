@@ -5,8 +5,12 @@ The Motion Library and its existing sync configuration are separate.
 
 ## Character Resources
 
-The library navigation connects Live2D models, Chinese/English character profiles,
-100 scene illustrations and 8 reusable empty backgrounds. Model detail links use the
+The library navigation connects Live2D models, a unified Character Archive,
+and 8 reusable empty backgrounds. The archive combines each character's selected
+illustration, Chinese/English profile and model preview in one record. It supports
+portrait/illustration views and name, genre and delivery-batch filters. Previously
+shared profile and illustration URLs redirect here, preserving language and model IDs.
+Model detail links use the
 stable manifest ID, not the filename, so same-named deliveries stay distinct.
 The detail player can place an empty scene behind the actual transparent Live2D canvas;
 solid-color and checkerboard backgrounds remain available.

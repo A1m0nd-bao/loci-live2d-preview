@@ -126,8 +126,7 @@ async function openDetail(item) {
   stopHover(); ++playbackGeneration; motionPending = false; const ticket = ++detailGeneration; detailItem = item;
   $('detailTitle').textContent = item.name; $('detailCategory').textContent = [item.category, ...(item.tags || [])].filter(Boolean).join(' / ');
   $('characterLinks').hidden=!!item.localFiles;
-  $('personaLink').href=`personas/100-character-personas.html?character=${encodeURIComponent(item.id)}`;
-  $('artworkLink').href=`personas/artwork/illustrations.html?character=${encodeURIComponent(item.id)}`;
+  $('personaLink').href=`personas/?character=${encodeURIComponent(item.id)}`;
   $('detailError').hidden = true; $('stageMessage').textContent = '正在加载角色'; $('stageMessage').hidden = false; $('stageState').textContent = 'LOADING'; $('stageResolution').textContent = ''; $('details').replaceChildren();
   enableControls(false); options($('group'), [['','加载中']]); options($('motion'), [['','加载中']]); options($('expression'), [['','默认表情']]);
   $('download').hidden = !item.packageUrl; if (item.packageUrl) { $('download').href = item.packageUrl; $('download').download = item.packageName || `${item.name}.zip`; }

@@ -27,7 +27,20 @@ test('all eight scene backgrounds are local PNGs and exist in the published tree
   }
 });
 test('public pages do not retain private generation filesystem paths',async()=>{
-  for(const path of ['100-character-personas.html','100-character-personas.en.html','artwork/illustrations.html','backgrounds/common-scenes-v1/index.html','backgrounds/common-scenes-v1/generation-plan.json']){
+  for(const path of ['index.html','character-archive.js','100-character-personas.html','100-character-personas.en.html','artwork/illustrations.html','backgrounds/common-scenes-v1/index.html','backgrounds/common-scenes-v1/generation-plan.json']){
     const text=await readFile(join(root,'personas',path),'utf8');assert(!text.includes('/Users/'));
   }
+});
+test('old resource links redirect to one archive, preserving English and illustration intent',async()=>{
+  for(const [path,target,attribute] of [
+    ['100-character-personas.html','index.html','data-locale="zh"'],
+    ['100-character-personas.en.html','index.html','data-locale="en"'],
+    ['artwork/illustrations.html','../index.html','data-view="illustration"']
+  ]){
+    const html=await readFile(join(root,'personas',path),'utf8');
+    assert(html.includes(`data-target="${target}"`));assert(html.includes(attribute));
+    assert(!html.includes('id="data"'),'Legacy page must not retain a separate catalog');
+  }
+  const redirect=await readFile(join(root,'personas/archive-redirect.js'),'utf8');
+  assert(redirect.includes('location.replace'));assert(redirect.includes('target.search=params.toString()'));
 });

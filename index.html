@@ -19,8 +19,7 @@
   </header>
   <nav class="collection-nav" aria-label="角色资料库">
     <a href="./" aria-current="page"><i data-lucide="person-standing"></i>Live2D</a>
-    <a href="personas/100-character-personas.html"><i data-lucide="book-user"></i>人物人设</a>
-    <a href="personas/artwork/illustrations.html"><i data-lucide="images"></i>角色插画</a>
+    <a href="personas/"><i data-lucide="book-user"></i>角色档案</a>
     <a href="personas/backgrounds/common-scenes-v1/"><i data-lucide="panels-top-left"></i>场景背景</a>
   </nav>
   <section class="library-heading">
@@ -75,8 +74,7 @@
           <label class="field"><span>背景</span><div class="color-row"><input id="detailBg" type="color" value="#101014"><output id="detailBgLabel">#101014</output><button id="checker" class="icon-button" title="透明棋盘" aria-label="透明棋盘" aria-pressed="false"><i data-lucide="grid-2x2"></i></button></div></label>
           <dl id="details" class="model-details"></dl>
           <div id="characterLinks" class="character-links" hidden>
-            <a id="personaLink" class="quiet-link"><i data-lucide="book-user"></i>人物人设</a>
-            <a id="artworkLink" class="quiet-link"><i data-lucide="image"></i>角色插画</a>
+            <a id="personaLink" class="quiet-link"><i data-lucide="book-user"></i>角色档案</a>
           </div>
           <details id="layerPanel" class="layer-panel"><summary>图层检查<span>03</span></summary><p id="layerStatus" class="muted"></p><div class="layer-toolbar"><button id="layerReset" class="icon-button" title="恢复模型排序" aria-label="恢复模型排序" disabled><i data-lucide="undo-2"></i></button><button id="layerExport" class="icon-button" title="导出排序" aria-label="导出排序" disabled><i data-lucide="download"></i></button><button id="layerImportButton" class="icon-button" title="导入排序" aria-label="导入排序" disabled><i data-lucide="upload"></i></button></div><input id="layerImport" type="file" accept=".json" hidden><p id="layerError" class="error" role="alert"></p><ol id="layers" aria-label="图层从前到后"></ol></details>
         </aside>

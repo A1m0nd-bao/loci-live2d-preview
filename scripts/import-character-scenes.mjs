@@ -44,15 +44,12 @@ await save(join(destination,'collection.json'),{version:1,profiles:100,illustrat
 const browser=await launchBrowser();
 try{
   const page=await browser.newPage();
-  for(const name of ['100-character-personas.html','100-character-personas.en.html','artwork/illustrations.html','backgrounds/common-scenes-v1/index.html']){
+  for(const name of ['backgrounds/common-scenes-v1/index.html']){
     const html=await readFile(join(source,name),'utf8');
     const depth=name.split('/').length,siteRoot='../'.repeat(depth),shared=relative(dirname(name),'shared-navigation.js');
     const rendered=await page.evaluate(({html,siteRoot,shared,name})=>{
       const doc=new DOMParser().parseFromString(html,'text/html'),data=doc.getElementById('data');
-      if(name==='artwork/illustrations.html'){
-        const items=JSON.parse(data.textContent).map(({index,modelId,name,nameZh,image,role,genre,previewUrl})=>({index,modelId,name,nameZh,image,role,genre,previewUrl}));
-        data.textContent=JSON.stringify(items).replaceAll('<','\\u003c');
-      }else if(name.startsWith('backgrounds/')){
+      if(name.startsWith('backgrounds/')){
         const payload=JSON.parse(data.textContent);
         payload.items=payload.items.map(({id,name,category,image,width,height})=>({id,name,category,image,width,height}));
         data.textContent=JSON.stringify(payload).replaceAll('<','\\u003c');
@@ -65,4 +62,13 @@ try{
     const file=join(destination,name);await mkdir(dirname(file),{recursive:true});await writeFile(file,rendered);
   }
 }finally{await browser.close();}
+// Keep previously shared URLs while maintaining a single character archive.
+for(const {name,target,script,attributes} of [
+  {name:'100-character-personas.html',target:'index.html',script:'archive-redirect.js',attributes:'data-locale="zh"'},
+  {name:'100-character-personas.en.html',target:'index.html',script:'archive-redirect.js',attributes:'data-locale="en"'},
+  {name:'artwork/illustrations.html',target:'../index.html',script:'../archive-redirect.js',attributes:'data-view="illustration"'}
+]){
+  const file=join(destination,name);await mkdir(dirname(file),{recursive:true});
+  await writeFile(file,`<!doctype html>\n<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Loci · 角色档案</title><link rel="canonical" href="${target}"></head><body><a href="${target}">角色档案 / Character Archive</a><script src="${script}" data-target="${target}" ${attributes}></script></body></html>\n`);
+}
 console.log(JSON.stringify({profiles:100,illustrations:100,backgrounds:8,assetMB:Number((bytes/1024/1024).toFixed(1))}));
