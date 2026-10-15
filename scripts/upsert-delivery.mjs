@@ -7,6 +7,8 @@ import { deliveryRow } from './delivery-identity.mjs';
 
 const directory = resolve(process.argv[2] || '');
 const expected = Number(process.argv.find(arg => arg.startsWith('--expected='))?.split('=')[1]);
+const notes = process.argv.find(arg => arg.startsWith('--notes='))?.slice('--notes='.length) || '20261012 修正版；视觉验收待确认。';
+const tags = process.argv.find(arg => arg.startsWith('--tags='))?.slice('--tags='.length) || '手势,嘴型,9向,PSD图层顺序';
 assert(process.argv[2] && Number.isInteger(expected) && expected > 0, 'Provide a delivery directory and --expected=N');
 const batchFile = join(root, '.sync/ingest', basename(directory), 'batch.json');
 const batch = await json(batchFile), config = await json(join(root, 'lark-sync.config.json'));
@@ -46,7 +48,7 @@ for (const { item, row, existing, preview } of plan) {
   if (!existing) {
     const blank = before.find(entry => entry.row === row);
     assert(blank.cells.every(cell => !cell.value && !cell.formula && !cell.rich_text?.length), `Occupied append row ${row}`);
-    const values = [item.name, '角色交互', '手势,嘴型,9向,PSD图层顺序', '', '', 'Idle', '0', '显示', '20261012 修正版；视觉验收待确认。', preview, '', date];
+    const values = [item.name, '角色交互', tags, '', '', 'Idle', '0', '显示', notes, preview, '', date];
     for (let col = 0; col < 12; col++) {
       target[col] = { value: values[col], cell_styles: { ...template[col].cell_styles } };
       if (template[col].border_styles) target[col].border_styles = template[col].border_styles;

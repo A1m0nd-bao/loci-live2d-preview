@@ -7,6 +7,7 @@ let detailPlayer, hoverPlayer, detailItem, detailGeneration = 0, hoverGeneration
 let playbackGeneration = 0, motionPending = false;
 const posters = new Map();
 const sceneBackgrounds = new Map();
+const archivedCharacters = new Set();
 let sceneGeneration = 0;
 const layerInspector = new LayerInspector(() => detailPlayer?.render());
 const options = (el, entries) => el.replaceChildren(...entries.map(([value, label]) => new Option(label, value)));
@@ -15,6 +16,19 @@ function icon(name) { const el = document.createElement('i'); el.dataset.lucide 
 function toast(text) { $('toast').textContent = text; $('toast').hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => $('toast').hidden = true, 4200); }
 function allItems() { return [...localItems, ...remoteItems]; }
 function labelSize(bytes) { return bytes ? `${(bytes / 1024 / 1024).toFixed(1)} MB` : ''; }
+function updateCharacterLinks(item) {
+  $('characterLinks').hidden = !!item.localFiles || !archivedCharacters.has(item.id);
+  $('personaLink').href = `personas/?character=${encodeURIComponent(item.id)}`;
+}
+async function loadCharacterArchive() {
+  try {
+    const response = await fetch('personas/collection.json');
+    if (!response.ok) return;
+    const data = await response.json();
+    for (const character of data.characters || []) archivedCharacters.add(character.modelId);
+    if (detailItem) updateCharacterLinks(detailItem);
+  } catch { /* Character resources must not block model playback. */ }
+}
 async function loadSceneBackgrounds() {
   try {
     const response=await fetch('scene-backgrounds.json');if(!response.ok)throw Error('场景清单读取失败');
@@ -125,8 +139,7 @@ function defaultMotion(item, manifest, group) { const list = manifest.FileRefere
 async function openDetail(item) {
   stopHover(); ++playbackGeneration; motionPending = false; const ticket = ++detailGeneration; detailItem = item;
   $('detailTitle').textContent = item.name; $('detailCategory').textContent = [item.category, ...(item.tags || [])].filter(Boolean).join(' / ');
-  $('characterLinks').hidden=!!item.localFiles;
-  $('personaLink').href=`personas/?character=${encodeURIComponent(item.id)}`;
+  updateCharacterLinks(item);
   $('detailError').hidden = true; $('stageMessage').textContent = '正在加载角色'; $('stageMessage').hidden = false; $('stageState').textContent = 'LOADING'; $('stageResolution').textContent = ''; $('details').replaceChildren();
   enableControls(false); options($('group'), [['','加载中']]); options($('motion'), [['','加载中']]); options($('expression'), [['','默认表情']]);
   $('download').hidden = !item.packageUrl; if (item.packageUrl) { $('download').href = item.packageUrl; $('download').download = item.packageName || `${item.name}.zip`; }
@@ -224,4 +237,4 @@ document.addEventListener('dragover',e=>{if(e.dataTransfer.types.includes('Files
 document.addEventListener('dragleave',()=>{if(--dragDepth<=0){dragDepth=0;document.body.classList.remove('dragging');}});
 document.addEventListener('drop',e=>{e.preventDefault();dragDepth=0;document.body.classList.remove('dragging');void importZIPs([...e.dataTransfer.files]);});
 window.addEventListener('pagehide',()=>{hoverPlayer?.release();detailPlayer?.release();for(const item of localItems)if(item.packageUrl)URL.revokeObjectURL(item.packageUrl);});
-icons();void loadManifest();void loadSceneBackgrounds();
+icons();void loadManifest();void loadSceneBackgrounds();void loadCharacterArchive();
