@@ -72,6 +72,13 @@ GitHub Actions expands model ZIPs into their manifest paths before deploying to 
 large runtime files out of source pushes while preserving original ZIP downloads on the site.
 Upload checkpoints are under `.sync/`; failed uploads can be resumed with the publish command.
 
+For an explicitly requested replacement, upload the fixed delivery and covers first,
+then run `node scripts/upsert-delivery.mjs /path/to/fixed --expected=N --replace-batch=/path/to/previous --write`.
+Replacement matches the previous attachment identity plus model index/folder, never
+just the filename. Missing targets abort without appending. Unrelated cells and row
+counts are verified after writing. Replaced model links redirect to their latest
+version via manifest aliases, preserved by subsequent synchronizations.
+
 ## Playback And Performance
 
 Cards use static PNG covers, with lazy image loading. Hovering uses one shared renderer; details

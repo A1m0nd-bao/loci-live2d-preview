@@ -15,8 +15,10 @@ export async function generateManifest() {
   }}
   items.sort((a,b)=>(b.updatedAt||'').localeCompare(a.updatedAt||''));
   const previous=await json(join(root,'manifest.json'),{items:[]});
-  const unchanged=JSON.stringify(previous.items)===JSON.stringify(items)&&previous.sheetUrl===config.spreadsheetUrl;
+  const aliases={...previous.aliases,...await json(join(root,'.sync/model-aliases.json'),{})};
+  const unchanged=JSON.stringify(previous.items)===JSON.stringify(items)&&previous.sheetUrl===config.spreadsheetUrl&&JSON.stringify(previous.aliases||{})===JSON.stringify(aliases);
   const manifest={version:1,updatedAt:unchanged?previous.updatedAt:items.length?new Date().toISOString():null,sheetUrl:config.spreadsheetUrl,items};
+  if(Object.keys(aliases).length)manifest.aliases=aliases;
   await save(join(root,'manifest.json'),manifest);return manifest;
 }
 if(import.meta.url===pathToFileURL(process.argv[1]).href){const m=await generateManifest();console.log(`Live2D manifest: ${m.items.filter(x=>!x.hidden).length} visible models`);}

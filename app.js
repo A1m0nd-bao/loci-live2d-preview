@@ -64,7 +64,9 @@ async function loadManifest() {
     $('syncTime').textContent = data.updatedAt ? `更新于 ${new Date(data.updatedAt).toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}` : '等待首批模型';
     $('pageError').hidden = true; $('libraryStatus').textContent = '资源清单已就绪';
     updateCategories(); render();
-    const id = new URL(location.href).searchParams.get('model'); const target = remoteItems.find(x => x.id === id); if (target && !$('detailDialog').open) void openDetail(target);
+    const requested = new URL(location.href).searchParams.get('model');
+    const id = data.aliases?.[requested] || requested;
+    const target = remoteItems.find(x => x.id === id); if (target && !$('detailDialog').open) void openDetail(target);
   } catch (e) { $('pageError').textContent = e.message; $('pageError').hidden = false; $('libraryStatus').textContent = '清单读取失败'; render(); }
   finally { $('refresh').disabled = false; }
 }

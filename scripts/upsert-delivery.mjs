@@ -3,18 +3,26 @@ import { join, basename, resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 import { root, json, save, run } from './common.mjs';
 import { cellText, fileRefs } from './sheet-cells.mjs';
-import { deliveryRow } from './delivery-identity.mjs';
+import { deliveryRow, replacementRow, replacementAliases } from './delivery-identity.mjs';
 
 const directory = resolve(process.argv[2] || '');
 const expected = Number(process.argv.find(arg => arg.startsWith('--expected='))?.split('=')[1]);
-const notes = process.argv.find(arg => arg.startsWith('--notes='))?.slice('--notes='.length) || '20261012 修正版；视觉验收待确认。';
+const notesArgument = process.argv.find(arg => arg.startsWith('--notes='))?.slice('--notes='.length);
+const notes = notesArgument || '20261012 修正版；视觉验收待确认。';
 const tags = process.argv.find(arg => arg.startsWith('--tags='))?.slice('--tags='.length) || '手势,嘴型,9向,PSD图层顺序';
+const replaceDirectory = process.argv.find(arg => arg.startsWith('--replace-batch='))?.slice('--replace-batch='.length);
 assert(process.argv[2] && Number.isInteger(expected) && expected > 0, 'Provide a delivery directory and --expected=N');
 const batchFile = join(root, '.sync/ingest', basename(directory), 'batch.json');
 const batch = await json(batchFile), config = await json(join(root, 'lark-sync.config.json'));
 assert.equal(batch.items.length, expected);
 assert(batch.items.every(item => item.token && item.posterToken), 'Upload packages and covers first');
 assert.equal(new Set(batch.items.map(item => item.token)).size, expected);
+const previousBatch = replaceDirectory ? await json(join(root, '.sync/ingest', basename(resolve(replaceDirectory)), 'batch.json')) : null;
+if (previousBatch) {
+  assert.equal(previousBatch.items.length, expected);
+  assert.equal(new Set(previousBatch.items.map(item => item.token)).size, expected);
+  assert.notEqual(resolve(replaceDirectory), directory, 'Replacement and previous delivery must be different batches');
+}
 
 async function readSheet() {
   const workbook = JSON.parse(await run('lark-cli', ['sheets', '+workbook-info', '--spreadsheet-token', config.spreadsheetToken, '--as', config.identity]));
@@ -30,13 +38,14 @@ const last = Math.max(1, ...populated.map(row => row.row)); let nextRow = last;
 const date = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Shanghai' }).format(new Date());
 const template = before.find(row => row.row === last).cells;
 const plan = batch.items.map(item => {
-  const existing = deliveryRow(populated, item.token);
+  const replacement = previousBatch ? replacementRow(populated, item, previousBatch.items) : null;
+  const existing = replacement ? replacement.row : deliveryRow(populated, item.token);
   const row = existing?.row || ++nextRow;
   const packageId = createHash('sha256').update(`${item.token}:${item.hash}`).digest('hex').slice(0, 16);
   const modelPath = `${item.modelName}/model.model3.json`;
   const modelId = `${packageId}-${createHash('sha256').update(modelPath).digest('hex').slice(0, 8)}`;
   const preview = `https://a1m0nd-bao.github.io/loci-live2d-preview/?model=${modelId}`;
-  return { item, row, existing: !!existing, preview, modelId };
+  return { item, row, existing: !!existing, displayName: existing ? cellText(existing.cells[0]) : item.name, previousModelId: replacement?.previous.modelId, replaced: !!replacement && !fileRefs(existing.cells[3]).some(ref => ref.token === item.token), preview, modelId };
 });
 assert.equal(new Set(plan.map(entry => entry.row)).size, expected);
 const start = Math.min(...plan.map(entry => entry.row)), end = Math.max(...plan.map(entry => entry.row));
@@ -62,8 +71,10 @@ for (const { item, row, existing, preview } of plan) {
   }
   target[9].value = preview; target[11].value = date;
   touched.add(`${row}:9`); touched.add(`${row}:11`);
+  if (previousBatch && notesArgument !== undefined) { target[8].value = notesArgument; touched.add(`${row}:8`); }
 }
-const summary = { models: expected, replaced: 0, existing: plan.filter(entry => entry.existing).length, added: plan.filter(entry => !entry.existing).length, total: populated.length + plan.filter(entry => !entry.existing).length, range: `A${start}:L${end}` };
+const summary = { models: expected, replaced: plan.filter(entry => entry.replaced).length, existing: plan.filter(entry => entry.existing).length, added: plan.filter(entry => !entry.existing).length, total: populated.length + plan.filter(entry => !entry.existing).length, range: `A${start}:L${end}` };
+if (previousBatch) { assert.equal(summary.added, 0); assert.equal(summary.total, populated.length); }
 console.log(JSON.stringify(summary));
 await save(join(root, '.sync/ingest', basename(directory), 'write-plan.json'), { summary, plan: plan.map(({ item, ...entry }) => ({ ...entry, name: item.name })) });
 if (!process.argv.includes('--write')) process.exit(0);
@@ -71,15 +82,22 @@ await save(join(root, '.sync/ingest', basename(directory), `sheet-before-${new D
 const response = JSON.parse(await run('lark-cli', ['sheets', '+cells-set', '--spreadsheet-token', config.spreadsheetToken, '--sheet-id', config.sheetId, '--range', summary.range, '--as', config.identity, '--cells', '-'], { input: JSON.stringify(cells) }));
 assert(response.ok);
 const after = await readSheet();
-for (const { item, row, preview } of plan) {
+for (const { item, row, preview, displayName } of plan) {
   const actual = after.find(entry => entry.row === row).cells;
   assert.equal(fileRefs(actual[3]).length, 1); assert.equal(fileRefs(actual[4]).length, 1);
-  assert.equal(cellText(actual[0]), item.name); assert.equal(fileRefs(actual[3])[0]?.token, item.token);
+  assert.equal(cellText(actual[0]), displayName); assert.equal(fileRefs(actual[3])[0]?.token, item.token);
   assert.equal(fileRefs(actual[4])[0]?.token, item.posterToken); assert.equal(cellText(actual[9]), preview);
   assert.equal(cellText(actual[11]), date);
+  if (previousBatch && notesArgument !== undefined) assert.equal(cellText(actual[8]), notesArgument);
 }
 for (const row of before) for (let col = 0; col < row.cells.length; col++) if (!touched.has(`${row.row}:${col}`)) assert.deepEqual(after.find(entry => entry.row === row.row).cells[col], row.cells[col], `Unrelated cell changed: ${row.row}:${col}`);
 assert.equal(after.filter(row => row.row > 1 && cellText(row.cells[0])).length, summary.total);
 batch.written = true; batch.writeSummary = summary;
-for (const entry of plan) { entry.item.row = entry.row; entry.item.modelId = entry.modelId; entry.item.preview = entry.preview; }
+for (const entry of plan) { entry.item.row = entry.row; entry.item.modelId = entry.modelId; entry.item.preview = entry.preview; if (entry.previousModelId) entry.item.previousModelId = entry.previousModelId; }
+if (previousBatch) {
+  const aliasFile = join(root, '.sync/model-aliases.json');
+  const manifest = await json(join(root, 'manifest.json'));
+  const aliases = { ...manifest.aliases, ...await json(aliasFile, {}) };
+  await save(aliasFile, replacementAliases(aliases, plan.map(entry => [entry.previousModelId, entry.modelId])));
+}
 await save(batchFile, batch); console.log(`Verified ${expected} records and all unrelated cells`);
