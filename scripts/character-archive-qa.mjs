@@ -79,7 +79,7 @@ try{
     assert.equal(await page.locator('.item').count(),8);
     assert.equal(await page.locator('header nav a', {hasText:'角色档案'}).count(),1);
     assert.equal(await page.locator('header nav a', {hasText:'角色插画'}).count(),0);await noOverflow(page);
-    await goto('?model='+encodeURIComponent(first.modelId));await page.waitForFunction(()=>document.querySelector('#stageState')?.textContent==='LIVE2D',null,{timeout:90000});
+    await goto('?model='+encodeURIComponent(first.modelId));await page.waitForFunction(()=>document.querySelector('#detailDialog')?.open&&document.querySelector('#stageState')?.textContent==='LIVE2D'&&document.querySelector('#stageMessage')?.hidden,null,{timeout:90000});
     assert.equal(await page.locator('.collection-nav a').count(),3);
     assert.equal(await page.locator('#personaLink').getAttribute('href'),'personas/?character='+encodeURIComponent(first.modelId));
     assert.equal(await page.locator('#detailScene option').count(),9);
