@@ -20,6 +20,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/checkout@v4
       - name: Download and extract library
         env:
           GH_TOKEN: ${{ github.token }}
@@ -35,6 +36,13 @@ jobs:
             mkdir -p "_site/models/$package_id"
             unzip -q "$archive" -d "_site/models/$package_id"
           done
+      - name: Overlay current preview application
+        run: |
+          # Keep release models, posters and character archives; ship current app code.
+          for file in index.html styles.css app.js player.js atmosphere.js model-files.js layers.js render.html render.js; do
+            cp "$file" "_site/$file"
+          done
+          cp -R assets/. _site/assets/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

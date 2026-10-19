@@ -8,7 +8,7 @@ const gh='/opt/homebrew/bin/gh',repo='A1m0nd-bao/loci-live2d-preview';
 process.env.GODEBUG=[process.env.GODEBUG,'http2client=0'].filter(Boolean).join(',');
 const modelCount=(await json(join(root,'manifest.json'))).items.filter(x=>!x.hidden).length;
 const files={};
-const htmlFiles=['index.html','styles.css','app.js','player.js','model-files.js','layers.js','manifest.json','scene-backgrounds.json','.nojekyll'];
+const htmlFiles=['index.html','styles.css','app.js','player.js','atmosphere.js','model-files.js','layers.js','manifest.json','scene-backgrounds.json','.nojekyll'];
 for(const name of htmlFiles)files[name]=await readFile(join(root,name));
 async function collect(dir){for(const entry of await readdir(join(root,dir),{withFileTypes:true})){if(entry.name.startsWith('.'))continue;const name=`${dir}/${entry.name}`;if(entry.isDirectory())await collect(name);else files[name]=await readFile(join(root,name));}}
 for(const dir of ['vendor','assets','packages','posters','personas'])await collect(dir);
@@ -21,7 +21,7 @@ const checkpointFile=join(root,'.sync/release-publish.json');const checkpoint=aw
 if(checkpoint.tag!==tag){checkpoint.tag=tag;checkpoint.source=false;checkpoint.upload=false;await save(checkpointFile,checkpoint);}
 if(!checkpoint.source){
   // Publish source in one commit on the current remote history; large model binaries stay in the release artifact.
-  const sourceNames=['index.html','styles.css','app.js','player.js','model-files.js','layers.js','render.html','render.js','manifest.json','scene-backgrounds.json','README.md','package.json','package-lock.json','lark-sync.config.json','.gitignore','.nojekyll','.github/workflows/pages.yml'];
+  const sourceNames=['index.html','styles.css','app.js','player.js','atmosphere.js','assets/atmosphere-scenes.js','model-files.js','layers.js','render.html','render.js','manifest.json','scene-backgrounds.json','README.md','package.json','package-lock.json','lark-sync.config.json','.gitignore','.nojekyll','.github/workflows/pages.yml'];
   for(const path of Object.keys(files))if(path.startsWith('personas/')&&!/\.(png|webp|jpg|jpeg|zip)$/i.test(path))sourceNames.push(path);
   for(const dir of ['scripts','tests'])for(const file of await readdir(join(root,dir)))if(!file.startsWith('.'))sourceNames.push(`${dir}/${file}`);
   const head=JSON.parse(await run(gh,['api',`repos/${repo}/git/ref/heads/main`])).object.sha;

@@ -1,24 +1,35 @@
 import { resourcePath, references } from './model-files.js';
+import { AtmosphereStage, locateFace } from './atmosphere.js?v=20261019';
 
 export class ModelPlayer {
-  constructor(canvas, host, { layerInspector, onFinish, onError } = {}) {
+  constructor(canvas, host, { layerInspector, onFinish, onError, atmosphere = false, onLighting } = {}) {
     if (!window.PIXI?.live2d || !window.Live2DCubismCore) throw Error('Live2D 运行库加载失败。');
     PIXI.live2d.config.sound = false;
     this.canvas = canvas; this.host = host; this.layerInspector = layerInspector;
     this.onFinish = onFinish; this.onError = onError;
     this.app = new PIXI.Application({ view: canvas, backgroundAlpha: 0, antialias: true, resolution: Math.min(devicePixelRatio, 2), autoDensity: true, autoStart: false, preserveDrawingBuffer: true });
     this.app.stop(); this.app.ticker.maxFPS = 30;
+    if(atmosphere) {
+      this.atmosphere=new AtmosphereStage(this.app,{lighting:onLighting});
+      this.app.ticker.remove(this.app.render,this.app);
+      this.app.render=()=>this.checker?this.app.renderer.render(this.app.stage):this.atmosphere.render();
+      this.app.ticker.add(this.app.render,this.app,PIXI.UPDATE_PRIORITY.LOW);
+    }
+    this.focusSize=1;
     this.speed = 1; this.zoom = 1; this.paused = true; this.interaction = true; this.generation = 0; this.motionGeneration = 0;
     this.app.ticker.add(() => {
-      if (!this.model || this.paused || document.hidden) return;
+      if(document.hidden)return;
+      if(this.atmosphere) {this.atmosphere.update(Math.min(this.app.ticker.deltaMS,80)/1000);this.fit();}
+      if (!this.model || this.paused) return;
       try { this.model.update(Math.min(this.app.ticker.deltaMS, 80) * this.speed); }
       catch (e) { this.pause(true); this.onError?.(e); }
     });
     this.resizeObserver = new ResizeObserver(() => this.resize()); this.resizeObserver.observe(host);
-    this.visibility = () => { if (document.hidden) this.app.stop(); else if (!this.paused && this.model) this.app.start(); };
+    this.visibility = () => { if (document.hidden) this.app.stop(); else if ((!this.paused||this.atmosphere) && this.model) this.app.start(); };
     document.addEventListener('visibilitychange', this.visibility);
-    this.pointer = e => { if (this.model && this.interaction) { const r=this.canvas.getBoundingClientRect(); this.model.focus((e.clientX-r.left)*this.app.screen.width/r.width,(e.clientY-r.top)*this.app.screen.height/r.height); } };
-    this.pointerLeave = () => { if (this.model) this.model.internalModel.focusController.focus(0,0); };
+    this.pointer = e => { if (this.model && this.interaction) { const r=this.canvas.getBoundingClientRect(); this.model.focus((e.clientX-r.left)*this.app.screen.width/r.width,(e.clientY-r.top)*this.app.screen.height/r.height);
+      if(this.atmosphere)this.atmosphere.gaze=[(e.clientX-r.left)/r.width*2-1,(e.clientY-r.top)/r.height*2-1]; } };
+    this.pointerLeave = () => { if(this.atmosphere)this.atmosphere.gaze=[0,0]; if (this.model) this.model.internalModel.focusController.focus(0,0); };
     host.addEventListener('pointermove', this.pointer); host.addEventListener('pointerleave', this.pointerLeave);
   }
 
@@ -57,7 +68,7 @@ export class ModelPlayer {
       if (ticket !== this.generation) { candidate.destroy({ texture: true, baseTexture: true }); blobURLs.forEach(URL.revokeObjectURL); return null; }
       this.model = candidate; this.manifest = manifest; this.urls = blobURLs; this.resources = urls;
       this.app.stage.addChild(candidate); this.physics = candidate.internalModel.physics;
-      this.bounds = measure(candidate); this.zoom = 1; this.resize();
+      this.bounds = measure(candidate); this.face = this.atmosphere ? locateFace(candidate,this.bounds) : null; this.zoom = 1; this.resize();
       this.layerInspector?.attach(candidate, fingerprint, manifest, ref => urls.get(ref));
       candidate.internalModel.motionManager.on('motionFinish', () => this.onFinish?.());
       this.pause(false); this.render();
@@ -96,24 +107,35 @@ export class ModelPlayer {
     return true;
   }
 
-  pause(value) { this.paused = value; if (value || document.hidden || !this.model) this.app.stop(); else this.app.start(); this.render(); }
+  pause(value) { this.paused = value; if ((value&&!this.atmosphere) || document.hidden || !this.model) this.app.stop(); else this.app.start(); this.render(); }
   setPhysics(enabled) { if (this.model) this.model.internalModel.physics = enabled ? this.physics : undefined; }
   resize() { const w = this.host.clientWidth, h = this.host.clientHeight; if (w > 0 && h > 0) this.app.renderer.resize(w, h); this.fit(); this.render(); }
   fit() {
     if (!this.model || !this.bounds) return;
     const { width: w, height: h } = this.app.screen, b = this.bounds;
-    const scale = Math.min(w * .86 / b.width, h * .87 / b.height) * this.zoom;
-    this.model.scale.set(scale); this.model.position.set(w / 2 - (b.left + b.width / 2) * scale, h / 2 - (b.top + b.height / 2) * scale);
+    const full = Math.min(w * .86 / b.width, h * .87 / b.height), f=this.atmosphere?.progress||0;
+    const centerX=b.left+b.width/2,centerY=b.top+b.height/2;
+    let close=full,x=centerX,y=centerY;
+    if(this.face) {
+      const face=this.face,rx=Math.max(face.x-face.head.left,face.head.right-face.x,1),ry=Math.max(face.y-face.head.top,face.head.bottom-face.y,1);
+      close=Math.min(w*.28/rx,h*.225/ry)*this.focusSize;x=face.x;y=face.y;
+    }
+    const scale=(full+(close-full)*f)*this.zoom;
+    this.model.scale.set(scale);
+    this.model.position.set((w/2-centerX*full*this.zoom)*(1-f)+(w/2-x*close*this.zoom)*f,
+      (h/2-centerY*full*this.zoom)*(1-f)+(h*.46-y*close*this.zoom)*f);
   }
+  setFocus(enabled) { if(this.atmosphere)this.atmosphere.focusTarget=enabled?1:0; }
+
   render() { if (this.model) this.app.render(); }
   poster() { this.render(); return this.canvas.toDataURL('image/png'); }
   release() {
-    ++this.generation; ++this.motionGeneration; this.app.stop(); this.paused = true; this.layerInspector?.detach();
+    ++this.generation; ++this.motionGeneration; if(this.atmosphere)++this.atmosphere.backgroundTicket; this.app.stop(); this.paused = true; this.layerInspector?.detach();
     if (this.model) { this.app.stage.removeChild(this.model); this.model.destroy({ children: true, texture: true, baseTexture: true }); }
-    this.model = null; this.bounds = null; this.manifest = null; this.physics = null;
+    this.model = null; this.bounds = null; this.face = null; this.manifest = null; this.physics = null;
     (this.urls || []).forEach(URL.revokeObjectURL); this.urls = []; this.app.renderer.clear();
   }
-  destroy() { this.release(); this.resizeObserver.disconnect(); document.removeEventListener('visibilitychange', this.visibility); this.host.removeEventListener('pointermove', this.pointer); this.host.removeEventListener('pointerleave', this.pointerLeave); this.app.destroy(false, { children: true }); }
+  destroy() { this.release(); this.resizeObserver.disconnect(); document.removeEventListener('visibilitychange', this.visibility); this.host.removeEventListener('pointermove', this.pointer); this.host.removeEventListener('pointerleave', this.pointerLeave); this.atmosphere?.destroy(); this.app.destroy(false, { children: true }); }
 }
 
 function measure(model) {

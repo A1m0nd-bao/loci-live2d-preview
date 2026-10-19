@@ -31,7 +31,8 @@ try{
   await page.locator('.preview').first().click();await page.waitForFunction(()=>document.querySelector('#stageState').textContent==='LIVE2D',{timeout:30000});
   assert((await page.locator('#group option').count())>0);assert((await page.locator('#layers li').count())>20);
   const frameA=await page.locator('#detailCanvas').screenshot();await page.waitForTimeout(350);const frameB=await page.locator('#detailCanvas').screenshot();assert(!frameA.equals(frameB));report.push('Detail renders and moves with actual Live2D model');
-  await page.locator('#pause').click();const pausedA=await page.locator('#detailCanvas').screenshot();await page.waitForTimeout(350);const pausedB=await page.locator('#detailCanvas').screenshot();assert(pausedA.equals(pausedB));report.push('Pause freezes canvas pixels');
+  await page.locator('#checker').click(); // Isolate character pixels from the animated atmosphere.
+  await page.locator('#pause').click();const pausedA=await page.locator('#detailCanvas').screenshot();await page.waitForTimeout(350);const pausedB=await page.locator('#detailCanvas').screenshot();assert(pausedA.equals(pausedB));report.push('Pause freezes character pixels in transparent mode');await page.locator('#checker').click();
   await page.locator('#speed').selectOption('2');await page.locator('#loop').uncheck();await page.locator('#physics').uncheck();await page.locator('#interaction').uncheck();
   await page.locator('#zoom').evaluate(el=>{el.value='140';el.dispatchEvent(new Event('input'));});assert.equal(await page.locator('#zoomValue').textContent(),'140%');await page.locator('#fit').click();assert.equal(await page.locator('#zoomValue').textContent(),'100%');
   await page.locator('#checker').click();assert((await page.locator('#stage').getAttribute('class')).includes('checker'));

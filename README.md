@@ -96,3 +96,15 @@ fflate and Lucide are vendored with their licenses. Cubism Core is subject to Li
 redistribution rights for the supplied runtime and models must be maintained by the asset owner.
 This is the supplied classic Cubism WebGL pipeline, not a guarantee of support for every newer
 Cubism renderer feature. Missing/corrupt resources show a visible error with recovery via another model.
+
+## 2026-10-19：光影实验室预览
+
+详情弹窗加入辉光、约 0.7 秒推进的专注模式、面部自动取景、背景柔焦及自定义图片环境光适配。保留角色库、悬停预览、动作/表情、播放速度、物理、透明棋盘、图层排序和下载。悬停和封面生成仍使用原始轻量渲染；只有详情启用 GPU 后期。
+
+场景菜单新增月下回廊、晨光温室、雨夜书房，原八张场景继续可选并自动分析环境色、亮度与亮区方向。支持加载本机背景，控制辉光、环境光匹配强度、±1 EV 亮度、冷暖、主光方向和近景角色大小；换背景重置光照微调。暂停冻结角色，背景效果与专注控制继续工作；关闭弹窗释放模型并停止渲染。透明棋盘模式直接显示透明角色，不合成光影背景。
+
+`atmosphere.js` 复用当前 PixiJS 运行库，没有新增运行时依赖。离屏纹理最大边长 1600 像素，辉光为四分之一宽高，背景预模糊纹理最大边长 512 像素；环境分析只保留最大边长 128 像素的样本。三张实验室背景压缩并内嵌于 `assets/atmosphere-scenes.js`，支持本站 CSP。环境光是 LDR 图像的二维美术估算，不生成真实三维阴影。特殊模型命名/布局或新版 Cubism 特殊混合功能仍需单独验证。
+
+发布流程继续从 Release 下载原有角色资源，再将当前提交的前端代码与 assets 覆盖进发布目录；因此同步光影功能不需要重新上传全部模型，也不会替换角色清单、原场景图片或档案。`scripts/publish-release.mjs` 同时包含新模块，后续发布资源包也能携带此功能。
+
+计算与播放器检查：`node --test tests/atmosphere.test.mjs tests/player.test.mjs tests/packages.test.mjs tests/delivery-identity.test.mjs`。完整的 `tests/character-scenes.test.mjs` 需要先准备 Release 中的角色插图和原场景 PNG；它们不保存在 Git 源码里。

@@ -8,3 +8,10 @@
 @media(max-width:900px){.collection-nav{padding:0 24px;gap:24px}}
 @media(max-width:600px){.collection-nav{padding:0 16px;gap:12px}.collection-nav a{font-size:11px;gap:5px}.collection-nav svg{width:14px;height:14px}}
 .library-stats{flex-shrink:0}.library-stats>span{white-space:nowrap}.stage:has(.scene-image:not([hidden])) .stage-info span{background:#14101ed9;color:var(--ink);padding:3px 6px;border-radius:3px}
+
+/* Atmosphere is scoped to the detail player; library cards keep their renderer. */
+.stage .focus-button{position:absolute;right:18px;top:18px;z-index:3;border-radius:24px;background:#16131a70;backdrop-filter:blur(12px);border-color:#ffffff30;font-size:12px}
+.stage .focus-button[aria-pressed=true]{border-color:var(--lavender);background:#392c4b90}
+.atmosphere-note,.lighting-summary{font-size:11px;line-height:1.7;margin:0 0 14px;overflow-wrap:anywhere}
+.background-import{display:flex;margin:0 0 16px;cursor:pointer}.detail-sidebar input[type=range]{width:100%}.detail-sidebar output{float:right}.focus-size{margin-top:18px}
+@media(max-width:600px){.stage .focus-button{top:12px;right:12px;font-size:11px}.preview-column:has(#focus[aria-pressed=true]){height:580px}}

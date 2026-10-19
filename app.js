@@ -1,4 +1,4 @@
-import { ModelPlayer } from './player.js';
+import { ModelPlayer } from './player.js?v=20261019';
 import { unzipPackage, inspectModel } from './model-files.js';
 
 const $ = id => document.getElementById(id);
@@ -6,7 +6,7 @@ let remoteItems = [], localItems = [], view = localStorage.getItem('live2d-view'
 let detailPlayer, hoverPlayer, detailItem, detailGeneration = 0, hoverGeneration = 0, hoverTarget, hoverTimer, toastTimer;
 let playbackGeneration = 0, motionPending = false;
 const posters = new Map();
-const sceneBackgrounds = new Map();
+const sceneBackgrounds = new Map([['lab-moon',{id:'lab-moon',name:'月下回廊 · 光影实验室',image:bundledScenes.moon,preset:'moon'}],['lab-dawn',{id:'lab-dawn',name:'晨光温室 · 光影实验室',image:bundledScenes.dawn,preset:'dawn'}],['lab-rain',{id:'lab-rain',name:'雨夜书房 · 光影实验室',image:bundledScenes.rain,preset:'rain'}]]);
 const archivedCharacters = new Set();
 let sceneGeneration = 0;
 const layerInspector = new LayerInspector(() => detailPlayer?.render());
@@ -30,22 +30,44 @@ async function loadCharacterArchive() {
   } catch { /* Character resources must not block model playback. */ }
 }
 async function loadSceneBackgrounds() {
+  refreshSceneMenu();
   try {
     const response=await fetch('scene-backgrounds.json');if(!response.ok)throw Error('场景清单读取失败');
     const data=await response.json();if(!Array.isArray(data.items))throw Error('场景清单格式无效');
     for(const scene of data.items){const url=new URL(scene.image,location.href);if(url.origin!==location.origin)throw Error('场景资源必须位于本站');sceneBackgrounds.set(scene.id,{...scene,image:url.href});}
-    options($('detailScene'),[['','无场景'],...Array.from(sceneBackgrounds.values(),scene=>[scene.id,scene.name])]);$('detailScene').disabled=false;
+    refreshSceneMenu();
   }catch(error){$('detailScene').title=error.message;}
+}
+function refreshSceneMenu() {
+  const selected=$('detailScene').value;
+  options($('detailScene'),[['','纯色背景'],...Array.from(sceneBackgrounds.values(),scene=>[scene.id,scene.name])]);
+  $('detailScene').value=sceneBackgrounds.has(selected)?selected:'lab-moon';$('detailScene').disabled=false;
 }
 function clearSceneBackground(){++sceneGeneration;$('detailScene').value='';$('sceneImage').hidden=true;$('sceneImage').removeAttribute('src');}
 async function applySceneBackground(){
+  const fx=detailPlayer?.atmosphere;if(!fx)return;
   const scene=sceneBackgrounds.get($('detailScene').value),ticket=++sceneGeneration;
-  if(!scene){clearSceneBackground();return;}
+  if(!scene){fx.solid($('detailBg').value);detailPlayer.checker=false;$('stage').classList.remove('checker');$('checker').setAttribute('aria-pressed','false');refreshLightControls();return;}
   try{
-    const image=new Image();image.src=scene.image;await image.decode();if(ticket!==sceneGeneration)return;
-    $('sceneImage').src=scene.image;$('sceneImage').alt=scene.name;$('sceneImage').hidden=false;
-    $('stage').classList.remove('checker');$('checker').setAttribute('aria-pressed','false');
-  }catch{if(ticket===sceneGeneration){clearSceneBackground();toast('场景图片加载失败，请重试。');}}
+    const loaded=await fx.loadBackground(scene.file?URL.createObjectURL(scene.file):scene.image,scene.preset||'custom',scene.name,!!scene.file);
+    if(!loaded||ticket!==sceneGeneration)return;
+    detailPlayer.checker=false;$('stage').classList.remove('checker');$('checker').setAttribute('aria-pressed','false');
+    $('sceneImage').hidden=true;refreshLightControls();
+  }catch{if(ticket===sceneGeneration)toast('场景图片加载失败，已保留当前背景。');}
+}
+function refreshLightControls(){
+  const fx=detailPlayer?.atmosphere;if(!fx)return;const s=fx.settings;
+  $('lightingEnabled').checked=s.enabled;
+  for(const [id,key,factor] of [['lightStrength','strength',100],['exposure','exposure',100],['warmth','warmth',100],['lightDirection','direction',1]]) {
+    $(id).value=String(s[key]*factor);$(id).disabled=!s.enabled;
+  }
+  $('lightingSummary').textContent=detailPlayer.checker?'透明棋盘 · 光影效果暂不合成':!s.enabled?'环境光匹配已关闭':fx.targetProfile?.summary||'正在分析背景…';
+  $('bloomValue').textContent=Math.round(fx.bloom*100)+'%';
+}
+function resetFocus(){
+  detailPlayer?.setFocus(false);
+  if(detailPlayer?.atmosphere){detailPlayer.atmosphere.focus=0;detailPlayer.focusSize=1;}
+  $('focus').textContent='专注模式';$('focus').setAttribute('aria-pressed','false');$('focusSize').value='100';
 }
 function filtered() {
   const query = $('search').value.trim().toLocaleLowerCase();
@@ -148,8 +170,12 @@ async function openDetail(item) {
   if (!$('detailDialog').open) $('detailDialog').showModal();
   const url = new URL(location.href); if (item.localFiles) url.searchParams.delete('model'); else url.searchParams.set('model', item.id); history.replaceState(null, '', url);
   try {
-    if (!detailPlayer) detailPlayer = new ModelPlayer($('detailCanvas'), $('stage'), { layerInspector, onFinish: () => { if ($('loop').checked && !detailPlayer.paused && !motionPending && $('detailDialog').open) void playSelected(); }, onError: showDetailError });
+    if (!detailPlayer) detailPlayer = new ModelPlayer($('detailCanvas'), $('stage'), { layerInspector, atmosphere:true, onLighting:text=>{$('lightingSummary').textContent=detailPlayer?.checker?'透明棋盘 · 光影效果暂不合成':text;}, onFinish: () => { if ($('loop').checked && !detailPlayer.paused && !motionPending && $('detailDialog').open) void playSelected(); }, onError: showDetailError });
+    resetFocus();
     const manifest = await detailPlayer.load(item); if (!manifest || ticket !== detailGeneration) return;
+    detailPlayer.checker=$('stage').classList.contains('checker');
+    if(!detailPlayer.checker)await applySceneBackground();
+    if(ticket!==detailGeneration)return;
     const groups = Object.entries(manifest.FileReferences.Motions || {}).filter(([,a]) => a.length);
     options($('group'), groups.length ? groups.map(([g,a]) => [g, `${g} · ${a.length}`]) : [['','无动作']]);
     const group = defaultGroup(item, manifest); if (group) $('group').value = group;
@@ -166,7 +192,7 @@ async function openDetail(item) {
     if (group) await playSelected();
   } catch (e) { if (ticket === detailGeneration) showDetailError(e); }
 }
-function enableControls(enabled) { for (const id of ['pause','replay','speed','loop','zoom','fit','group','motion','expression','interaction','physics']) $(id).disabled = !enabled; }
+function enableControls(enabled) { for (const id of ['pause','replay','speed','loop','zoom','fit','group','motion','expression','interaction','physics','focus','focusSize']) $(id).disabled = !enabled; }
 function showDetailError(e) { $('detailError').textContent = e.message || String(e); $('detailError').hidden = false; $('stageMessage').textContent = '角色加载失败'; $('stageMessage').hidden = false; $('stageState').textContent = 'ERROR'; enableControls(false); }
 function setMotions() { const list = detailPlayer?.manifest?.FileReferences.Motions?.[$('group').value] || []; options($('motion'),list.length ? list.map((m,i)=>[String(i),m.Name || m.File.split('/').pop()]) : [['','无动作']]); $('motion').disabled=!list.length; $('group').disabled=!list.length; $('replay').disabled=!list.length; $('loop').disabled=!list.length; $('playing').textContent=list.length ? `${list.length} 个动作` : '静态模型'; }
 async function playSelected({ resume = false } = {}) {
@@ -184,7 +210,7 @@ async function playSelected({ resume = false } = {}) {
 }
 function setPause(value) { detailPlayer.pause(value); $('pause').replaceChildren(icon(value?'play':'pause')); $('pause').title=value?'播放':'暂停'; $('pause').setAttribute('aria-label',value?'播放':'暂停'); icons(); $('stageState').textContent=value?'PAUSED':'LIVE2D'; }
 function closeDetail() { $('detailDialog').close(); }
-$('detailDialog').addEventListener('close',()=>{++detailGeneration;++playbackGeneration;motionPending=false;detailPlayer?.release();detailItem=null;const url=new URL(location.href);url.searchParams.delete('model');history.replaceState(null,'',url);});
+$('detailDialog').addEventListener('close',()=>{++detailGeneration;++playbackGeneration;motionPending=false;++sceneGeneration;detailPlayer?.release();detailItem=null;const url=new URL(location.href);url.searchParams.delete('model');history.replaceState(null,'',url);});
 $('detailClose').onclick=closeDetail;
 $('pause').onclick=()=>{const resume=detailPlayer.paused;setPause(!resume);if(resume&&!motionPending&&detailPlayer.model.internalModel.motionManager.isFinished())void playSelected();};
 $('replay').onclick=()=>void playSelected({resume:true});
@@ -197,8 +223,23 @@ $('zoom').oninput=()=>{detailPlayer.zoom=Number($('zoom').value)/100;detailPlaye
 $('fit').onclick=()=>{$('zoom').value='100';$('zoom').oninput();};
 $('previewBg').oninput=()=>{document.documentElement.style.setProperty('--preview-bg',$('previewBg').value);$('previewBgLabel').textContent=$('previewBg').value.toUpperCase();};
 $('detailScene').onchange=()=>void applySceneBackground();
-$('detailBg').oninput=()=>{clearSceneBackground();$('stage').style.backgroundColor=$('detailBg').value;$('detailBgLabel').textContent=$('detailBg').value.toUpperCase();$('stage').classList.remove('checker');$('checker').setAttribute('aria-pressed','false');};
-$('checker').onclick=()=>{clearSceneBackground();$('stage').classList.toggle('checker');$('checker').setAttribute('aria-pressed',String($('stage').classList.contains('checker')));};
+$('detailBg').oninput=()=>{clearSceneBackground();if(detailPlayer?.atmosphere){detailPlayer.checker=false;detailPlayer.atmosphere.solid($('detailBg').value);refreshLightControls();}$('stage').style.backgroundColor=$('detailBg').value;$('detailBgLabel').textContent=$('detailBg').value.toUpperCase();$('stage').classList.remove('checker');$('checker').setAttribute('aria-pressed','false');};
+$('checker').onclick=()=>{clearSceneBackground();const enabled=$('stage').classList.toggle('checker');$('checker').setAttribute('aria-pressed',String(enabled));if(detailPlayer){detailPlayer.checker=enabled;if(!enabled)detailPlayer.atmosphere.solid($('detailBg').value);detailPlayer.render();refreshLightControls();}};
+$('focus').onclick=()=>{const enabled=!!detailPlayer?.atmosphere&&!detailPlayer.atmosphere.focusTarget;detailPlayer?.setFocus(enabled);$('focus').textContent=enabled?'返回全身':'专注模式';$('focus').setAttribute('aria-pressed',String(enabled));};
+$('focusSize').oninput=()=>{if(detailPlayer){detailPlayer.focusSize=Number($('focusSize').value)/100;detailPlayer.fit();detailPlayer.render();}};
+$('bloom').oninput=()=>{if(detailPlayer?.atmosphere){detailPlayer.atmosphere.bloom=Number($('bloom').value)/100;$('bloomValue').textContent=$('bloom').value+'%';}};
+for(const id of ['lightingEnabled','lightStrength','exposure','warmth','lightDirection'])$(id).oninput=()=>{
+  if(!detailPlayer?.atmosphere)return;
+  detailPlayer.atmosphere.settings={enabled:$('lightingEnabled').checked,strength:Number($('lightStrength').value)/100,exposure:Number($('exposure').value)/100,warmth:Number($('warmth').value)/100,direction:Number($('lightDirection').value)};refreshLightControls();
+};
+$('resetLighting').onclick=()=>{if(detailPlayer?.atmosphere){detailPlayer.atmosphere.settings={enabled:true,strength:1,exposure:0,warmth:0,direction:0};refreshLightControls();}};
+$('backgroundImage').onchange=async event=>{
+  const file=event.target.files[0];event.target.value='';if(!file)return;
+  const prior=$('detailScene').value,old=sceneBackgrounds.get('upload');
+  sceneBackgrounds.set('upload',{id:'upload',name:file.name,file});refreshSceneMenu();$('detailScene').value='upload';
+  const before=detailPlayer?.atmosphere?.texture;await applySceneBackground();
+  if(detailPlayer?.atmosphere?.texture===before){if(old)sceneBackgrounds.set('upload',old);else sceneBackgrounds.delete('upload');refreshSceneMenu();$('detailScene').value=prior;}
+};
 $('hoverPlay').onchange=()=>{if(!$('hoverPlay').checked)stopHover();};
 for(const id of ['search','category','source','sort'])$(id).addEventListener(id==='search'?'input':'change',render);
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;localStorage.setItem('live2d-view',view);render();});
