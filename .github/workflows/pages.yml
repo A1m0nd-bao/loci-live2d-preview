@@ -33,8 +33,11 @@ jobs:
           RELEASE_TAG: ${{ inputs.release_tag }}
           ACTION_OVERLAY_TAG: ${{ inputs.action_overlay_tag }}
         run: |
-          if [ -z "$ACTION_OVERLAY_TAG" ] && [ -f action-overlay.json ]; then
-            ACTION_OVERLAY_TAG="$(python3 -c 'import json,os; d=json.load(open("action-overlay.json")); print(d["releaseTag"] if d["baseRelease"] == os.environ["RELEASE_TAG"] else "")')"
+          # Explicit rejection takes precedence over an old manually supplied tag.
+          if [ -f action-overlay.json ] && ! python3 -c 'import json; assert json.load(open("action-overlay.json")).get("enabled",False)'; then
+            ACTION_OVERLAY_TAG=""
+          elif [ -z "$ACTION_OVERLAY_TAG" ] && [ -f action-overlay.json ]; then
+            ACTION_OVERLAY_TAG="$(python3 -c 'import json,os; d=json.load(open("action-overlay.json")); print(d["releaseTag"] if d.get("enabled",False) and d["baseRelease"] == os.environ["RELEASE_TAG"] else "")')"
           fi
           gh release download "$RELEASE_TAG" --pattern 'live2d-site.zip.part-*' --dir "$RUNNER_TEMP"
           cat "$RUNNER_TEMP"/live2d-site.zip.part-* > "$RUNNER_TEMP/live2d-site.zip"
@@ -52,7 +55,7 @@ jobs:
             unzip -q "$archive" -d "_site/models/$package_id"
           done
           if [ -f wave-trial.json ]; then
-            WAVE_TRIAL_TAG="$(python3 -c 'import json,os; d=json.load(open("wave-trial.json")); print(d["releaseTag"] if d["baseRelease"] == os.environ["RELEASE_TAG"] else "")')"
+            WAVE_TRIAL_TAG="$(python3 -c 'import json,os; d=json.load(open("wave-trial.json")); print(d["releaseTag"] if d.get("enabled",False) and d["baseRelease"] == os.environ["RELEASE_TAG"] else "")')"
             if [ -n "$WAVE_TRIAL_TAG" ]; then
               mkdir -p "$RUNNER_TEMP/wave-trial"
               gh release download "$WAVE_TRIAL_TAG" --pattern 'wave-trial.zip.part-*' --dir "$RUNNER_TEMP/wave-trial"
@@ -70,6 +73,8 @@ jobs:
           cp -R assets/. _site/assets/
       - name: Verify complete library and scoped action overlay
         run: python3 scripts/verify-pages-library.py _site
+      - name: Verify restored original-100 package hashes
+        run: python3 scripts/verify-restored-library.py _site
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

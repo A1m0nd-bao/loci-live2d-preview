@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-19T08:24:43.000Z",
+  "updatedAt": "2026-10-15T07:50:55.138Z",
   "sheetUrl": "https://mcn5p3adfjf6.feishu.cn/wiki/SpgdwxnAti5561kkv9QcvHpFnUg?sheet=Pe5YtS",
   "items": [
     {
@@ -883,12 +883,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-13T03:00:49.684Z",
-      "size": 1706428,
+      "size": 1702464,
       "packageId": "52b6911914df6cd1",
-      "poster": "./posters/52b6911914df6cd1-3877b365.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/52b6911914df6cd1-3877b365.png"
     },
     {
       "textureCount": 37,
@@ -930,12 +929,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-13T03:00:46.843Z",
-      "size": 1554237,
+      "size": 1550236,
       "packageId": "2e556e76352778ec",
-      "poster": "./posters/2e556e76352778ec-1f3daa06.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/2e556e76352778ec-1f3daa06.png"
     },
     {
       "textureCount": 38,
@@ -977,12 +975,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-13T03:00:44.398Z",
-      "size": 1635404,
+      "size": 1630410,
       "packageId": "30a6d1472956750b",
-      "poster": "./posters/30a6d1472956750b-3dcbb254.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/30a6d1472956750b-3dcbb254.png"
     },
     {
       "textureCount": 40,
@@ -1024,12 +1021,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-13T03:00:42.396Z",
-      "size": 3196749,
+      "size": 3191588,
       "packageId": "e2d5ab7684986e98",
-      "poster": "./posters/e2d5ab7684986e98-7af1963b.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/e2d5ab7684986e98-7af1963b.png"
     },
     {
       "textureCount": 36,
@@ -1071,12 +1067,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-13T03:00:39.083Z",
-      "size": 1697310,
+      "size": 1694834,
       "packageId": "d455d3ac92c6cce5",
-      "poster": "./posters/d455d3ac92c6cce5-e2b7f93d.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/d455d3ac92c6cce5-e2b7f93d.png"
     },
     {
       "textureCount": 37,
@@ -1118,12 +1113,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-13T03:00:34.792Z",
-      "size": 1473807,
+      "size": 1470102,
       "packageId": "9e8ad6ab40d7868a",
-      "poster": "./posters/9e8ad6ab40d7868a-6fefdd61.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/9e8ad6ab40d7868a-6fefdd61.png"
     },
     {
       "textureCount": 38,
@@ -1165,12 +1159,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-13T03:00:32.156Z",
-      "size": 1900644,
+      "size": 1896714,
       "packageId": "cad86f562f8d7137",
-      "poster": "./posters/cad86f562f8d7137-5d43853e.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/cad86f562f8d7137-5d43853e.png"
     },
     {
       "textureCount": 38,
@@ -1212,12 +1205,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-13T03:00:29.982Z",
-      "size": 1456048,
+      "size": 1452556,
       "packageId": "fa835cb85e0777cb",
-      "poster": "./posters/fa835cb85e0777cb-c5841143.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/fa835cb85e0777cb-c5841143.png"
     },
     {
       "textureCount": 40,
@@ -1259,12 +1251,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-13T03:00:27.487Z",
-      "size": 3493966,
+      "size": 3486824,
       "packageId": "aa9fe46e96a5867c",
-      "poster": "./posters/aa9fe46e96a5867c-1290ec29.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/aa9fe46e96a5867c-1290ec29.png"
     },
     {
       "textureCount": 37,
@@ -1306,12 +1297,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-13T03:00:21.315Z",
-      "size": 1822866,
+      "size": 1818901,
       "packageId": "4db152329d91985d",
-      "poster": "./posters/4db152329d91985d-2dc3e61e.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/4db152329d91985d-2dc3e61e.png"
     },
     {
       "textureCount": 35,
@@ -1352,12 +1342,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "20261012 修正版；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:26:09.210Z",
-      "size": 1294549,
+      "size": 1291240,
       "packageId": "29976ffc219c08be",
-      "poster": "./posters/29976ffc219c08be-d47a1edb.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/29976ffc219c08be-d47a1edb.png"
     },
     {
       "textureCount": 35,
@@ -1398,12 +1387,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "20261012 修正版；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:26:07.755Z",
-      "size": 1648403,
+      "size": 1642384,
       "packageId": "8e76ec549bad25ad",
-      "poster": "./posters/8e76ec549bad25ad-c5f98737.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/8e76ec549bad25ad-c5f98737.png"
     },
     {
       "textureCount": 38,
@@ -1444,12 +1432,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "20261012 修正版；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:26:06.547Z",
-      "size": 1645217,
+      "size": 1641828,
       "packageId": "2b386d0c7a60ba27",
-      "poster": "./posters/2b386d0c7a60ba27-c74a60d9.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/2b386d0c7a60ba27-c74a60d9.png"
     },
     {
       "textureCount": 38,
@@ -1490,12 +1477,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "20261012 修正版；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:26:05.139Z",
-      "size": 1412692,
+      "size": 1408709,
       "packageId": "c00279066b8b93af",
-      "poster": "./posters/c00279066b8b93af-97903a4f.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/c00279066b8b93af-97903a4f.png"
     },
     {
       "textureCount": 36,
@@ -1536,12 +1522,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "20261012 修正版；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:26:03.976Z",
-      "size": 1477514,
+      "size": 1473697,
       "packageId": "0d01e0ae616de963",
-      "poster": "./posters/0d01e0ae616de963-d7849dbb.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/0d01e0ae616de963-d7849dbb.png"
     },
     {
       "textureCount": 35,
@@ -1582,12 +1567,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "20261012 修正版；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:26:02.887Z",
-      "size": 1441875,
+      "size": 1437382,
       "packageId": "ffe8a770a2bfdc70",
-      "poster": "./posters/ffe8a770a2bfdc70-10d04fdd.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/ffe8a770a2bfdc70-10d04fdd.png"
     },
     {
       "textureCount": 35,
@@ -1628,12 +1612,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "20261012 修正版；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:26:01.837Z",
-      "size": 1438147,
+      "size": 1434193,
       "packageId": "e6b0139552e551f6",
-      "poster": "./posters/e6b0139552e551f6-1daeb619.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/e6b0139552e551f6-1daeb619.png"
     },
     {
       "textureCount": 33,
@@ -1674,12 +1657,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "20261012 修正版；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:26:00.436Z",
-      "size": 1318083,
+      "size": 1313109,
       "packageId": "272fb08653943593",
-      "poster": "./posters/272fb08653943593-65b7cc95.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/272fb08653943593-65b7cc95.png"
     },
     {
       "textureCount": 38,
@@ -1720,12 +1702,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "20261012 修正版；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:25:59.312Z",
-      "size": 2713681,
+      "size": 2706454,
       "packageId": "f6f0d9fc820d3c5b",
-      "poster": "./posters/f6f0d9fc820d3c5b-e92ca73e.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/f6f0d9fc820d3c5b-e92ca73e.png"
     },
     {
       "textureCount": 38,
@@ -1766,12 +1747,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "20261012 修正版；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:25:58.125Z",
-      "size": 1990256,
+      "size": 1986194,
       "packageId": "656a3d2ae74ac46e",
-      "poster": "./posters/656a3d2ae74ac46e-f7807d57.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/656a3d2ae74ac46e-f7807d57.png"
     },
     {
       "textureCount": 37,
@@ -1812,12 +1792,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "20261012 修正版；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:25:56.724Z",
-      "size": 1346768,
+      "size": 1343580,
       "packageId": "a76ac893a9d43afb",
-      "poster": "./posters/a76ac893a9d43afb-3133eeea.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/a76ac893a9d43afb-3133eeea.png"
     },
     {
       "textureCount": 36,
@@ -1858,12 +1837,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:25:55.641Z",
-      "size": 1444229,
+      "size": 1441349,
       "packageId": "166b19da913003ac",
-      "poster": "./posters/166b19da913003ac-3877b365.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/166b19da913003ac-3877b365.png"
     },
     {
       "textureCount": 35,
@@ -1904,12 +1882,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:25:54.537Z",
-      "size": 1648116,
+      "size": 1642146,
       "packageId": "c2ef45daf89a2d46",
-      "poster": "./posters/c2ef45daf89a2d46-1f3daa06.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/c2ef45daf89a2d46-1f3daa06.png"
     },
     {
       "textureCount": 40,
@@ -1950,12 +1927,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:25:53.489Z",
-      "size": 1567596,
+      "size": 1564525,
       "packageId": "9f0a9017a8a79f61",
-      "poster": "./posters/9f0a9017a8a79f61-3dcbb254.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/9f0a9017a8a79f61-3dcbb254.png"
     },
     {
       "textureCount": 39,
@@ -1996,12 +1972,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:25:51.987Z",
-      "size": 1871848,
+      "size": 1868974,
       "packageId": "9720eb6fa8b18a2e",
-      "poster": "./posters/9720eb6fa8b18a2e-7af1963b.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/9720eb6fa8b18a2e-7af1963b.png"
     },
     {
       "textureCount": 35,
@@ -2042,12 +2017,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:25:50.807Z",
-      "size": 1560580,
+      "size": 1556303,
       "packageId": "87bd71498f6ddadb",
-      "poster": "./posters/87bd71498f6ddadb-e2b7f93d.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/87bd71498f6ddadb-e2b7f93d.png"
     },
     {
       "textureCount": 36,
@@ -2088,12 +2062,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:25:49.447Z",
-      "size": 1136359,
+      "size": 1132936,
       "packageId": "b7dc00eba96e4891",
-      "poster": "./posters/b7dc00eba96e4891-6fefdd61.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/b7dc00eba96e4891-6fefdd61.png"
     },
     {
       "textureCount": 34,
@@ -2134,12 +2107,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:25:48.301Z",
-      "size": 1394547,
+      "size": 1391132,
       "packageId": "f5f2a02d4b8ed43d",
-      "poster": "./posters/f5f2a02d4b8ed43d-5d43853e.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/f5f2a02d4b8ed43d-5d43853e.png"
     },
     {
       "textureCount": 39,
@@ -2180,12 +2152,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:25:47.230Z",
-      "size": 1783590,
+      "size": 1779076,
       "packageId": "6bf46198ced07262",
-      "poster": "./posters/6bf46198ced07262-c5841143.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/6bf46198ced07262-c5841143.png"
     },
     {
       "textureCount": 36,
@@ -2226,12 +2197,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:25:45.875Z",
-      "size": 4157404,
+      "size": 4147009,
       "packageId": "abb67f1413fe4e8e",
-      "poster": "./posters/abb67f1413fe4e8e-1290ec29.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/abb67f1413fe4e8e-1290ec29.png"
     },
     {
       "textureCount": 36,
@@ -2272,12 +2242,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T16:25:44.125Z",
-      "size": 1843162,
+      "size": 1839101,
       "packageId": "0f0e76566b18e6af",
-      "poster": "./posters/0f0e76566b18e6af-2dc3e61e.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/0f0e76566b18e6af-2dc3e61e.png"
     },
     {
       "textureCount": 35,
@@ -2319,12 +2288,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:41.670Z",
-      "size": 2115587,
+      "size": 2110336,
       "packageId": "aae27e8909a13762",
-      "poster": "./posters/aae27e8909a13762-ff730719.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/aae27e8909a13762-ff730719.png"
     },
     {
       "textureCount": 37,
@@ -2366,12 +2334,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:40.137Z",
-      "size": 1681216,
+      "size": 1677227,
       "packageId": "e8f590ddf33094b1",
-      "poster": "./posters/e8f590ddf33094b1-d30ba2de.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/e8f590ddf33094b1-d30ba2de.png"
     },
     {
       "textureCount": 39,
@@ -2413,12 +2380,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:38.694Z",
-      "size": 1992354,
+      "size": 1986404,
       "packageId": "7b33094ca381e266",
-      "poster": "./posters/7b33094ca381e266-c3b2651e.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/7b33094ca381e266-c3b2651e.png"
     },
     {
       "textureCount": 38,
@@ -2460,12 +2426,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:37.496Z",
-      "size": 1485658,
+      "size": 1482140,
       "packageId": "f70470f27cd6f6d3",
-      "poster": "./posters/f70470f27cd6f6d3-d99892b8.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/f70470f27cd6f6d3-d99892b8.png"
     },
     {
       "textureCount": 37,
@@ -2507,12 +2472,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:36.101Z",
-      "size": 1682631,
+      "size": 1678418,
       "packageId": "685ff640de4d1a59",
-      "poster": "./posters/685ff640de4d1a59-c8662a9a.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/685ff640de4d1a59-c8662a9a.png"
     },
     {
       "textureCount": 37,
@@ -2554,12 +2518,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:34.859Z",
-      "size": 2088559,
+      "size": 2083330,
       "packageId": "8196d1fcab82307a",
-      "poster": "./posters/8196d1fcab82307a-c75f7b6c.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/8196d1fcab82307a-c75f7b6c.png"
     },
     {
       "textureCount": 39,
@@ -2601,12 +2564,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:32.872Z",
-      "size": 1982581,
+      "size": 1979381,
       "packageId": "5263984936c5b001",
-      "poster": "./posters/5263984936c5b001-17a3dbcf.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/5263984936c5b001-17a3dbcf.png"
     },
     {
       "textureCount": 40,
@@ -2648,12 +2610,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:31.343Z",
-      "size": 1707518,
+      "size": 1703840,
       "packageId": "cfcbc01d7ed1b6c8",
-      "poster": "./posters/cfcbc01d7ed1b6c8-133f31f7.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/cfcbc01d7ed1b6c8-133f31f7.png"
     },
     {
       "textureCount": 38,
@@ -2695,12 +2656,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:29.652Z",
-      "size": 2001677,
+      "size": 1997327,
       "packageId": "cbb7b09cc2448fc3",
-      "poster": "./posters/cbb7b09cc2448fc3-37dbd207.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/cbb7b09cc2448fc3-37dbd207.png"
     },
     {
       "textureCount": 36,
@@ -2742,12 +2702,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:28.476Z",
-      "size": 1332484,
+      "size": 1328786,
       "packageId": "5324363990ad9c95",
-      "poster": "./posters/5324363990ad9c95-8325187e.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/5324363990ad9c95-8325187e.png"
     },
     {
       "textureCount": 40,
@@ -2789,12 +2748,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:26.994Z",
-      "size": 2034181,
+      "size": 2029575,
       "packageId": "432a90388fc4dd7f",
-      "poster": "./posters/432a90388fc4dd7f-5774eade.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/432a90388fc4dd7f-5774eade.png"
     },
     {
       "textureCount": 38,
@@ -2836,12 +2794,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:07.636Z",
-      "size": 1642374,
+      "size": 1638533,
       "packageId": "b8a0986fdbb5805f",
-      "poster": "./posters/b8a0986fdbb5805f-46664728.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/b8a0986fdbb5805f-46664728.png"
     },
     {
       "textureCount": 36,
@@ -2883,12 +2840,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:06.039Z",
-      "size": 1286417,
+      "size": 1282859,
       "packageId": "2232cb691620d4a5",
-      "poster": "./posters/2232cb691620d4a5-565a35cf.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/2232cb691620d4a5-565a35cf.png"
     },
     {
       "textureCount": 38,
@@ -2930,12 +2886,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:04.555Z",
-      "size": 1588084,
+      "size": 1584034,
       "packageId": "b212a63598266dd6",
-      "poster": "./posters/b212a63598266dd6-c011ddb7.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/b212a63598266dd6-c011ddb7.png"
     },
     {
       "textureCount": 39,
@@ -2977,12 +2932,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:03.016Z",
-      "size": 2122438,
+      "size": 2118634,
       "packageId": "8661aaffc671b2eb",
-      "poster": "./posters/8661aaffc671b2eb-1bb0e641.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/8661aaffc671b2eb-1bb0e641.png"
     },
     {
       "textureCount": 37,
@@ -3024,12 +2978,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:46:01.379Z",
-      "size": 1586235,
+      "size": 1581560,
       "packageId": "08eae52e41140dd9",
-      "poster": "./posters/08eae52e41140dd9-651ce0c4.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/08eae52e41140dd9-651ce0c4.png"
     },
     {
       "textureCount": 36,
@@ -3071,12 +3024,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:59.388Z",
-      "size": 1382191,
+      "size": 1378453,
       "packageId": "f26d6059b90bfc26",
-      "poster": "./posters/f26d6059b90bfc26-f974284c.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/f26d6059b90bfc26-f974284c.png"
     },
     {
       "textureCount": 40,
@@ -3118,12 +3070,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:57.614Z",
-      "size": 1734549,
+      "size": 1732316,
       "packageId": "14dad2fe49ae2bb9",
-      "poster": "./posters/14dad2fe49ae2bb9-39f81af5.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/14dad2fe49ae2bb9-39f81af5.png"
     },
     {
       "textureCount": 35,
@@ -3165,12 +3116,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:55.692Z",
-      "size": 1561814,
+      "size": 1557915,
       "packageId": "26474956e843661a",
-      "poster": "./posters/26474956e843661a-700003f0.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/26474956e843661a-700003f0.png"
     },
     {
       "textureCount": 38,
@@ -3212,12 +3162,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:54.338Z",
-      "size": 1419488,
+      "size": 1415860,
       "packageId": "299556be54e0b660",
-      "poster": "./posters/299556be54e0b660-33cf80fa.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/299556be54e0b660-33cf80fa.png"
     },
     {
       "textureCount": 39,
@@ -3259,12 +3208,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:52.835Z",
-      "size": 2770110,
+      "size": 2763491,
       "packageId": "c89485a1e68f54a9",
-      "poster": "./posters/c89485a1e68f54a9-9664ecb9.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/c89485a1e68f54a9-9664ecb9.png"
     },
     {
       "textureCount": 39,
@@ -3306,12 +3254,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:50.934Z",
-      "size": 1713537,
+      "size": 1710819,
       "packageId": "44e9bc9a40399d04",
-      "poster": "./posters/44e9bc9a40399d04-8f9d12d0.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/44e9bc9a40399d04-8f9d12d0.png"
     },
     {
       "textureCount": 37,
@@ -3353,12 +3300,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:49.435Z",
-      "size": 1597042,
+      "size": 1592316,
       "packageId": "704cf626c76e5c7f",
-      "poster": "./posters/704cf626c76e5c7f-78867576.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/704cf626c76e5c7f-78867576.png"
     },
     {
       "textureCount": 35,
@@ -3400,12 +3346,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:48.043Z",
-      "size": 1355560,
+      "size": 1351659,
       "packageId": "6656d879fe8171bb",
-      "poster": "./posters/6656d879fe8171bb-bec0b584.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/6656d879fe8171bb-bec0b584.png"
     },
     {
       "textureCount": 39,
@@ -3447,12 +3392,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:46.572Z",
-      "size": 2743171,
+      "size": 2739212,
       "packageId": "331249c5df4152c3",
-      "poster": "./posters/331249c5df4152c3-94779a1e.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/331249c5df4152c3-94779a1e.png"
     },
     {
       "textureCount": 40,
@@ -3494,12 +3438,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:44.643Z",
-      "size": 1490010,
+      "size": 1487615,
       "packageId": "f8f93f952dd319ce",
-      "poster": "./posters/f8f93f952dd319ce-f424abdb.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/f8f93f952dd319ce-f424abdb.png"
     },
     {
       "textureCount": 37,
@@ -3541,12 +3484,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:42.978Z",
-      "size": 2431386,
+      "size": 2423522,
       "packageId": "7d78962d33114793",
-      "poster": "./posters/7d78962d33114793-fe862eb0.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/7d78962d33114793-fe862eb0.png"
     },
     {
       "textureCount": 40,
@@ -3588,12 +3530,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:41.358Z",
-      "size": 1764449,
+      "size": 1759771,
       "packageId": "dbb684eeaabd3cfd",
-      "poster": "./posters/dbb684eeaabd3cfd-eaba544b.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/dbb684eeaabd3cfd-eaba544b.png"
     },
     {
       "textureCount": 39,
@@ -3635,12 +3576,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:39.782Z",
-      "size": 2076657,
+      "size": 2072036,
       "packageId": "2b2c773d8d096bf9",
-      "poster": "./posters/2b2c773d8d096bf9-c09880ff.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/2b2c773d8d096bf9-c09880ff.png"
     },
     {
       "textureCount": 41,
@@ -3682,12 +3622,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:38.178Z",
-      "size": 2253208,
+      "size": 2249198,
       "packageId": "c7faef6fde79cd9a",
-      "poster": "./posters/c7faef6fde79cd9a-1d9041a7.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/c7faef6fde79cd9a-1d9041a7.png"
     },
     {
       "textureCount": 39,
@@ -3729,12 +3668,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:35.463Z",
-      "size": 2066910,
+      "size": 2061076,
       "packageId": "0be9c0dc2d09139a",
-      "poster": "./posters/0be9c0dc2d09139a-089602e6.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/0be9c0dc2d09139a-089602e6.png"
     },
     {
       "textureCount": 41,
@@ -3776,12 +3714,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:33.507Z",
-      "size": 1774580,
+      "size": 1770054,
       "packageId": "2500130ba84a48f4",
-      "poster": "./posters/2500130ba84a48f4-f74c4b91.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/2500130ba84a48f4-f74c4b91.png"
     },
     {
       "textureCount": 37,
@@ -3823,12 +3760,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:31.653Z",
-      "size": 2336461,
+      "size": 2332899,
       "packageId": "07c945fd758174c7",
-      "poster": "./posters/07c945fd758174c7-cba69b13.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/07c945fd758174c7-cba69b13.png"
     },
     {
       "textureCount": 37,
@@ -3870,12 +3806,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:29.467Z",
-      "size": 1541167,
+      "size": 1536425,
       "packageId": "dcf00ba07b99627c",
-      "poster": "./posters/dcf00ba07b99627c-5c247dc4.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/dcf00ba07b99627c-5c247dc4.png"
     },
     {
       "textureCount": 38,
@@ -3917,12 +3852,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:28.226Z",
-      "size": 995424,
+      "size": 992280,
       "packageId": "d1ce82ac1a641e60",
-      "poster": "./posters/d1ce82ac1a641e60-ca49858a.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/d1ce82ac1a641e60-ca49858a.png"
     },
     {
       "textureCount": 37,
@@ -3964,12 +3898,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:26.930Z",
-      "size": 1360683,
+      "size": 1356882,
       "packageId": "cc0b58171e8e52ac",
-      "poster": "./posters/cc0b58171e8e52ac-523eca53.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/cc0b58171e8e52ac-523eca53.png"
     },
     {
       "textureCount": 40,
@@ -4011,12 +3944,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:25.699Z",
-      "size": 1223155,
+      "size": 1221836,
       "packageId": "37f0967ee2207011",
-      "poster": "./posters/37f0967ee2207011-d4fe7f2b.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/37f0967ee2207011-d4fe7f2b.png"
     },
     {
       "textureCount": 39,
@@ -4058,12 +3990,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:24.547Z",
-      "size": 1578589,
+      "size": 1575791,
       "packageId": "5da48dfdca44ac22",
-      "poster": "./posters/5da48dfdca44ac22-7636480f.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/5da48dfdca44ac22-7636480f.png"
     },
     {
       "textureCount": 39,
@@ -4105,12 +4036,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:23.140Z",
-      "size": 845120,
+      "size": 842723,
       "packageId": "71f8a9d038ef9aac",
-      "poster": "./posters/71f8a9d038ef9aac-797ac60a.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/71f8a9d038ef9aac-797ac60a.png"
     },
     {
       "textureCount": 36,
@@ -4152,12 +4082,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:21.433Z",
-      "size": 2106712,
+      "size": 2102195,
       "packageId": "f49019bff564f3b3",
-      "poster": "./posters/f49019bff564f3b3-56a82a62.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/f49019bff564f3b3-56a82a62.png"
     },
     {
       "textureCount": 36,
@@ -4199,12 +4128,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:19.935Z",
-      "size": 1236010,
+      "size": 1232441,
       "packageId": "df9821a111542104",
-      "poster": "./posters/df9821a111542104-72dec26e.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/df9821a111542104-72dec26e.png"
     },
     {
       "textureCount": 36,
@@ -4246,12 +4174,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:18.761Z",
-      "size": 1929163,
+      "size": 1925575,
       "packageId": "9efcb83d287f4e58",
-      "poster": "./posters/9efcb83d287f4e58-7961a8f4.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/9efcb83d287f4e58-7961a8f4.png"
     },
     {
       "textureCount": 36,
@@ -4293,12 +4220,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:17.306Z",
-      "size": 1021702,
+      "size": 1018884,
       "packageId": "ab641a6f86ca237a",
-      "poster": "./posters/ab641a6f86ca237a-7d9987a8.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/ab641a6f86ca237a-7d9987a8.png"
     },
     {
       "textureCount": 42,
@@ -4340,12 +4266,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:16.259Z",
-      "size": 1863662,
+      "size": 1860029,
       "packageId": "660f26ab6957d684",
-      "poster": "./posters/660f26ab6957d684-88a4609b.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/660f26ab6957d684-88a4609b.png"
     },
     {
       "textureCount": 37,
@@ -4386,12 +4311,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:14.886Z",
-      "size": 1761506,
+      "size": 1757619,
       "packageId": "ab67d5899ab084db",
-      "poster": "./posters/ab67d5899ab084db-8cde7b56.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/ab67d5899ab084db-8cde7b56.png"
     },
     {
       "textureCount": 34,
@@ -4432,12 +4356,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:13.478Z",
-      "size": 1585411,
+      "size": 1581063,
       "packageId": "1629ca538fd73fff",
-      "poster": "./posters/1629ca538fd73fff-b8e9e135.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/1629ca538fd73fff-b8e9e135.png"
     },
     {
       "textureCount": 36,
@@ -4478,12 +4401,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:12.008Z",
-      "size": 1775053,
+      "size": 1771241,
       "packageId": "0654cb821ec44ecf",
-      "poster": "./posters/0654cb821ec44ecf-fbd7570d.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/0654cb821ec44ecf-fbd7570d.png"
     },
     {
       "textureCount": 33,
@@ -4524,12 +4446,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:10.358Z",
-      "size": 1373599,
+      "size": 1369644,
       "packageId": "8bc041e4b5de07a2",
-      "poster": "./posters/8bc041e4b5de07a2-db6be7ff.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/8bc041e4b5de07a2-db6be7ff.png"
     },
     {
       "textureCount": 37,
@@ -4570,12 +4491,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:08.933Z",
-      "size": 1815681,
+      "size": 1812394,
       "packageId": "618970344c84b87f",
-      "poster": "./posters/618970344c84b87f-8e402258.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/618970344c84b87f-8e402258.png"
     },
     {
       "textureCount": 37,
@@ -4616,12 +4536,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:07.220Z",
-      "size": 1547499,
+      "size": 1545492,
       "packageId": "c53dfa05b3ca3133",
-      "poster": "./posters/c53dfa05b3ca3133-2d133e2a.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/c53dfa05b3ca3133-2d133e2a.png"
     },
     {
       "textureCount": 36,
@@ -4662,12 +4581,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:05.588Z",
-      "size": 1579944,
+      "size": 1576402,
       "packageId": "af0e355b1cdfb693",
-      "poster": "./posters/af0e355b1cdfb693-d0dcbcaa.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/af0e355b1cdfb693-d0dcbcaa.png"
     },
     {
       "textureCount": 33,
@@ -4708,12 +4626,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:04.146Z",
-      "size": 1849062,
+      "size": 1843981,
       "packageId": "295d4d8614eb1c23",
-      "poster": "./posters/295d4d8614eb1c23-d95ec83a.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/295d4d8614eb1c23-d95ec83a.png"
     },
     {
       "textureCount": 35,
@@ -4754,12 +4671,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:02.713Z",
-      "size": 1800124,
+      "size": 1794578,
       "packageId": "8c875b91b8e233f5",
-      "poster": "./posters/8c875b91b8e233f5-859f1314.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/8c875b91b8e233f5-859f1314.png"
     },
     {
       "textureCount": 35,
@@ -4800,12 +4716,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:45:01.137Z",
-      "size": 1906232,
+      "size": 1900748,
       "packageId": "9dc82fa31c6e1169",
-      "poster": "./posters/9dc82fa31c6e1169-da7fa8a1.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/9dc82fa31c6e1169-da7fa8a1.png"
     },
     {
       "textureCount": 35,
@@ -4846,12 +4761,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:59.154Z",
-      "size": 1363167,
+      "size": 1359133,
       "packageId": "55c9a238d3d352bd",
-      "poster": "./posters/55c9a238d3d352bd-c313e9b3.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/55c9a238d3d352bd-c313e9b3.png"
     },
     {
       "textureCount": 34,
@@ -4892,12 +4806,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:57.809Z",
-      "size": 1475470,
+      "size": 1470526,
       "packageId": "2d8b4f8ee2ad2ffa",
-      "poster": "./posters/2d8b4f8ee2ad2ffa-9e040ced.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/2d8b4f8ee2ad2ffa-9e040ced.png"
     },
     {
       "textureCount": 34,
@@ -4938,12 +4851,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:56.174Z",
-      "size": 1434061,
+      "size": 1429271,
       "packageId": "180c77e9482f9cb7",
-      "poster": "./posters/180c77e9482f9cb7-16724ab8.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/180c77e9482f9cb7-16724ab8.png"
     },
     {
       "textureCount": 36,
@@ -4984,12 +4896,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:54.279Z",
-      "size": 1573837,
+      "size": 1571149,
       "packageId": "a7e6dd4582c6911e",
-      "poster": "./posters/a7e6dd4582c6911e-eab877fd.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/a7e6dd4582c6911e-eab877fd.png"
     },
     {
       "textureCount": 33,
@@ -5030,12 +4941,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:52.640Z",
-      "size": 1350762,
+      "size": 1346950,
       "packageId": "339bdab69deb3620",
-      "poster": "./posters/339bdab69deb3620-ddb4ab23.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/339bdab69deb3620-ddb4ab23.png"
     },
     {
       "textureCount": 36,
@@ -5076,12 +4986,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:51.217Z",
-      "size": 2112618,
+      "size": 2108440,
       "packageId": "b6a1567e8b84ff8b",
-      "poster": "./posters/b6a1567e8b84ff8b-3f66d1df.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/b6a1567e8b84ff8b-3f66d1df.png"
     },
     {
       "textureCount": 35,
@@ -5122,12 +5031,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:49.466Z",
-      "size": 2026070,
+      "size": 2020540,
       "packageId": "2e3acbf8be694d62",
-      "poster": "./posters/2e3acbf8be694d62-72686753.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/2e3acbf8be694d62-72686753.png"
     },
     {
       "textureCount": 34,
@@ -5168,12 +5076,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:47.798Z",
-      "size": 1899661,
+      "size": 1894627,
       "packageId": "f6c84ec948840e96",
-      "poster": "./posters/f6c84ec948840e96-54b1b9af.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/f6c84ec948840e96-54b1b9af.png"
     },
     {
       "textureCount": 36,
@@ -5214,12 +5121,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:45.887Z",
-      "size": 1458696,
+      "size": 1455637,
       "packageId": "b27a573a79d8f8f2",
-      "poster": "./posters/b27a573a79d8f8f2-d2b1f9be.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/b27a573a79d8f8f2-d2b1f9be.png"
     },
     {
       "textureCount": 34,
@@ -5260,12 +5166,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:44.274Z",
-      "size": 1590699,
+      "size": 1586217,
       "packageId": "4e81936e1c97f7ab",
-      "poster": "./posters/4e81936e1c97f7ab-92a810a3.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/4e81936e1c97f7ab-92a810a3.png"
     },
     {
       "textureCount": 34,
@@ -5306,12 +5211,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:42.729Z",
-      "size": 1474143,
+      "size": 1470952,
       "packageId": "d0774581d55db01f",
-      "poster": "./posters/d0774581d55db01f-e12fd7b0.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/d0774581d55db01f-e12fd7b0.png"
     },
     {
       "textureCount": 36,
@@ -5352,12 +5256,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:41.055Z",
-      "size": 1949349,
+      "size": 1945131,
       "packageId": "bc659f90c2d8440d",
-      "poster": "./posters/bc659f90c2d8440d-c57e7f1a.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/bc659f90c2d8440d-c57e7f1a.png"
     },
     {
       "textureCount": 35,
@@ -5398,12 +5301,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:39.370Z",
-      "size": 1249357,
+      "size": 1247209,
       "packageId": "50522a728ce23d17",
-      "poster": "./posters/50522a728ce23d17-86a16cdb.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/50522a728ce23d17-86a16cdb.png"
     },
     {
       "textureCount": 36,
@@ -5444,12 +5346,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:37.597Z",
-      "size": 1507030,
+      "size": 1503039,
       "packageId": "67aa05706530c1fa",
-      "poster": "./posters/67aa05706530c1fa-640127f9.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/67aa05706530c1fa-640127f9.png"
     },
     {
       "textureCount": 36,
@@ -5490,12 +5391,11 @@
       "defaultGroup": "Idle",
       "defaultMotion": "0",
       "hidden": false,
-      "notes": "离散手势安全切换 v1；保留原 MOC3/纹理/PSD 顺序；视觉验收待确认。",
+      "notes": "保留源 PSD 图层顺序；视觉验收待确认。",
       "updatedAt": "2026-10-12T04:44:35.572Z",
-      "size": 1382522,
+      "size": 1379219,
       "packageId": "5e02b205a8d675c5",
-      "poster": "./posters/5e02b205a8d675c5-0e4abb1a.png",
-      "selectorPolicy": "exclusive-legacy-actions-v1"
+      "poster": "./posters/5e02b205a8d675c5-0e4abb1a.png"
     }
   ],
   "aliases": {

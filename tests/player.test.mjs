@@ -1,7 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { ModelPlayer } from '../player.js';
-import { createLegacyController } from '../legacy-selector.js';
 
 globalThis.PIXI = { live2d: { MotionPriority: { FORCE: 3 }, Live2DFactory: { motionTasksMap: new WeakMap() } } };
 
@@ -17,7 +16,6 @@ function fixture() {
       values: [0.7, 1], defaults: [0, 1], saved: [],
       getParameterCount() { return this.values.length; },
       getParameterDefaultValue(index) { return this.defaults[index]; },
-      getParameterValueByIndex(index) { return this.values[index]; },
       setParameterValueByIndex(index, value) { this.values[index] = value; },
       saveParameters() { this.saved = [...this.values]; },
     } },
@@ -48,36 +46,6 @@ test('switching to a sparse motion clears and saves the interrupted pose', async
   assert.equal(await player.play('Idle'), true);
   assert.deepEqual(core.values, core.defaults);
   assert.deepEqual(core.saved, core.defaults);
-});
-
-test('geometry-wave replay retains its two pose values while clearing unrelated parameters', async () => {
-  const { player } = fixture(), core = player.model.internalModel.coreModel;
-  player.manifest.WaveGeometryTrial = { version: 1 };
-  core._model = { parameters: { ids: ['ParamWaveLift', 'ParamWaveSway', 'ParamAction_1'] } };
-  core.values = [.72, -.45, 1]; core.defaults = [0, 0, 0];
-  await player.play('Idle');
-  assert.deepEqual(core.saved, [.72, -.45, 0]);
-  await player.play('Idle');
-  assert.deepEqual(core.saved, [.72, -.45, 0]);
-});
-
-test('parameter names alone never opt a legacy model into wave pose retention', async () => {
-  const { player } = fixture(), core = player.model.internalModel.coreModel;
-  core._model = { parameters: { ids: ['ParamWaveLift', 'ParamWaveSway'] } };
-  await player.play('Idle');
-  assert.deepEqual(core.saved, core.defaults);
-});
-
-test('wave fade-in starts from a fixed captured pose, not compounded prior-frame output', async () => {
-  const { player } = fixture(), core = player.model.internalModel.coreModel;
-  player.manifest.WaveGeometryTrial = {version:1};
-  core._model = {parameters:{ids:['ParamWaveLift','ParamWaveSway']}};
-  core.values = [.8,-.4];core.defaults=[0,0];
-  await player.play('Idle');
-  core.values=[.5,-.1];player.applyWaveTransition();
-  assert.deepEqual(core.values,[.8,-.4]);
-  player.waveTransition.elapsed=.8;core.values=[0,0];player.applyWaveTransition();
-  assert.deepEqual(core.values,[0,0]);
 });
 
 test('a slow earlier motion cannot replace a newer selection', async () => {
@@ -118,38 +86,4 @@ test('a replaced model ignores a late download', async () => {
   manager.loadMotion = () => new Promise(resolve => { finish = resolve; });
   const pending = player.play('Idle'); player.model = null; ++player.motionGeneration;
   finish(motion); assert.equal(await pending, false); assert.deepEqual(manager.starts, []);
-});
-
-function legacyFixture() {
-  const f = fixture(), p=['ParamHideBaseArms','ParamAction_1'];
-  f.player.legacy=createLegacyController(p.map(id=>({id,min:0,max:1,defaultValue:0})));
-  f.player.legacyIndices=new Map(p.map((id,i)=>[id,i])); f.player.selectorClock=0;
-  const clip={Meta:{Duration:2.1},Curves:p.map(Id=>({Target:'Parameter',Id,Segments:[0,0,2,.28,1,2,1.92,0,2,2.1,0]}))};
-  f.compiled=f.player.legacy.compile(clip); f.player.readSelectorClip=async()=>f.compiled;
-  return f;
-}
-test('opt-in policy is applied after simulated competing SDK fades',async()=>{
-  const {player}=legacyFixture(); await player.play('Action'); player.selectorClock=500;
-  const core=player.model.internalModel.coreModel; core.values=[.37,.37]; player.applyLegacy();
-  assert.deepEqual(core.values,[1,1]); player.selectorClock=2000;player.applyLegacy();assert.deepEqual(core.values,[0,0]);
-});
-test('late selector data cannot replace a newer selection',async()=>{
-  const {player,compiled}=legacyFixture();let resolve;
-  player.readSelectorClip=file=>file.startsWith('idle')?new Promise(r=>resolve=r):Promise.resolve(compiled);
-  const pending=player.play('Idle');assert.equal(await player.play('Action'),true);player.selectorClock=500;
-  resolve(compiled);assert.equal(await pending,false);player.applyLegacy();assert.deepEqual(player.model.internalModel.coreModel.values,[1,1]);
-});
-test('invalid selector data does not interrupt the current motion',async()=>{
-  const {player,manager}=legacyFixture();manager.current='Action:0';
-  player.readSelectorClip=async()=>{throw Error('bad policy');};
-  await assert.rejects(player.play('Idle'),/bad policy/);assert.equal(manager.current,'Action:0');
-});
-test('selector timeline uses the same capped scaled clock as model playback and freezes while paused or hidden',()=>{
-  const {player}=legacyFixture();globalThis.document={hidden:false};
-  const steps=[];player.model.update=dt=>steps.push(dt);player.paused=false;player.speed=2;
-  player.advance(20);assert.equal(player.selectorClock,40);assert.deepEqual(steps,[40]);
-  player.paused=true;player.advance(20);assert.equal(player.selectorClock,40);
-  player.paused=false;document.hidden=true;player.advance(20);assert.equal(player.selectorClock,40);
-  document.hidden=false;player.advance(1000);assert.equal(player.selectorClock,200);assert.deepEqual(steps,[40,160]);
-  delete globalThis.document;
 });
