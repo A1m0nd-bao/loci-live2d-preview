@@ -1,6 +1,14 @@
 import { resourcePath, references } from './model-files.js';
 import { AtmosphereStage, locateFace } from './atmosphere.js?v=20261019';
 
+// Fit the actual render surface inside its available area without stretching.
+export function stageViewportSize(width, height, orientation = 'portrait') {
+  if (!(width > 0 && height > 0)) return null;
+  const ratio = orientation === 'landscape' ? 16 / 9 : 9 / 16;
+  const fittedWidth = Math.min(width, height * ratio);
+  return { width: fittedWidth, height: fittedWidth / ratio };
+}
+
 export class ModelPlayer {
   constructor(canvas, host, { layerInspector, onFinish, onError, atmosphere = false, onLighting } = {}) {
     if (!window.PIXI?.live2d || !window.Live2DCubismCore) throw Error('Live2D 运行库加载失败。');

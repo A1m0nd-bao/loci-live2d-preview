@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#09090c">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob: data:; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' blob:; img-src 'self' blob: data:; media-src 'self' blob:; object-src 'none'; base-uri 'self'">
   <title>Loci Live2D Library</title>
-  <link rel="stylesheet" href="styles.css?v=20261019-atmosphere">
+  <link rel="stylesheet" href="styles.css?v=20261019-orientation">
 </head>
 <body>
   <header class="topbar">
@@ -53,11 +53,13 @@
   <input id="zipInput" type="file" accept=".zip,application/zip" multiple hidden>
   <input id="directoryInput" type="file" webkitdirectory multiple hidden>
   <div id="toast" class="toast" role="status" hidden></div>
-  <dialog id="detailDialog" aria-labelledby="detailTitle">
+  <dialog id="detailDialog" aria-labelledby="detailTitle" data-orientation="portrait">
     <div class="detail-shell">
       <header class="detail-header"><div><p class="eyebrow">CHARACTER PREVIEW</p><h2 id="detailTitle"></h2><p id="detailCategory" class="muted"></p></div><div class="detail-header-actions"><a id="download" class="icon-button" title="下载模型包" aria-label="下载模型包" download><i data-lucide="download"></i></a><button id="detailClose" class="icon-button" title="关闭" aria-label="关闭"><i data-lucide="x"></i></button></div></header>
       <div class="detail-body">
-        <div class="preview-column"><div id="stage" class="stage"><img id="sceneImage" class="scene-image" alt="" hidden><canvas id="detailCanvas" aria-label="Live2D 角色预览"></canvas><button id="focus" class="button focus-button" aria-pressed="false" disabled>专注模式</button><div id="stageMessage" class="stage-message" role="status">正在加载角色</div><div class="stage-info"><span id="stageResolution"></span><span id="stageState">LIVE2D</span></div></div>
+        <div class="preview-column">
+          <div class="preview-toolbar"><div class="segmented orientation-controls" role="group" aria-label="预览画面方向"><button type="button" data-orientation="portrait" aria-pressed="true" class="active">竖屏 9:16</button><button type="button" data-orientation="landscape" aria-pressed="false">横屏 16:9</button></div><output id="viewportSize" aria-label="预览画布尺寸"></output><button id="focus" class="button focus-button" aria-pressed="false" disabled>专注模式</button></div>
+          <div id="stageViewport" class="stage-viewport"><div id="stage" class="stage"><img id="sceneImage" class="scene-image" alt="" hidden><canvas id="detailCanvas" aria-label="Live2D 角色预览"></canvas><div id="stageMessage" class="stage-message" role="status">正在加载角色</div><div class="stage-info"><span id="stageResolution"></span><span id="stageState">LIVE2D</span></div></div></div>
           <div class="player-bar"><button id="pause" class="icon-button" title="暂停" aria-label="暂停" disabled><i data-lucide="pause"></i></button><button id="replay" class="icon-button" title="重新播放" aria-label="重新播放" disabled><i data-lucide="rotate-ccw"></i></button><span class="control-divider"></span><label class="compact-field"><span>速度</span><select id="speed" disabled><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label><label class="toggle compact"><input id="loop" type="checkbox" checked disabled><span>循环</span></label><div class="zoom-controls"><button id="fit" class="icon-button" title="适应画面" aria-label="适应画面" disabled><i data-lucide="maximize"></i></button><input id="zoom" aria-label="缩放" type="range" min="40" max="200" value="100" disabled><output id="zoomValue">100%</output></div></div>
           <div id="detailError" class="error" role="alert" hidden></div>
         </div>
@@ -98,6 +100,6 @@
   <script src="vendor/cubism4.js"></script>
   <script src="layers.js"></script>
   <script src="assets/atmosphere-scenes.js"></script>
-  <script type="module" src="app.js?v=20261019-atmosphere"></script>
+  <script type="module" src="app.js?v=20261019-orientation"></script>
 </body>
 </html>

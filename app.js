@@ -1,4 +1,4 @@
-import { ModelPlayer } from './player.js?v=20261019';
+import { ModelPlayer, stageViewportSize } from './player.js?v=20261019-orientation';
 import { unzipPackage, inspectModel } from './model-files.js';
 
 const $ = id => document.getElementById(id);
@@ -10,6 +10,34 @@ const sceneBackgrounds = new Map([['lab-moon',{id:'lab-moon',name:'月下回廊 
 const archivedCharacters = new Set();
 let sceneGeneration = 0;
 const layerInspector = new LayerInspector(() => detailPlayer?.render());
+let viewportOrientation = 'portrait', viewportResizeFrame = 0;
+try { if (localStorage.getItem('live2d-stage-orientation') === 'landscape') viewportOrientation = 'landscape'; } catch {}
+function resizeStageViewport() {
+  const host = $('stageViewport'), stage = $('stage');
+  const size = stageViewportSize(host.clientWidth, host.clientHeight, viewportOrientation);
+  if (!size) return;
+  stage.style.width = `${size.width}px`; stage.style.height = `${size.height}px`;
+  $('viewportSize').textContent = `${Math.round(size.width)} × ${Math.round(size.height)}`;
+  detailPlayer?.resize();
+}
+function setViewportOrientation(orientation) {
+  viewportOrientation = orientation === 'landscape' ? 'landscape' : 'portrait';
+  $('detailDialog').dataset.orientation = viewportOrientation;
+  for (const button of document.querySelectorAll('.orientation-controls button')) {
+    const selected = button.dataset.orientation === viewportOrientation;
+    button.classList.toggle('active', selected); button.setAttribute('aria-pressed', String(selected));
+  }
+  try { localStorage.setItem('live2d-stage-orientation', viewportOrientation); } catch {}
+  if (detailPlayer?.model) detailPlayer.model.internalModel.focusController.focus(0, 0, true);
+  if (detailPlayer?.atmosphere) detailPlayer.atmosphere.gaze = [0, 0];
+  resizeStageViewport();
+}
+for (const button of document.querySelectorAll('.orientation-controls button')) button.onclick = () => setViewportOrientation(button.dataset.orientation);
+new ResizeObserver(() => {
+  cancelAnimationFrame(viewportResizeFrame);
+  viewportResizeFrame = requestAnimationFrame(resizeStageViewport);
+}).observe($('stageViewport'));
+setViewportOrientation(viewportOrientation);
 const options = (el, entries) => el.replaceChildren(...entries.map(([value, label]) => new Option(label, value)));
 function icons() { lucide.createIcons(); }
 function icon(name) { const el = document.createElement('i'); el.dataset.lucide = name; return el; }
@@ -168,6 +196,7 @@ async function openDetail(item) {
   enableControls(false); options($('group'), [['','加载中']]); options($('motion'), [['','加载中']]); options($('expression'), [['','默认表情']]);
   $('download').hidden = !item.packageUrl; if (item.packageUrl) { $('download').href = item.packageUrl; $('download').download = item.packageName || `${item.name}.zip`; }
   if (!$('detailDialog').open) $('detailDialog').showModal();
+  resizeStageViewport();
   const url = new URL(location.href); if (item.localFiles) url.searchParams.delete('model'); else url.searchParams.set('model', item.id); history.replaceState(null, '', url);
   try {
     if (!detailPlayer) detailPlayer = new ModelPlayer($('detailCanvas'), $('stage'), { layerInspector, atmosphere:true, onLighting:text=>{$('lightingSummary').textContent=detailPlayer?.checker?'透明棋盘 · 光影效果暂不合成':text;}, onFinish: () => { if ($('loop').checked && !detailPlayer.paused && !motionPending && $('detailDialog').open) void playSelected(); }, onError: showDetailError });

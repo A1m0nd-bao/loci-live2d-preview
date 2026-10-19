@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { AtmosphereMath } from '../atmosphere.js';
-import { ModelPlayer } from '../player.js';
+import { ModelPlayer, stageViewportSize } from '../player.js';
 function sample(width,height,pixel){const data=[];for(let y=0;y<height;y++)for(let x=0;x<width;x++)data.push(...pixel(x,y));return{width,height,data};}
 test('background direction and skin tint follow warm-left / cool-right light',()=>{
   const warm=AtmosphereMath.profile(sample(64,64,(x,y)=>x<20&&y<20?[255,180,80,255]:[20,10,5,255]),1);
@@ -31,4 +31,18 @@ test('focus centers an offset face across portrait, square and wide stages',()=>
     assert(model.x+player.face.head.left*model.scale.x>0);
     assert(model.x+player.face.head.right*model.scale.x<width);
   }
+});
+test('portrait and landscape canvases fit the available space without distortion',()=>{
+  for(const [width,height] of [[1052,682],[352,515],[314,156],[290,515],[1200,200]]) {
+    for(const orientation of ['portrait','landscape']) {
+      const frame=stageViewportSize(width,height,orientation);
+      assert(frame.width<=width+.001&&frame.height<=height+.001);
+      assert(Math.abs(frame.width/frame.height-(orientation==='portrait'?9/16:16/9))<.00001);
+      assert(Math.abs(frame.width-width)<.001||Math.abs(frame.height-height)<.001);
+    }
+  }
+});
+test('a hidden dialog does not resize the render surface to zero',()=>{
+  assert.equal(stageViewportSize(0,400),null);
+  assert.equal(stageViewportSize(300,0),null);
 });

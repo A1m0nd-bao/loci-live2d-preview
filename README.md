@@ -108,3 +108,9 @@ Cubism renderer feature. Missing/corrupt resources show a visible error with rec
 发布流程继续从 Release 下载原有角色资源，再将当前提交的前端代码与 assets 覆盖进发布目录；因此同步光影功能不需要重新上传全部模型，也不会替换角色清单、原场景图片或档案。`scripts/publish-release.mjs` 同时包含新模块，后续发布资源包也能携带此功能。
 
 计算与播放器检查：`node --test tests/atmosphere.test.mjs tests/player.test.mjs tests/packages.test.mjs tests/delivery-identity.test.mjs`。完整的 `tests/character-scenes.test.mjs` 需要先准备 Release 中的角色插图和原场景 PNG；它们不保存在 Git 源码里。
+
+## 横竖屏预览
+
+详情画面上方可切换「竖屏 9:16」和「横屏 16:9」。画布按所选比例在可用区域内居中，角色、背景和光影使用实际画布尺寸重新渲染，不拉伸或旋转角色。切换保留当前动作进度、暂停状态、缩放、专注模式和自选背景；方向偏好会在换模型及刷新后保留。
+
+桌面/平板使用可容纳当前比例的最大画面；手机竖置时控制区上下排列，横置短屏时使用侧栏滚动与紧凑播放条。专注按钮在画布外，较窄的竖屏预览也可完整操作。环境光根据新画布的可见背景裁切重新分析。验证覆盖 1440×1000、768×1024、390×844、844×390、320×568、568×320 的两种比例，以及专注取景、播放中/暂停中切换和方向偏好恢复；尚未实测所有移动浏览器和设备。
