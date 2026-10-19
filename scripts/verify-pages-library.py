@@ -57,3 +57,36 @@ if (root / 'safe-actions-release.json').exists():
         assert hashlib.sha256(relative_file(root, item['packageUrl']).read_bytes()).hexdigest() == expected['sha256']
     assert len(items) == 121
 print(f'PASS: complete static library, {len(items)} packages and model resource trees')
+
+if (root / 'manifest.wave-trial.json').exists():
+    trial = json.loads((root / 'manifest.wave-trial.json').read_text())
+    delivery = json.loads((root / 'wave-trial-release.json').read_text())
+    assert trial['trial'] == 'wave-geometry-v1' and len(trial['items']) == delivery['count'] == 2
+    for item in trial['items']:
+        assert item['id'] in {x['id'] for x in items}
+        assert item['modelUrl'].startswith('./trials/wave-geometry/') and not item.get('selectorPolicy')
+        archive = relative_file(root, item['packageUrl'])
+        record = next(x for x in delivery['packages'] if x['id'] == item['id'])
+        assert archive.stat().st_size == item['size']
+        assert hashlib.sha256(archive.read_bytes()).hexdigest() == record['sha256']
+        model_path = relative_file(root, item['modelUrl'])
+        model = json.loads(model_path.read_text())
+        refs = model['FileReferences']
+        assert model['WaveGeometryTrial']['version'] == 1 and not model.get('MotionSelectorPolicy')
+        assert set(refs['Motions']) == {'Wave', 'Idle'}
+        assert hashlib.sha256(relative_file(model_path.parent, refs['Moc']).read_bytes()).hexdigest() == record['mocSha256']
+        for ref in refs['Textures']:
+            relative_file(model_path.parent, ref)
+        with zipfile.ZipFile(archive) as z:
+            assert z.testzip() is None
+            for name in z.namelist():
+                assert z.read(name) == relative_file(model_path.parent.parent, name).read_bytes()
+        for motions in refs['Motions'].values():
+            for entry in motions:
+                clip = json.loads(relative_file(model_path.parent, entry['File']).read_text())
+                tracks = {x['Id']:x for x in clip['Curves']}
+                assert {'ParamWaveLift','ParamWaveSway','ParamHideBaseArms'} <= tracks.keys()
+                for pid, curve in tracks.items():
+                    if pid.startswith('ParamAction_') or pid == 'ParamHideBaseArms':
+                        assert curve['Segments'] == [0,0,0,clip['Meta']['Duration'],0]
+    print('PASS: isolated two-character wave trial; archive hashes and zero opacity selectors verified')

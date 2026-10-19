@@ -17,6 +17,7 @@ function fixture() {
       values: [0.7, 1], defaults: [0, 1], saved: [],
       getParameterCount() { return this.values.length; },
       getParameterDefaultValue(index) { return this.defaults[index]; },
+      getParameterValueByIndex(index) { return this.values[index]; },
       setParameterValueByIndex(index, value) { this.values[index] = value; },
       saveParameters() { this.saved = [...this.values]; },
     } },
@@ -47,6 +48,36 @@ test('switching to a sparse motion clears and saves the interrupted pose', async
   assert.equal(await player.play('Idle'), true);
   assert.deepEqual(core.values, core.defaults);
   assert.deepEqual(core.saved, core.defaults);
+});
+
+test('geometry-wave replay retains its two pose values while clearing unrelated parameters', async () => {
+  const { player } = fixture(), core = player.model.internalModel.coreModel;
+  player.manifest.WaveGeometryTrial = { version: 1 };
+  core._model = { parameters: { ids: ['ParamWaveLift', 'ParamWaveSway', 'ParamAction_1'] } };
+  core.values = [.72, -.45, 1]; core.defaults = [0, 0, 0];
+  await player.play('Idle');
+  assert.deepEqual(core.saved, [.72, -.45, 0]);
+  await player.play('Idle');
+  assert.deepEqual(core.saved, [.72, -.45, 0]);
+});
+
+test('parameter names alone never opt a legacy model into wave pose retention', async () => {
+  const { player } = fixture(), core = player.model.internalModel.coreModel;
+  core._model = { parameters: { ids: ['ParamWaveLift', 'ParamWaveSway'] } };
+  await player.play('Idle');
+  assert.deepEqual(core.saved, core.defaults);
+});
+
+test('wave fade-in starts from a fixed captured pose, not compounded prior-frame output', async () => {
+  const { player } = fixture(), core = player.model.internalModel.coreModel;
+  player.manifest.WaveGeometryTrial = {version:1};
+  core._model = {parameters:{ids:['ParamWaveLift','ParamWaveSway']}};
+  core.values = [.8,-.4];core.defaults=[0,0];
+  await player.play('Idle');
+  core.values=[.5,-.1];player.applyWaveTransition();
+  assert.deepEqual(core.values,[.8,-.4]);
+  player.waveTransition.elapsed=.8;core.values=[0,0];player.applyWaveTransition();
+  assert.deepEqual(core.values,[0,0]);
 });
 
 test('a slow earlier motion cannot replace a newer selection', async () => {

@@ -51,6 +51,16 @@ jobs:
             mkdir -p "_site/models/$package_id"
             unzip -q "$archive" -d "_site/models/$package_id"
           done
+          if [ -f wave-trial.json ]; then
+            WAVE_TRIAL_TAG="$(python3 -c 'import json,os; d=json.load(open("wave-trial.json")); print(d["releaseTag"] if d["baseRelease"] == os.environ["RELEASE_TAG"] else "")')"
+            if [ -n "$WAVE_TRIAL_TAG" ]; then
+              mkdir -p "$RUNNER_TEMP/wave-trial"
+              gh release download "$WAVE_TRIAL_TAG" --pattern 'wave-trial.zip.part-*' --dir "$RUNNER_TEMP/wave-trial"
+              cat "$RUNNER_TEMP"/wave-trial/wave-trial.zip.part-* > "$RUNNER_TEMP/wave-trial.zip"
+              python3 -c 'import hashlib,json,sys; d=json.load(open("wave-trial.json")); assert hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest() == d["sha256"]' "$RUNNER_TEMP/wave-trial.zip"
+              unzip -q "$RUNNER_TEMP/wave-trial.zip" -d _site
+            fi
+          fi
       - name: Overlay current preview application
         run: |
           # Keep release models, posters and character archives; ship current app code.

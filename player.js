@@ -76,6 +76,9 @@ export class ModelPlayer {
       await new Promise((resolve, reject) => { candidate = PIXI.live2d.Live2DModel.fromSync(settings, { autoUpdate: false, autoInteract: false, motionPreload: 'NONE', idleMotionGroup: '__none__', onLoad: resolve, onError: reject }); });
       if (ticket !== this.generation) { candidate.destroy({ texture: true, baseTexture: true }); blobURLs.forEach(URL.revokeObjectURL); return null; }
       this.model = candidate; this.manifest = manifest; this.urls = blobURLs; this.resources = urls;
+      if (manifest.WaveGeometryTrial?.version === 1) {
+        candidate.internalModel.on('beforeMotionUpdate', () => { if (this.model === candidate) this.applyWaveTransition(); });
+      }
       this.localFiles = item.localFiles; this.modelPath = item.modelPath; this.selectorClock = 0;
       if (manifest.MotionSelectorPolicy) {
         const ref = manifest.MotionSelectorPolicy;
@@ -122,11 +125,21 @@ export class ModelPlayer {
     manager.stopAllMotions(); manager.playing = false;
     // Some clips animate only a subset of parameters, so an interrupted pose must not leak into the next clip.
     const core = model.internalModel.coreModel;
-    for (let i = 0; i < core.getParameterCount(); i++) core.setParameterValueByIndex(i, core.getParameterDefaultValue(i));
+    // Geometry-wave pilots reuse one arm, not opacity-swapped artwork. Preserve
+    // its current pose so SDK fade-in can lower/restart it without a reset jump.
+    // Legacy models have neither parameter and retain their previous reset policy.
+    const ids = core._model?.parameters?.ids || [];
+    const waveValues = [];
+    for (let i = 0; i < core.getParameterCount(); i++) {
+      const wave = this.manifest.WaveGeometryTrial?.version === 1 && ['ParamWaveLift', 'ParamWaveSway'].includes(ids[i]);
+      if (wave) waveValues.push([i, core.getParameterValueByIndex(i)]);
+      else core.setParameterValueByIndex(i, core.getParameterDefaultValue(i));
+    }
     core.saveParameters();
     const started = await model.motion(group, index, PIXI.live2d.MotionPriority.FORCE);
     if (!current()) return false;
     if (!started) throw Error('动作无法播放，请检查动作文件。');
+    this.waveTransition = waveValues.length ? {values:waveValues, elapsed:0, duration:.8} : null;
     if (this.legacy) { this.legacy.start(selectorClip,this.selectorClock); this.applyLegacy(); }
     return true;
   }
@@ -141,10 +154,19 @@ export class ModelPlayer {
     const core = this.model.internalModel.coreModel;
     for (const [id,value] of this.legacy.sample(this.selectorClock)) core.setParameterValueByIndex(this.legacyIndices.get(id),value);
   }
+  applyWaveTransition() {
+    const transition = this.waveTransition;
+    if (!transition || transition.elapsed >= transition.duration || !this.model) return;
+    // SDK fade-in must use the captured entry pose, not last frame's blended
+    // output, otherwise the blend compounds and makes a long arm snap down.
+    const core = this.model.internalModel.coreModel;
+    for (const [i,value] of transition.values) core.setParameterValueByIndex(i,value);
+  }
   advance(deltaMs) {
     if (!this.model || this.paused || document.hidden) return;
     const dt = Math.min(deltaMs,80) * this.speed;
     this.selectorClock += dt; this.model.update(dt);
+    if (this.waveTransition) this.waveTransition.elapsed += dt/1000;
   }
 
   pause(value) { this.paused = value; if ((value&&!this.atmosphere) || document.hidden || !this.model) this.app.stop(); else this.app.start(); this.render(); }
@@ -174,6 +196,7 @@ export class ModelPlayer {
     if (this.model) { this.app.stage.removeChild(this.model); this.model.destroy({ children: true, texture: true, baseTexture: true }); }
     this.model = null; this.bounds = null; this.face = null; this.manifest = null; this.physics = null;
     this.legacy = null; this.legacyIndices = null; this.localFiles = null; this.modelPath = null; this.selectorClock = 0;
+    this.waveTransition = null;
     (this.urls || []).forEach(URL.revokeObjectURL); this.urls = []; this.app.renderer.clear();
   }
   destroy() { this.release(); this.resizeObserver.disconnect(); document.removeEventListener('visibilitychange', this.visibility); this.host.removeEventListener('pointermove', this.pointer); this.host.removeEventListener('pointerleave', this.pointerLeave); this.atmosphere?.destroy(); this.app.destroy(false, { children: true }); }

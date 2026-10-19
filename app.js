@@ -1,4 +1,4 @@
-import { ModelPlayer, stageViewportSize } from './player.js?v=20261019-safe-actions-v1';
+import { ModelPlayer, stageViewportSize } from './player.js?v=20261019-wave-geometry-v1';
 import { unzipPackage, inspectModel } from './model-files.js';
 
 const $ = id => document.getElementById(id);
@@ -106,13 +106,14 @@ function filtered() {
 async function loadManifest() {
   $('refresh').disabled = true;
   try {
-    const response = await fetch(`manifest.json?v=${Date.now()}`, { cache: 'no-store' });
+    const waveTrial = new URL(location.href).searchParams.get('trial') === 'wave';
+    const response = await fetch(`${waveTrial ? 'manifest.wave-trial.json' : 'manifest.json'}?v=${Date.now()}`, { cache: 'no-store' });
     if (!response.ok) throw Error(`清单读取失败（${response.status}）`);
     const data = await response.json(); if (!Array.isArray(data.items)) throw Error('角色清单格式无效');
     remoteItems = data.items.filter(x => !x.hidden);
     $('sheetLink').href = data.sheetUrl || $('sheetLink').href;
     $('syncTime').textContent = data.updatedAt ? `更新于 ${new Date(data.updatedAt).toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}` : '等待首批模型';
-    $('pageError').hidden = true; $('libraryStatus').textContent = '资源清单已就绪';
+    $('pageError').hidden = true; $('libraryStatus').textContent = waveTrial ? '挥手网格试验 · 仅两个角色 · 原库未替换' : '资源清单已就绪';
     updateCategories(); render();
     const requested = new URL(location.href).searchParams.get('model');
     const id = data.aliases?.[requested] || requested;
