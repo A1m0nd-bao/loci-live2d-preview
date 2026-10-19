@@ -34,12 +34,16 @@ jobs:
           ACTION_OVERLAY_TAG: ${{ inputs.action_overlay_tag }}
         run: |
           # Explicit rejection takes precedence over an old manually supplied tag.
-          if [ -f action-overlay.json ] && ! python3 -c 'import json; assert json.load(open("action-overlay.json")).get("enabled",False)'; then
+          if [ -f action-overlay.json ] && ! python3 -c 'import json,sys; sys.exit(0 if json.load(open("action-overlay.json")).get("enabled",False) else 1)'; then
             ACTION_OVERLAY_TAG=""
           elif [ -z "$ACTION_OVERLAY_TAG" ] && [ -f action-overlay.json ]; then
             ACTION_OVERLAY_TAG="$(python3 -c 'import json,os; d=json.load(open("action-overlay.json")); print(d["releaseTag"] if d.get("enabled",False) and d["baseRelease"] == os.environ["RELEASE_TAG"] else "")')"
           fi
-          gh release download "$RELEASE_TAG" --pattern 'live2d-site.zip.part-*' --dir "$RUNNER_TEMP"
+          for attempt in 1 2 3; do
+            if gh release download "$RELEASE_TAG" --pattern 'live2d-site.zip.part-*' --dir "$RUNNER_TEMP" --clobber; then break; fi
+            if [ "$attempt" -eq 3 ]; then exit 1; fi
+            sleep 5
+          done
           cat "$RUNNER_TEMP"/live2d-site.zip.part-* > "$RUNNER_TEMP/live2d-site.zip"
           mkdir -p _site
           unzip -q "$RUNNER_TEMP/live2d-site.zip" -d _site
