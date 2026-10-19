@@ -10,6 +10,12 @@ test('complete nested model bundle preserves relative resources',()=>{
   const meta=inspectModel('Role/model.model3.json',manifest,files);assert.equal(meta.motionCount,1);assert.equal(meta.hasPhysics,true);assert.equal(files.size,5);
 });
 test('incomplete model reports the missing dependency before import',()=>{assert.throws(()=>inspectModel('Role/model.model3.json',manifest,new Map([['Role/body.moc3',true]])),/textures\/0.png/);});
+test('opt-in action policy is a required dependency for both local and hosted packages',()=>{
+  const upgraded={...manifest,MotionSelectorPolicy:'motion-selector-policy.json'};
+  const available=new Map(['Role/body.moc3','Role/textures/0.png','Role/motions/idle.motion3.json','Role/physics.json'].map(x=>[x,true]));
+  assert.throws(()=>inspectModel('Role/model.model3.json',upgraded,available),/motion-selector-policy/);
+  available.set('Role/motion-selector-policy.json',true);assert.equal(inspectModel('Role/model.model3.json',upgraded,available).motionCount,1);
+});
 test('relative parent references stay inside selected model package',()=>{assert.equal(resourcePath('Role/sub/model.model3.json','../body.moc3'),'Role/body.moc3');assert.throws(()=>resourcePath('model.model3.json','../escape.moc3'),/超出/);});
 test('archive traversal and external dependencies are rejected',()=>{for(const name of ['../escape','/etc/escape','C:\\escape','folder/../../escape'])assert.throws(()=>safePath(name));assert.throws(()=>resourcePath('Role/model.model3.json','https://example.com/model.moc3'));assert.throws(()=>unzipPackage(zipSync({'../escape.moc3':strToU8('x')}),unzipSync));});
 test('Feishu rich-text attachment survives displayed filename conversion',()=>{

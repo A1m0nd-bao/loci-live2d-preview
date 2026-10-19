@@ -6,6 +6,11 @@ on:
         description: Asset release tag
         required: true
         type: string
+      action_overlay_tag:
+        description: Optional reviewed action-package overlay release (preserves base assets)
+        required: false
+        default: ''
+        type: string
 permissions:
   contents: read
   pages: write
@@ -26,11 +31,21 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           RELEASE_TAG: ${{ inputs.release_tag }}
+          ACTION_OVERLAY_TAG: ${{ inputs.action_overlay_tag }}
         run: |
+          if [ -z "$ACTION_OVERLAY_TAG" ] && [ -f action-overlay.json ]; then
+            ACTION_OVERLAY_TAG="$(python3 -c 'import json,os; d=json.load(open("action-overlay.json")); print(d["releaseTag"] if d["baseRelease"] == os.environ["RELEASE_TAG"] else "")')"
+          fi
           gh release download "$RELEASE_TAG" --pattern 'live2d-site.zip.part-*' --dir "$RUNNER_TEMP"
           cat "$RUNNER_TEMP"/live2d-site.zip.part-* > "$RUNNER_TEMP/live2d-site.zip"
           mkdir -p _site
           unzip -q "$RUNNER_TEMP/live2d-site.zip" -d _site
+          if [ -n "$ACTION_OVERLAY_TAG" ]; then
+            mkdir -p "$RUNNER_TEMP/action-overlay"
+            gh release download "$ACTION_OVERLAY_TAG" --pattern 'safe-actions.zip.part-*' --dir "$RUNNER_TEMP/action-overlay"
+            cat "$RUNNER_TEMP"/action-overlay/safe-actions.zip.part-* > "$RUNNER_TEMP/safe-actions.zip"
+            unzip -oq "$RUNNER_TEMP/safe-actions.zip" -d _site
+          fi
           for archive in _site/packages/*.zip; do
             package_id="$(basename "$archive" .zip)"
             mkdir -p "_site/models/$package_id"
@@ -39,10 +54,12 @@ jobs:
       - name: Overlay current preview application
         run: |
           # Keep release models, posters and character archives; ship current app code.
-          for file in index.html styles.css app.js player.js atmosphere.js model-files.js layers.js render.html render.js; do
+          for file in index.html styles.css app.js player.js legacy-selector.js atmosphere.js model-files.js layers.js render.html render.js; do
             cp "$file" "_site/$file"
           done
           cp -R assets/. _site/assets/
+      - name: Verify complete library and scoped action overlay
+        run: python3 scripts/verify-pages-library.py _site
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

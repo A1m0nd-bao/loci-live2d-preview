@@ -1,4 +1,4 @@
-import { ModelPlayer, stageViewportSize } from './player.js?v=20261019-orientation';
+import { ModelPlayer, stageViewportSize } from './player.js?v=20261019-safe-actions-v1';
 import { unzipPackage, inspectModel } from './model-files.js';
 
 const $ = id => document.getElementById(id);

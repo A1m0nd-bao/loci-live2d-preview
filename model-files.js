@@ -17,7 +17,7 @@ export function resourcePath(base, reference) {
 export function references(manifest) {
   const r = manifest.FileReferences;
   if (!r?.Moc || !/\.moc3$/i.test(r.Moc) || !Array.isArray(r.Textures) || !r.Textures.length) throw Error('需要完整的 .model3.json、.moc3 和纹理资源。');
-  return [r.Moc, ...r.Textures, r.Physics, r.Pose, r.UserData, r.DisplayInfo,
+  return [r.Moc, ...r.Textures, r.Physics, r.Pose, r.UserData, r.DisplayInfo, manifest.MotionSelectorPolicy,
     ...(r.Expressions || []).map(x => x.File),
     ...Object.values(r.Motions || {}).flatMap(items => items.flatMap(x => [x.File, x.Sound]))].filter(Boolean);
 }

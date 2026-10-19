@@ -1,4 +1,4 @@
-import { ModelPlayer } from './player.js';
+import { ModelPlayer } from './player.js?v=20261019-safe-actions-v1';
 const player = new ModelPlayer(document.getElementById('canvas'), document.getElementById('host'));
 window.captureModel = async item => {
   try {
