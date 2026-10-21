@@ -1,4 +1,4 @@
-import { ModelPlayer, stageViewportSize } from './player.js?v=20261020-restored-v1';
+import { ModelPlayer, stageViewportSize } from './player.js?v=20261021-breathing';
 import { unzipPackage, inspectModel } from './model-files.js';
 
 const $ = id => document.getElementById(id);

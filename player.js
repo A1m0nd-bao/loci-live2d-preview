@@ -1,5 +1,6 @@
 import { resourcePath, references } from './model-files.js';
 import { AtmosphereStage, locateFace } from './atmosphere.js?v=20261019';
+import './breathing.js?v=20261021-breathing';
 
 // Fit the actual render surface inside its available area without stretching.
 export function stageViewportSize(width, height, orientation = 'portrait') {
@@ -74,6 +75,7 @@ export class ModelPlayer {
       if (ticket !== this.generation) { blobURLs.forEach(URL.revokeObjectURL); return null; }
       await new Promise((resolve, reject) => { candidate = PIXI.live2d.Live2DModel.fromSync(settings, { autoUpdate: false, autoInteract: false, motionPreload: 'NONE', idleMotionGroup: '__none__', onLoad: resolve, onError: reject }); });
       if (ticket !== this.generation) { candidate.destroy({ texture: true, baseTexture: true }); blobURLs.forEach(URL.revokeObjectURL); return null; }
+      Live2DBreathing.install(candidate);
       this.model = candidate; this.manifest = manifest; this.urls = blobURLs; this.resources = urls;
       this.app.stage.addChild(candidate); this.physics = candidate.internalModel.physics;
       this.bounds = measure(candidate); this.face = this.atmosphere ? locateFace(candidate,this.bounds) : null; this.zoom = 1; this.resize();
